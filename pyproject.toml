@@ -42,7 +42,7 @@ dependencies = [
     "tqdm",
     "vector-quantize-pytorch",
     "wandb>=0.28.0",
-    "huggingface-hub>=0.20.0",
+    "huggingface-hub>=2.4.0",
     "safetensors>=0.4.4",
 ]
 
