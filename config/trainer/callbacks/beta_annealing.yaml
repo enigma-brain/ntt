@@ -1,0 +1,13 @@
+# Beta annealing callback for VAE training (anneals VAEBottleneck.beta).
+# Not included in default callbacks — composed by experiment configs.
+# Targeting (VAEBottleneck.beta) and raw KL logging (_last_kl -> train/kl_raw)
+# are baked into the subclass; only the schedule knobs are configured here.
+
+beta_annealing:
+  _target_: ntt.contrib.tokenizer.wanneural.bottleneck.VAEBetaAnnealingCallback
+  schedule: "linear"
+  value_max: 1.e-6
+  value_min: 0.0
+  n_cycles: 4
+  ratio: 0.5
+  delay_steps: 100  # Should match scheduler warmup_steps

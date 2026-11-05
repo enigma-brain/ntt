@@ -1,0 +1,53 @@
+# Full config composing train/val/test from all available datasets.
+#
+# Eval tiers:
+#   Tier 1 (xtime)    — within-session temporal holdout of the train sessions
+#                       (composite/ntt_full_{val,test}_xtime.yaml; not in val/test here)
+#   Tier 2 (xsession) — held-out sessions from subjects seen in training
+#   Tier 3 (xsubject) — sessions from subjects NOT in training
+#   Tier 4 (xsource)  — sources entirely excluded from training:
+#                        c4_dataset_cerebellum_2025, cowley_v4_compact_2024,
+#                        wingert_auditory_cortex_2026
+#
+# Val/test here combine Tiers 2–4. Per-tier membership lives in
+# composite/ntt_full_{val,test}_<tier>.yaml; config/tier/ntt_full_{val,test}.yaml
+# maps tier names to those files for per-tier eval reporting.
+#
+# Dataset summary:
+# ----------------
+# IBL_brainwide_2023                    | Neuropixels | brainwide        | mouse         | 325 sessions | 97985 units
+# allen_visual_behaviour_neuropixels    | Neuropixels | visual cortex    | mouse         | 103 sessions | 82133 units
+# allen_visual_coding_neuropixels       | Neuropixels | visual cortex    | mouse         |  58 sessions | 40010 units
+# c4_dataset_cerebellum_2025            | Neuropixels | cerebellum       | macaque,mouse | 321 sessions |  4960 units  [xsource]
+# churchland_shenoy_neural_2012         | Utah array  | M1,PMd           | macaque       |  10 sessions |  1911 units
+# cowley_v4_compact_2024                | Utah array  | V4               | macaque       |  50 sessions |     — units  [xsource]
+# flint_slutzky_accurate_2012           | Utah array  | M1,PMd           | macaque       |   5 sessions |   957 units
+# odoherty_sabes_nonhuman_2017          | Utah array  | M1,S1            | macaque       |  47 sessions | 16566 units
+# perich_miller_population_2018         | Utah array  | M1,PMd           | macaque       | 111 sessions | 10410 units
+# wingert_auditory_cortex_2026          | Neuropixels | A1,PEG           | ferret        |  68 sessions |    — units  [xsource]
+
+defaults:
+  - _ntt
+
+  # Train selections (all sessions except xsession + xsubject holdouts; c4 excluded)
+  - selections@train_selections.0: IBL_brainwide_2023_train
+  - selections@train_selections.1: allen_visual_behaviour_neuropixels_train
+  - selections@train_selections.2: allen_visual_coding_neuropixels_train
+  # - selections@train_selections.3: c4_dataset_cerebellum_2025_train  # source reserved for xsource eval
+  - selections@train_selections.4: churchland_shenoy_neural_2012_train
+  - selections@train_selections.6: flint_slutzky_accurate_2012_train
+  - selections@train_selections.7: odoherty_sabes_nonhuman_2017_train
+  - selections@train_selections.8: perich_miller_population_2018_train
+
+  # Validation selections (Tiers 2–4 combined via composite files)
+  - selections@val_selections.0: composite/ntt_full_val_xsession
+  - selections@val_selections.1: composite/ntt_full_val_xsubject
+  - selections@val_selections.2: composite/ntt_full_val_xsource
+
+  # Test selections (Tiers 2–4 combined via composite files)
+  - selections@test_selections.0: composite/ntt_full_test_xsession
+  - selections@test_selections.1: composite/ntt_full_test_xsubject
+  - selections@test_selections.2: composite/ntt_full_test_xsource
+
+# WARNING: If split files above are modified, split leakage should be re-verified!
+disable_data_leakage_check: true

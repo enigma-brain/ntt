@@ -1,0 +1,15 @@
+# Single-session Cowley selection for fast SNR eval.
+#
+# SNR needs full sessions (repeats are scattered across the recording),
+# so we can't truncate with ``max_eval_seconds`` like input_robustness (M1)/latent_robustness (M2) can. Instead
+# we restrict to the shortest val session: PE_201018 at ~33 MB on disk
+# (smallest val cowley after excluding PE_201023/201024 which OOM the
+# interval-windowing path). Use ``cowley_v4_compact_2024_val`` for the
+# full 17-session production run.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201018
+config:
+  ignore_splits: true

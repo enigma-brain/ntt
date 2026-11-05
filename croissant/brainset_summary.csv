@@ -1,0 +1,11 @@
+brainset,role,n_sessions,total_units,total_minutes,species,recording_tech,brain_areas
+IBL_brainwide_2023,held-in,331,101557,26796.7,MUS_MUSCULUS,NEUROPIXELS_SPIKES,"brain-wide (Allen CCF regions across forebrain, midbrain and hindbrain)"
+allen_visual_behaviour_neuropixels,held-in,103,82133,16559.0,MUS_MUSCULUS,NEUROPIXELS_SPIKES,"visual cortex, thalamus, hippocampus, midbrain"
+allen_visual_coding_neuropixels,held-in,58,40010,9526.1,MUS_MUSCULUS,NEUROPIXELS_SPIKES,"visual cortex, thalamus, hippocampus, midbrain"
+churchland_shenoy_neural_2012,held-in,10,1911,1734.2,MACACA_MULATTA,UTAH_ARRAY_THRESHOLD_CROSSINGS,"M1, PMd"
+flint_slutzky_accurate_2012,held-in,5,957,53.0,MACACA_MULATTA,UTAH_ARRAY_SPIKES,"M1, PMd"
+odoherty_sabes_nonhuman_2017,held-in,47,16566,832.2,MACACA_MULATTA,UTAH_ARRAY_SPIKES,"M1, S1"
+perich_miller_population_2018,held-in,111,10410,2581.6,"MACACA_MULATTA, MACACA_FASCICULARIS",UTAH_ARRAY_SPIKES,"M1, PMd"
+c4_dataset_cerebellum_2025,xsource,321,4960,23210.8,"MUS_MUSCULUS, MACACA_MULATTA",NEUROPIXELS_SPIKES,cerebellum
+cowley_v4_compact_2024,xsource,50,4774,7314.2,MACACA_MULATTA,UTAH_ARRAY_SPIKES,V4
+wingert_auditory_cortex_2026,xsource,68,3382,5175.4,ferret (stored as UNKNOWN in the H5 species attribute),"UTAH_ARRAY_SPIKES, NEUROPIXELS_SPIKES","A1, PEG"

@@ -1,0 +1,31 @@
+# Cowley-only val data config — used by the SNR pass of
+# job=eval_all (RepeatsSNR needs Cowley's
+# repeated stimulus presentations and is unrelated to the train split).
+#
+# Pydantic enforces a non-empty train_selections list, so we point train
+# at the same Cowley val selection — leakage is disabled because this
+# config is only ever used for evaluation, never training.
+defaults:
+  - _ntt
+  - selections@train_selections.0: cowley_v4_compact_2024_val
+  - selections@val_selections.0: cowley_v4_compact_2024_val
+  # Precision SNR on split=test: the 22 test sessions whose stimulus spacing
+  # fits the per-stimulus sampler's 200 ms window (see the selection header).
+  - selections@test_selections.0: cowley_v4_compact_2024_test_snr
+
+disable_data_leakage_check: true
+
+# Long Cowley sessions (~150 min × 96 neurons × 1 ms bins) blow the
+# in-memory buffer in the interval-windowing collation: the SNR pipeline
+# accumulates one ``CollatedValidationSegment`` per session, so the full
+# session's per-window ``original``/``reconstructed`` tensors live in RAM
+# until segment yield. Every dataloader worker holds its own shmem-backed
+# batch buffer on top of that. For Poisson-style CPU tokenizers there's
+# no win from worker parallelism here — the bottleneck is the in-process
+# tokenize/collate loop — so we run num_workers=0 to drop the worker
+# shmem overhead.
+# A more permanent fix is to memmap-stash ``original``/``reconstructed``
+# to a tempdir during buffering (constant in-RAM size irrespective of
+# session length); not implemented.
+dataloader:
+  num_workers: 0

@@ -1,0 +1,40 @@
+_target_: ntt.contrib.tokenizer.CalmTokenizerSpec
+KIND: calm
+
+# Data parameters — 10ms bins, 2s windows
+n_neurons: 200
+window_length_seconds: 2.0
+bin_size_ms: 10.0
+
+# Patchification — 200ms tokens (20 bins) to capture ~1 spike per patch at 5Hz
+patch_length: 20  # token coverage = 200ms
+
+# Transformer — smaller model, appropriate for sparse binary input
+embed_dim: 256
+num_encoder_layers: 3
+num_decoder_layers: 3
+num_heads: 4
+causal: true
+
+# Bottleneck — larger codebook for spike timing patterns
+bottleneck_type: vq
+codebook_size: 256
+ema_decay: 0.99
+commitment_weight: 0.5
+entropy_weight: 0.5
+# Calibrated: ||G-I||_F ~ sqrt(K(K-1)/C), K=256/C=256 is ~3x larger than K=128/C=512
+orthogonality_weight: 0.035
+entropy_temperature: 1.0
+dead_code_threshold: 1.0
+
+# AR regularization — reduced: temporal autocorrelation is weak in spiking data
+ar_weight: 0.1
+ar_horizon: 4
+
+# Output — softplus ensures non-negative rates, pair with poisson_nll loss
+output_activation: softplus
+reconstruct_sample: poisson
+
+# Capabilities
+input_type: rates
+output_type: binary_spikes

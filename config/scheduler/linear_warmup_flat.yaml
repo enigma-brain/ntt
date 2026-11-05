@@ -1,0 +1,7 @@
+_target_: ntt.core.model.components.lr_scheduler.LRSchedulerConfig
+warmup_steps: 100
+decay_ratio: 0.0
+decay_type: cosine
+min_lr_factor: 0.0
+interval: step
+frequency: 1

@@ -1,0 +1,6 @@
+[submodule "downstream"]
+	path = downstream
+	url = https://github.com/enigma-brain/ntt-downstream
+	# The gitlink records the pinned commit. `branch` names the downstream
+	# release tag that commit belongs to (see docs/downstream_maintainer_internals.md).
+	branch = v0.1.0

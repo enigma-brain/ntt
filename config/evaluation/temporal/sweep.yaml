@@ -1,0 +1,258 @@
+# Temporal sweep: all spike-quality metrics at 1, 5, 10, 50, 100 ms.
+defaults:
+  - /evaluation: no_behavioral
+  - _self_
+
+metrics:
+  # Null out default-bin metrics to avoid name collisions
+  spike_count_correlation: null
+  smoothed_squared_error: null
+  binned_rate_difference: null
+  fano_factor_error: null
+  mutual_information: null
+  acg_correlation: null
+  ccg_correlation: null
+  functional_connectivity_f1: null
+  participation_ratio_error: null
+  subspace_overlap: null
+  population_coupling_preservation: null
+
+  # spike_count_correlation — all bin sizes
+  spike_count_correlation_1ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [1.0]
+  spike_count_correlation_5ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [5.0]
+  spike_count_correlation_10ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [10.0]
+  spike_count_correlation_50ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [50.0]
+  spike_count_correlation_100ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [100.0]
+
+  # binned_rate_difference — all bin sizes
+  binned_rate_difference_1ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 1.0
+    normalize: false
+  binned_rate_difference_5ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 5.0
+    normalize: false
+  binned_rate_difference_10ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 10.0
+    normalize: false
+  binned_rate_difference_50ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 50.0
+    normalize: false
+  binned_rate_difference_100ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 100.0
+    normalize: false
+
+  # fano_factor_error — all bin sizes
+  fano_factor_error_1ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 1.0
+  fano_factor_error_5ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 5.0
+  fano_factor_error_10ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 10.0
+  fano_factor_error_50ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 50.0
+  fano_factor_error_100ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 100.0
+
+  # mutual_information — all bin sizes
+  mutual_information_1ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [1.0]
+    min_samples: 50
+  mutual_information_5ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [5.0]
+    min_samples: 50
+  mutual_information_10ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [10.0]
+    min_samples: 50
+  mutual_information_50ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [50.0]
+    min_samples: 50
+  mutual_information_100ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [100.0]
+    min_samples: 50
+
+  # smoothed_squared_error — all bin sizes
+  smoothed_squared_error_1ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 1.0
+  smoothed_squared_error_5ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 5.0
+  smoothed_squared_error_10ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 10.0
+  smoothed_squared_error_50ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 50.0
+  smoothed_squared_error_100ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 100.0
+
+  # acg_correlation — all bin sizes
+  acg_correlation_1ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 1.0
+    correlogram_max_lag_ms: 100.0
+    acg_smoothing_kernel: 1
+  acg_correlation_5ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    acg_smoothing_kernel: 1
+  acg_correlation_10ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    acg_smoothing_kernel: 1
+  acg_correlation_50ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    acg_smoothing_kernel: 1
+  acg_correlation_100ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 100.0
+    correlogram_max_lag_ms: 10000.0
+    acg_smoothing_kernel: 1
+
+  # ccg_correlation — all bin sizes
+  ccg_correlation_1ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 1.0
+    correlogram_max_lag_ms: 100.0
+    max_pairs_to_compute: 50
+  ccg_correlation_5ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    max_pairs_to_compute: 50
+  ccg_correlation_10ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    max_pairs_to_compute: 50
+  ccg_correlation_50ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    max_pairs_to_compute: 50
+  ccg_correlation_100ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 100.0
+    correlogram_max_lag_ms: 10000.0
+    max_pairs_to_compute: 50
+
+  # functional_connectivity_f1 — all bin sizes
+  functional_connectivity_f1_1ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 1.0
+    correlogram_max_lag_ms: 100.0
+    max_pairs_to_compute: 50
+  functional_connectivity_f1_5ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    max_pairs_to_compute: 50
+  functional_connectivity_f1_10ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    max_pairs_to_compute: 50
+  functional_connectivity_f1_50ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    max_pairs_to_compute: 50
+  functional_connectivity_f1_100ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 100.0
+    correlogram_max_lag_ms: 10000.0
+    max_pairs_to_compute: 50
+
+  # participation_ratio_error — all bin sizes
+  participation_ratio_error_1ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 1.0
+  participation_ratio_error_5ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 5.0
+  participation_ratio_error_10ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 10.0
+  participation_ratio_error_50ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 50.0
+  participation_ratio_error_100ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 100.0
+
+  # subspace_overlap — all bin sizes
+  subspace_overlap_1ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 1.0
+  subspace_overlap_5ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 5.0
+  subspace_overlap_10ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 10.0
+  subspace_overlap_50ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 50.0
+  subspace_overlap_100ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 100.0
+
+  # population_coupling_preservation — all bin sizes
+  population_coupling_preservation_1ms:
+    metric_class: population_coupling
+    population_bin_size_ms: 1.0
+  # NOTE: population_coupling is capped at <=5 ms; at coarser bins its Poisson floor
+  # saturates and the metric warns (see the metric docstring).
+  population_coupling_preservation_5ms:
+    metric_class: population_coupling
+    population_bin_size_ms: 5.0

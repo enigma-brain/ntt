@@ -1,0 +1,2 @@
+metric_class: dimensionality_error
+population_bin_size_ms: 10.0

@@ -1,0 +1,57 @@
+defaults:
+  - /data@data_config: ntt_nuclr
+  - /trainer: default
+  - override /trainer/callbacks@trainer.callbacks: nuclr
+  - _self_
+
+_target_: ntt.jobs.nuclr_contrastive.NuclrContrastiveTrainJob
+
+KIND: nuclr_contrastive
+
+seed: 42
+ckpt_path: null
+
+# Data config overrides (no tokenizer_spec, so set directly)
+# Encoder variant is controlled by bin_size_ms:
+#   false  → spike-based perceiver encoder (cross-attention to raw spike times)
+#   <float> (e.g. 20.0) → binned encoder (20ms bins, self-attention only)
+data_config:
+  n_neurons: 0.5 # min fraction — randomly samples between 50% and all units
+  max_neurons: 128 # hard cap — keeps memory bounded for large sessions
+  window_length_seconds: 10.0
+  bin_size_ms: false # spike times, no binning
+  dataloader:
+    batch_size: 32 # per GPU (original: 128 total / 4 GPUs)
+
+# Two-view data params
+max_time_diff: 30.0
+val_two_view: true
+
+# Encoder params (matching original NuCLR)
+ctx_duration: 10.0
+latent_step: 1.0
+dim: 256
+cross_heads: 4
+self_heads: 4
+dim_head: 64
+atn_dropout: 0.0
+lin_dropout: 0.2
+t_layers: 2
+st_layers: 2
+rot_ratio: 0.5
+
+# Loss params (matching original NuCLR)
+tau: 0.2
+dcl: true
+full_denom: true
+projector: true
+
+# Optimizer params (matching original NuCLR)
+lr: 0.0005
+weight_decay: 0.01
+max_epochs: 300
+
+# Trainer override for NuCLR epochs
+trainer:
+  max_epochs: ${job.max_epochs}
+  val_check_interval: 500

@@ -1,0 +1,24 @@
+# Downstream decoding — single-session calibration EVAL cohort.
+#
+# Source of truth for `mode=calibrate`'s OTHER_SESSIONS (the per-session
+# fine-tune / eval cells), promoted from ntt-downstream
+# configs/decoding/single_session/data.yaml (`other_sessions`). Tiers are
+# defined relative to the base-train sessions and kept here as comments.
+# Single brainset (perich_miller_population_2018).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      # --- Tier 1 (xtime val: same train sessions, held-out time slice) ---
+      - c_20151103_center_out_reaching
+      - c_20131217_random_target_reaching
+      - m_20140214_random_target_reaching
+      - m_20150511_center_out_reaching
+      # --- Tier 2 (xsession val: same subjects, different sessions) ---
+      - c_20151104_center_out_reaching
+      # --- Tier 3 (xsubject val/test: different subjects entirely) ---
+      - j_20160406_center_out_reaching                  # val
+      - t_20130822_random_target_reaching               # val
+      - t_20130820_random_target_reaching               # test
+config:
+  ignore_splits: true

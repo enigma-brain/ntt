@@ -1,0 +1,63 @@
+# Single temporal bin: 50 ms.
+defaults:
+  - /evaluation: no_behavioral
+  - _self_
+
+metrics:
+  # Null out default-bin metrics to avoid name collisions
+  spike_count_correlation: null
+  smoothed_squared_error: null
+  binned_rate_difference: null
+  fano_factor_error: null
+  mutual_information: null
+  acg_correlation: null
+  ccg_correlation: null
+  functional_connectivity_f1: null
+  participation_ratio_error: null
+  subspace_overlap: null
+  population_coupling_preservation: null
+
+  # 50 ms bin metrics
+  spike_count_correlation_50ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [50.0]
+  binned_rate_difference_50ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 50.0
+    normalize: false
+  fano_factor_error_50ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 50.0
+  mutual_information_50ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [50.0]
+    min_samples: 50
+  smoothed_squared_error_50ms:
+    metric_class: smoothed_squared_error
+    causal: false
+    filter_type: gaussian
+    sigma_ms: 50.0
+  acg_correlation_50ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    acg_smoothing_kernel: 1
+  ccg_correlation_50ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    max_pairs_to_compute: 50
+  functional_connectivity_f1_50ms:
+    metric_class: connectivity_f1
+    ccg_significance_threshold: 3.0
+    correlogram_bin_size_ms: 50.0
+    correlogram_max_lag_ms: 5000.0
+    max_pairs_to_compute: 50
+  participation_ratio_error_50ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 50.0
+  subspace_overlap_50ms:
+    metric_class: subspace_overlap
+    pca_n_components: 20
+    population_bin_size_ms: 50.0
+  # population_coupling omitted at 50 ms: Poisson floor saturates.

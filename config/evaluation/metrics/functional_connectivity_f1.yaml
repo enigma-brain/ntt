@@ -1,0 +1,5 @@
+metric_class: connectivity_f1
+ccg_significance_threshold: 3.0
+correlogram_max_lag_ms: 100.0
+correlogram_bin_size_ms: 1.0
+max_pairs_to_compute: 50

@@ -1,0 +1,3 @@
+tokenizer,variant,latent_type,tokenization_regime
+cosmos_public_lc2_rfsq,"bottleneck=vqpt; vqpt_type=residual_fsq; dim=64; z_dim=64; num_quantizers=2; levels=[8,5,5,5] (1K codes/layer, ~20 bits/token); patch=db4(h=4,w=2); TC=2; nc=32; num_res_blocks=2; channels_mult=[1,2,2]; loss=poisson_nll; window=1s",discrete,"1000ms→500tok (population, 1ms input bin, TC=2, lc=2)"
+wanx_A_vae_bce_dw_k1_lightdec_noncausal_anneal1e-6_sigreg_b1e-3_z32,bottleneck=vae; dim=64; z_dim=32; beta_anneal=0→1e-06; sigreg=True (sigreg_beta=1e-03); noncausal=True; lightdec=True (dec_dim=32); num_levels=3; loss=dw_k1; data=ntt_full; window=1s,continuous,"100ms→1tok (per-neuron, 1ms input bin)"

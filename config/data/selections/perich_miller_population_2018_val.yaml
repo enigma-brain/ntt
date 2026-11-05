@@ -1,0 +1,12 @@
+# Val: cross-session held-out sessions (subjects seen in train).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151104_center_out_reaching
+      - c_20151106_center_out_reaching
+      - c_20151201_center_out_reaching
+      - c_20161005_center_out_reaching
+      - m_20140303_center_out_reaching
+config:
+  ignore_splits: true

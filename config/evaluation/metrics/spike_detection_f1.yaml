@@ -1,0 +1,2 @@
+metric_class: spike_detection_f1
+spike_match_tolerance_ms: 1.0

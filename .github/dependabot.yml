@@ -1,0 +1,49 @@
+version: 2
+updates:
+  # Enable version updates for Python packages
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    # Group all minor + patch bumps into a single weekly PR to cut noise.
+    # Major bumps are excluded from the group, so they still open separately.
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # setuptools >=81 removes pkg_resources; pytorch_wavelets still imports
+    # it (dtcwt/coeffs.py) so any bump to 81+ breaks every training job at
+    # import time. Pin held at <81 until pytorch_wavelets drops pkg_resources.
+    ignore:
+      - dependency-name: "setuptools"
+        versions: [">=81"]
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    # Group all minor + patch bumps into a single weekly PR to cut noise.
+    # Major bumps are excluded from the group, so they still open separately.
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"

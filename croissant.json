@@ -1,0 +1,3766 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "ntt-public",
+  "description": "NTT-public is a composite neural-spike dataset for tokenization research, spanning 1,104 sessions and ~266k units across 10 publicly-released brainsets (7 held-in for training and 3 held-out as cross-source evaluation). The dataset is distributed as a recipe: the NTT repository ships per-brainset selection YAMLs and a brainsets-based ingestion pipeline that materializes per-session HDF5 files from canonical public upstream sources (DANDI, Zenodo, AllenSDK, CRCNS, UCL RDR, Kilthub). This manifest documents the schema of those HDF5 files and references the upstream sources, the in-repo split selection YAMLs, and a per-brainset summary table of the assembled dataset.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "url": "https://github.com/enigma-brain/ntt",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "name": "Federico D'Agostino"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Alex Gilbert"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Susanne Keller"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Jaivardhan Kapoor"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Nicolas Reategui"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Vedang Lad"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Matthias Kümmerer"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Jai Bhagat"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Emin Orhan"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Hasan Atakan Bedel"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Nikos Karantzas"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Fabian H. Sinz"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Surya Ganguli"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Jakob H. Macke"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Sophia Sanborn"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Alexander S. Ecker"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Katrin Franke"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Matthias Bethge"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Andreas S. Tolias"
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Konstantin F. Willeke"
+    }
+  ],
+  "citeAs": "@inproceedings{dagostino2026evaluating,\n  title = {Evaluating Neural Data Tokenizers: A Framework for Assessing Learned Representations of Spiking Activity},\n  author = {D'Agostino, Federico and Gilbert, Alex and Keller, Susanne and Kapoor, Jaivardhan and Reategui, Nicolas and Lad, Vedang and K{\\\"u}mmerer, Matthias and Bhagat, Jai and Orhan, Emin and Bedel, Hasan Atakan and Karantzas, Nikos and Sinz, Fabian H. and Ganguli, Surya and Macke, Jakob H. and Sanborn, Sophia and Ecker, Alexander S. and Franke, Katrin and Bethge, Matthias and Tolias, Andreas S. and Willeke, Konstantin F.},\n  booktitle = {Advances in Neural Information Processing Systems (Datasets and Benchmarks Track)},\n  year = {2026},\n  url = {https://github.com/enigma-brain/ntt},\n}",
+  "version": "1.0.0",
+  "datePublished": "2026-11-06",
+  "keywords": [
+    "neuroscience",
+    "neural recordings",
+    "spike trains",
+    "neural population activity",
+    "tokenization",
+    "neural foundation models",
+    "Neuropixels",
+    "Utah array"
+  ],
+  "isLiveDataset": false,
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "selection-ntt_full_test_xsession",
+      "name": "ntt_full_test_xsession",
+      "description": "Public split selection YAML (ntt_full_test_xsession). Lists the per-brainset sessions that constitute this split. Consumed by NTT's Hydra data-config composition.",
+      "contentUrl": "config/data/selections/composite/ntt_full_test_xsession.yaml",
+      "encodingFormat": "application/x-yaml",
+      "sha256": "d9caf0a6f02b38c0f655dcd08d6b2994becefccb2a35cca41463a40a1a385584"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "selection-ntt_full_test_xsubject",
+      "name": "ntt_full_test_xsubject",
+      "description": "Public split selection YAML (ntt_full_test_xsubject). Lists the per-brainset sessions that constitute this split. Consumed by NTT's Hydra data-config composition.",
+      "contentUrl": "config/data/selections/composite/ntt_full_test_xsubject.yaml",
+      "encodingFormat": "application/x-yaml",
+      "sha256": "ea2f5a48a584df1ee7cebe56d37cb4348a0d61ed9b41db478f5cfebd769f65a3"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "selection-ntt_full_val_xsession",
+      "name": "ntt_full_val_xsession",
+      "description": "Public split selection YAML (ntt_full_val_xsession). Lists the per-brainset sessions that constitute this split. Consumed by NTT's Hydra data-config composition.",
+      "contentUrl": "config/data/selections/composite/ntt_full_val_xsession.yaml",
+      "encodingFormat": "application/x-yaml",
+      "sha256": "47f4d8a61e01c5403513e5a03dbe9a40099de44cfe185fe0fbe9664ad7069a91"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "selection-ntt_full_val_xsubject",
+      "name": "ntt_full_val_xsubject",
+      "description": "Public split selection YAML (ntt_full_val_xsubject). Lists the per-brainset sessions that constitute this split. Consumed by NTT's Hydra data-config composition.",
+      "contentUrl": "config/data/selections/composite/ntt_full_val_xsubject.yaml",
+      "encodingFormat": "application/x-yaml",
+      "sha256": "b5e7f04052a25f5f05a91d19271e69124a0068ad7197aff8b079c90cf3487764"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "brainset-summary-csv",
+      "name": "brainset_summary",
+      "description": "Per-brainset summary of the assembled public dataset: role (held-in or xsource held-out), n_sessions, total_units, total_minutes, species, recording_tech and brain_areas.",
+      "contentUrl": "croissant/brainset_summary.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "c567fdc19e6e914e4929a2cdc011ec1a34c9888f265d44aaad9a0aa5e0fc9e9a"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-ibl-brainwide-2023",
+      "name": "IBL_brainwide_2023-upstream",
+      "description": "The International Brain Laboratory brain-wide map: Neuropixels recordings\nspanning nearly all major mouse brain areas during a visual decision-making\ntask. Released via DANDI archive as dandiset 000409.\n\nCanonical URL: https://dandiarchive.org/dandiset/000409",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://dandiarchive.org/dandiset/000409",
+      "includes": "*",
+      "citation": "@misc{ibl_dandi_000409,\n  title = {IBL - Brain Wide Map},\n  author = {{International Brain Laboratory}},\n  year = {2023},\n  howpublished = {DANDI Archive, dandiset 000409},\n  doi = {10.48324/dandi.000409},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-ibl-brainwide-2023",
+      "name": "IBL_brainwide_2023-processed",
+      "description": "Per-session HDF5 files for IBL_brainwide_2023, produced by running `brainsets prepare brainsets_pipelines/IBL_brainwide_2023` against the upstream source (ibl-brainwide-2023-upstream). Files live under <DATA_DIR>/IBL_brainwide_2023/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "IBL_brainwide_2023/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-allen-visual-behaviour-neuropixels",
+      "name": "allen_visual_behaviour_neuropixels-upstream",
+      "description": "Neuropixels recordings from mice performing a visual change-detection task.\nDistributed via the Allen Institute SDK; documentation and download\ninstructions at the AllenSDK URL.\n\nCanonical URL: https://allensdk.readthedocs.io/en/latest/visual_behavior_neuropixels.html",
+      "encodingFormat": "text/html",
+      "license": "https://alleninstitute.org/legal/terms-of-use/",
+      "url": "https://allensdk.readthedocs.io/en/latest/visual_behavior_neuropixels.html",
+      "includes": "*",
+      "citation": "@misc{allen_vbn,\n  title = {Allen Brain Observatory: Visual Behavior Neuropixels},\n  author = {{Allen Institute for Brain Science}},\n  year = {2022},\n  url = {https://allensdk.readthedocs.io/en/latest/visual_behavior_neuropixels.html},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-allen-visual-behaviour-neuropixels",
+      "name": "allen_visual_behaviour_neuropixels-processed",
+      "description": "Per-session HDF5 files for allen_visual_behaviour_neuropixels, produced by running `brainsets prepare brainsets_pipelines/allen_visual_behaviour_neuropixels` against the upstream source (allen-visual-behaviour-neuropixels-upstream). Files live under <DATA_DIR>/allen_visual_behaviour_neuropixels/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "allen_visual_behaviour_neuropixels/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-allen-visual-coding-neuropixels",
+      "name": "allen_visual_coding_neuropixels-upstream",
+      "description": "Neuropixels recordings from mouse visual cortex and associated structures\nduring passive visual stimulation (drifting gratings, natural scenes,\nmovies). Distributed via the Allen Institute SDK.\n\nCanonical URL: https://allensdk.readthedocs.io/en/latest/visual_coding_neuropixels.html",
+      "encodingFormat": "text/html",
+      "license": "https://alleninstitute.org/legal/terms-of-use/",
+      "url": "https://allensdk.readthedocs.io/en/latest/visual_coding_neuropixels.html",
+      "includes": "*",
+      "citation": "@article{siegle2021survey,\n  title = {Survey of spiking in the mouse visual system reveals functional hierarchy},\n  author = {Siegle, Joshua H. and Jia, Xiaoxuan and Durand, S{\\'e}verine and others},\n  journal = {Nature},\n  volume = {592},\n  number = {7852},\n  pages = {86--92},\n  year = {2021},\n  doi = {10.1038/s41586-020-03171-x},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-allen-visual-coding-neuropixels",
+      "name": "allen_visual_coding_neuropixels-processed",
+      "description": "Per-session HDF5 files for allen_visual_coding_neuropixels, produced by running `brainsets prepare brainsets_pipelines/allen_visual_coding_neuropixels` against the upstream source (allen-visual-coding-neuropixels-upstream). Files live under <DATA_DIR>/allen_visual_coding_neuropixels/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "allen_visual_coding_neuropixels/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-churchland-shenoy-neural-2012",
+      "name": "churchland_shenoy_neural_2012-upstream",
+      "description": "Macaque M1 / dorsal premotor cortex recordings (Utah arrays) during\ndelayed center-out reaching. Released on DANDI as dandiset 000070.\n\nCanonical URL: https://dandiarchive.org/dandiset/000070",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://dandiarchive.org/dandiset/000070",
+      "includes": "*",
+      "citation": "@article{churchland2012neural,\n  title = {Neural population dynamics during reaching},\n  author = {Churchland, Mark M. and Cunningham, John P. and Kaufman, Matthew T. and Foster, Justin D. and Nuyujukian, Paul and Ryu, Stephen I. and Shenoy, Krishna V.},\n  journal = {Nature},\n  volume = {487},\n  number = {7405},\n  pages = {51--56},\n  year = {2012},\n  doi = {10.1038/nature11129},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-churchland-shenoy-neural-2012",
+      "name": "churchland_shenoy_neural_2012-processed",
+      "description": "Per-session HDF5 files for churchland_shenoy_neural_2012, produced by running `brainsets prepare brainsets_pipelines/churchland_shenoy_neural_2012` against the upstream source (churchland-shenoy-neural-2012-upstream). Files live under <DATA_DIR>/churchland_shenoy_neural_2012/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "churchland_shenoy_neural_2012/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-flint-slutzky-accurate-2012",
+      "name": "flint_slutzky_accurate_2012-upstream",
+      "description": "Macaque M1 / dorsal premotor cortex recordings during reaching. Released\nvia CRCNS as part of the DREAM project.\n\nCanonical URL: https://portal.nersc.gov/project/crcns/download/dream/data_sets/Flint_2012",
+      "encodingFormat": "text/html",
+      "license": "https://crcns.org/terms",
+      "url": "https://portal.nersc.gov/project/crcns/download/dream/data_sets/Flint_2012",
+      "includes": "*",
+      "citation": "@article{flint2012accurate,\n  title = {Accurate decoding of reaching movements from field potentials in the absence of spikes},\n  author = {Flint, Robert D. and Lindberg, Eric W. and Jordan, Luke R. and Miller, Lee E. and Slutzky, Marc W.},\n  journal = {Journal of Neural Engineering},\n  volume = {9},\n  number = {4},\n  pages = {046006},\n  year = {2012},\n  doi = {10.1088/1741-2560/9/4/046006},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-flint-slutzky-accurate-2012",
+      "name": "flint_slutzky_accurate_2012-processed",
+      "description": "Per-session HDF5 files for flint_slutzky_accurate_2012, produced by running `brainsets prepare brainsets_pipelines/flint_slutzky_accurate_2012` against the upstream source (flint-slutzky-accurate-2012-upstream). Files live under <DATA_DIR>/flint_slutzky_accurate_2012/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "flint_slutzky_accurate_2012/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-odoherty-sabes-nonhuman-2017",
+      "name": "odoherty_sabes_nonhuman_2017-upstream",
+      "description": "Macaque M1 / S1 recordings during self-paced grid reaching tasks.\nReleased on Zenodo (companion to Makin et al. 2018). The pipeline\ndownloads record 3854034, the 2020 version of the record first published\nas 583331 (same Zenodo concept record).\n\nCanonical URL: https://zenodo.org/records/3854034",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://zenodo.org/records/3854034",
+      "includes": "*",
+      "citation": "@article{makin2018superior,\n  title = {Superior arm-movement decoding from cortex with a new, unsupervised-learning algorithm},\n  author = {Makin, Joseph G. and O'Doherty, Joseph E. and Cardoso, Mariana M. B. and Sabes, Philip N.},\n  journal = {Journal of Neural Engineering},\n  volume = {15},\n  number = {2},\n  pages = {026010},\n  year = {2018},\n  doi = {10.1088/1741-2552/aa9e95},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-odoherty-sabes-nonhuman-2017",
+      "name": "odoherty_sabes_nonhuman_2017-processed",
+      "description": "Per-session HDF5 files for odoherty_sabes_nonhuman_2017, produced by running `brainsets prepare brainsets_pipelines/odoherty_sabes_nonhuman_2017` against the upstream source (odoherty-sabes-nonhuman-2017-upstream). Files live under <DATA_DIR>/odoherty_sabes_nonhuman_2017/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "odoherty_sabes_nonhuman_2017/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-perich-miller-population-2018",
+      "name": "perich_miller_population_2018-upstream",
+      "description": "Macaque M1 / dorsal premotor cortex recordings during center-out and\nrandom-target reaching across multiple sessions and subjects. Released\non DANDI as dandiset 000688.\n\nCanonical URL: https://dandiarchive.org/dandiset/000688",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://dandiarchive.org/dandiset/000688",
+      "includes": "*",
+      "citation": "@article{perich2018neural,\n  title = {A neural population mechanism for rapid learning},\n  author = {Perich, Matthew G. and Gallego, Juan A. and Miller, Lee E.},\n  journal = {Neuron},\n  volume = {100},\n  number = {4},\n  pages = {964--976},\n  year = {2018},\n  doi = {10.1016/j.neuron.2018.09.030},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-perich-miller-population-2018",
+      "name": "perich_miller_population_2018-processed",
+      "description": "Per-session HDF5 files for perich_miller_population_2018, produced by running `brainsets prepare brainsets_pipelines/perich_miller_population_2018` against the upstream source (perich-miller-population-2018-upstream). Files live under <DATA_DIR>/perich_miller_population_2018/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "perich_miller_population_2018/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-c4-dataset-cerebellum-2025",
+      "name": "c4_dataset_cerebellum_2025-upstream",
+      "description": "Cerebellar Neuropixels recordings from multiple labs (Häusser, Hull,\nLisberger, Medina) with optotagging labels and layer information where\navailable. Pipeline-bundled URLs at the UCL Research Data Repository.\n\nCanonical URLs (5 files at the upstream):\n  - https://rdr.ucl.ac.uk/ndownloader/files/43102990\n  - https://rdr.ucl.ac.uk/ndownloader/files/43102996\n  - https://rdr.ucl.ac.uk/ndownloader/files/41721090\n  - https://rdr.ucl.ac.uk/ndownloader/files/41720901\n  - https://rdr.ucl.ac.uk/ndownloader/files/42117129",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "url": [
+        "https://rdr.ucl.ac.uk/ndownloader/files/43102990",
+        "https://rdr.ucl.ac.uk/ndownloader/files/43102996",
+        "https://rdr.ucl.ac.uk/ndownloader/files/41721090",
+        "https://rdr.ucl.ac.uk/ndownloader/files/41720901",
+        "https://rdr.ucl.ac.uk/ndownloader/files/42117129"
+      ],
+      "includes": "*",
+      "citation": "@article{beau2025deep,\n  title = {A deep-learning strategy to identify cell types across species from high-density extracellular recordings},\n  author = {Beau, Maxime and Herzfeld, David J. and Naveros, Francisco and Hemelt, Marie E. and D'Agostino, Federico and Oostland, Marlies and Sanchez-Lopez, Alvaro and Chung, Young Yoon and Maibach, Michael and Kyranakis, Stephen and Stabb, Hannah N. and Martinez Lopera, M. Gabriela and Lajko, Agoston and Zedler, Marie and Ohmae, Shogo and Hall, Nathan J. and Clark, Beverley A. and Cohen, Dana and Lisberger, Stephen G. and Kostadinov, Dimitar and Hull, Court and H{\\\"a}usser, Michael and Medina, Javier F.},\n  journal = {Cell},\n  volume = {188},\n  number = {8},\n  pages = {2218--2234.e22},\n  year = {2025},\n  doi = {10.1016/j.cell.2025.01.041},\n}\n@misc{c4_cerebellum_2025,\n  title = {Cerebellum cell type collaboration database},\n  year = {2025},\n  doi = {10.5522/04/23702850.v1},\n  howpublished = {University College London Research Data Repository, article 23702850},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-c4-dataset-cerebellum-2025",
+      "name": "c4_dataset_cerebellum_2025-processed",
+      "description": "Per-session HDF5 files for c4_dataset_cerebellum_2025, produced by running `brainsets prepare brainsets_pipelines/c4_dataset_cerebellum_2025` against the upstream source (c4-dataset-cerebellum-2025-upstream). Files live under <DATA_DIR>/c4_dataset_cerebellum_2025/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "c4_dataset_cerebellum_2025/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-cowley-v4-compact-2024",
+      "name": "cowley_v4_compact_2024-upstream",
+      "description": "Macaque V4 Utah-array recordings during rapid serial visual presentation\nof natural images. Includes sorted single-unit spike times and the\nassociated 112x112 stimulus images. Hosted on the CMU Kilthub repository.\n\nCanonical URL: https://kilthub.cmu.edu/articles/dataset/30500090",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://kilthub.cmu.edu/articles/dataset/30500090",
+      "includes": "*",
+      "citation": "@misc{cowley_v4_kilthub_2025,\n  title = {Data from \"Compact deep neural network models of visual cortex\"},\n  author = {Cowley, B. and Stan, P. and Pillow, J. and Smith, M.},\n  year = {2025},\n  doi = {10.1184/R1/30500090.v1},\n  howpublished = {Carnegie Mellon University Kilthub repository, article 30500090},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-cowley-v4-compact-2024",
+      "name": "cowley_v4_compact_2024-processed",
+      "description": "Per-session HDF5 files for cowley_v4_compact_2024, produced by running `brainsets prepare brainsets_pipelines/cowley_v4_compact_2024` against the upstream source (cowley-v4-compact-2024-upstream). Files live under <DATA_DIR>/cowley_v4_compact_2024/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "cowley_v4_compact_2024/*.h5"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "upstream-wingert-auditory-cortex-2026",
+      "name": "wingert_auditory_cortex_2026-upstream",
+      "description": "Ferret auditory cortex (A1, PEG) recordings during passive listening to\nnatural sounds. Sorted single-unit spike times and 32-channel cochleagram\nspectrograms. Released on Zenodo as record 18331549.\n\nCanonical URL: https://zenodo.org/records/18331549",
+      "encodingFormat": "text/html",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "url": "https://zenodo.org/records/18331549",
+      "includes": "*",
+      "citation": "@article{wingert2026auditory,\n  title = {Convolutional neural network models describe the encoding subspace of local circuits in auditory cortex},\n  author = {Wingert, J. C. and Parida, S. and Norman-Haignere, S. V. and David, S. V.},\n  journal = {Nature Neuroscience},\n  year = {2026},\n  doi = {10.1038/s41593-026-02216-0},\n}"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "processed-wingert-auditory-cortex-2026",
+      "name": "wingert_auditory_cortex_2026-processed",
+      "description": "Per-session HDF5 files for wingert_auditory_cortex_2026, produced by running `brainsets prepare brainsets_pipelines/wingert_auditory_cortex_2026` against the upstream source (wingert-auditory-cortex-2026-upstream). Files live under <DATA_DIR>/wingert_auditory_cortex_2026/<session>.h5 on the user's local disk after the recipe is run.",
+      "encodingFormat": "application/x-hdf5",
+      "includes": "wingert_auditory_cortex_2026/*.h5"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-ibl-brainwide-2023",
+      "name": "IBL_brainwide_2023",
+      "description": "IBL_brainwide_2023: 331 sessions, 101557 units, 26796.7 minutes of recording. Species: MUS_MUSCULUS. Recording tech: NEUROPIXELS_SPIKES. Brain areas: brain-wide (Allen CCF regions across forebrain, midbrain and hindbrain). Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-ibl-brainwide-2023/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-ibl-brainwide-2023"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-allen-visual-behaviour-neuropixels",
+      "name": "allen_visual_behaviour_neuropixels",
+      "description": "allen_visual_behaviour_neuropixels: 103 sessions, 82133 units, 16559.0 minutes of recording. Species: MUS_MUSCULUS. Recording tech: NEUROPIXELS_SPIKES. Brain areas: visual cortex, thalamus, hippocampus, midbrain. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-behaviour-neuropixels/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-behaviour-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-allen-visual-coding-neuropixels",
+      "name": "allen_visual_coding_neuropixels",
+      "description": "allen_visual_coding_neuropixels: 58 sessions, 40010 units, 9526.1 minutes of recording. Species: MUS_MUSCULUS. Recording tech: NEUROPIXELS_SPIKES. Brain areas: visual cortex, thalamus, hippocampus, midbrain. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-allen-visual-coding-neuropixels/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-allen-visual-coding-neuropixels"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-churchland-shenoy-neural-2012",
+      "name": "churchland_shenoy_neural_2012",
+      "description": "churchland_shenoy_neural_2012: 10 sessions, 1911 units, 1734.2 minutes of recording. Species: MACACA_MULATTA. Recording tech: UTAH_ARRAY_THRESHOLD_CROSSINGS. Brain areas: M1, PMd. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-churchland-shenoy-neural-2012/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-churchland-shenoy-neural-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-flint-slutzky-accurate-2012",
+      "name": "flint_slutzky_accurate_2012",
+      "description": "flint_slutzky_accurate_2012: 5 sessions, 957 units, 53.0 minutes of recording. Species: MACACA_MULATTA. Recording tech: UTAH_ARRAY_SPIKES. Brain areas: M1, PMd. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-flint-slutzky-accurate-2012/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-flint-slutzky-accurate-2012"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-odoherty-sabes-nonhuman-2017",
+      "name": "odoherty_sabes_nonhuman_2017",
+      "description": "odoherty_sabes_nonhuman_2017: 47 sessions, 16566 units, 832.2 minutes of recording. Species: MACACA_MULATTA. Recording tech: UTAH_ARRAY_SPIKES. Brain areas: M1, S1. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-odoherty-sabes-nonhuman-2017/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-odoherty-sabes-nonhuman-2017"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-perich-miller-population-2018",
+      "name": "perich_miller_population_2018",
+      "description": "perich_miller_population_2018: 111 sessions, 10410 units, 2581.6 minutes of recording. Species: MACACA_MULATTA, MACACA_FASCICULARIS. Recording tech: UTAH_ARRAY_SPIKES. Brain areas: M1, PMd. Role: training + within-source evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-perich-miller-population-2018/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-perich-miller-population-2018"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-c4-dataset-cerebellum-2025",
+      "name": "c4_dataset_cerebellum_2025",
+      "description": "c4_dataset_cerebellum_2025: 321 sessions, 4960 units, 23210.8 minutes of recording. Species: MUS_MUSCULUS, MACACA_MULATTA. Recording tech: NEUROPIXELS_SPIKES. Brain areas: cerebellum. Role: cross-source held-out evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-c4-dataset-cerebellum-2025/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-c4-dataset-cerebellum-2025"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-cowley-v4-compact-2024",
+      "name": "cowley_v4_compact_2024",
+      "description": "cowley_v4_compact_2024: 50 sessions, 4774 units, 7314.2 minutes of recording. Species: MACACA_MULATTA. Recording tech: UTAH_ARRAY_SPIKES. Brain areas: V4. Role: cross-source held-out evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-cowley-v4-compact-2024/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-cowley-v4-compact-2024"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "recordset-wingert-auditory-cortex-2026",
+      "name": "wingert_auditory_cortex_2026",
+      "description": "wingert_auditory_cortex_2026: 68 sessions, 3382 units, 5175.4 minutes of recording. Species: ferret (stored as UNKNOWN in the H5 species attribute). Recording tech: UTAH_ARRAY_SPIKES, NEUROPIXELS_SPIKES. Brain areas: A1, PEG. Role: cross-source held-out evaluation.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_timestamps",
+          "name": "spike_timestamps",
+          "description": "Spike timestamps in seconds. Vector of length N_spikes.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_unit_index",
+          "name": "spike_unit_index",
+          "description": "Index into units/* for each spike. Vector of length N_spikes.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_train_mask",
+          "name": "spike_train_mask",
+          "description": "Train-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_valid_mask",
+          "name": "spike_valid_mask",
+          "description": "Validation-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_test_mask",
+          "name": "spike_test_mask",
+          "description": "Test-split membership per spike. Vector of length N_spikes.",
+          "dataType": "sc:Boolean",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_domain_start",
+          "name": "spike_domain_start",
+          "description": "Trial-interval starts (seconds). VECTOR of length N_intervals: one entry per trial for trial-structured brainsets (flint, churchland, perich), one entry spanning the full session for non-trial-structured brainsets. Misreading this as a scalar yields a 5-second 'session duration' for trial-structured data.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/spike_domain_end",
+          "name": "spike_domain_end",
+          "description": "Trial-interval ends (seconds). VECTOR of length N_intervals (paired with spike_domain_start).",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_id",
+          "name": "unit_id",
+          "description": "Per-unit identifier (bytes-encoded string in the source H5). Vector of length N_units.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_number",
+          "name": "unit_number",
+          "description": "Per-unit integer index. Vector of length N_units.",
+          "dataType": "sc:Integer",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_brain_area",
+          "name": "unit_brain_area",
+          "description": "Per-unit brain area label. The actual H5 key varies by brainset: area_name (default), structure_acronym (allen_visual_coding_neuropixels), allen_location | beryl_location | cosmos_location (IBL_brainwide_2023, in decreasing fineness). Brainsets without per-unit area data fall back to a default area string per RecordSet (see RecordSet.description). 11 IBL sessions have empty area strings even when the keys are present, so this field is nullable.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_firing_rate",
+          "name": "unit_firing_rate",
+          "description": "Per-unit mean firing rate in Hz. Optional (not all brainsets carry this). Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_contamination",
+          "name": "unit_contamination",
+          "description": "Per-unit contamination QC metric (fraction). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_isi_violations",
+          "name": "unit_isi_violations",
+          "description": "Per-unit ISI-violation rate. Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/unit_presence_ratio",
+          "name": "unit_presence_ratio",
+          "description": "Per-unit presence ratio (fraction of session bins with at least one spike). Optional. Nullable.",
+          "dataType": "sc:Float",
+          "repeated": true,
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/session_task",
+          "name": "session_task",
+          "description": "Behavioral task label (e.g. REACHING). Empty for passive/free-viewing sessions.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/device_recording_tech",
+          "name": "device_recording_tech",
+          "description": "Recording technology used for this session. Values include NEUROPIXELS_SPIKES, UTAH_ARRAY_SPIKES, UTAH_ARRAY_THRESHOLD_CROSSINGS.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/subject_species",
+          "name": "subject_species",
+          "description": "Subject species (e.g. MUS_MUSCULUS, MACACA_MULATTA, MACACA_FASCICULARIS). UNKNOWN for sessions without species metadata.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/brainset_description",
+          "name": "brainset_description",
+          "description": "Per-brainset prose description carried in the H5 attrs.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/brainset_source",
+          "name": "brainset_source",
+          "description": "Upstream source as written by the brainset's pipeline: usually the canonical URL (e.g. https://dandiarchive.org/dandiset/000409); c4_dataset_cerebellum_2025 stores a free-text label instead.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/brainset_origin_version",
+          "name": "brainset_origin_version",
+          "description": "Version identifier for the upstream source as written by the brainset's pipeline (e.g. dandi/000409, allen/vbn, 1.0.0). Format varies by brainset.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "recordset-wingert-auditory-cortex-2026/brainset_derived_version",
+          "name": "brainset_derived_version",
+          "description": "Version of the brainsets-pipeline output schema (e.g. 1.0.0).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "processed-wingert-auditory-cortex-2026"
+            },
+            "extract": {
+              "fileProperty": "fullpath"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

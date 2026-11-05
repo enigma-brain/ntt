@@ -1,0 +1,44 @@
+# @package _global_
+# PCA baseline tokenizer — 100:1.
+
+defaults:
+  - override /job: train
+  - override /tokenizer@job.tokenizer_config: contrib/pca_baseline/k10
+  - override /loss@job.loss_config: contrib/poisson_nll
+
+paths:
+  run_name: pca_baseline_k10
+
+job:
+  weights_only: false
+  watch_freq: 50
+  viz_every_n_steps: 100
+  data_config:
+    unit_dropout_exclude_zero: false
+    unit_dropout_sampling_strategy: linear_weighted
+    unit_dropout_sampling_use_global_stats: true
+    dataloader:
+      batch_size: 256
+  compile_config:
+    enabled: false
+  trainer:
+    log_every_n_steps: 50
+    # PCA fit happens at on_train_epoch_end after the full training epoch.
+    # Skip mid-epoch val (would only see the unfit, constant μ output).
+    val_check_interval: 1.0
+    limit_val_batches: 100
+    max_epochs: 1
+    num_sanity_val_steps: 0
+    gradient_clip_val: 1.0
+    callbacks:
+      model_checkpoint:
+        # PCA is fitted only at epoch end; step checkpoints would hold the unfitted model.
+        every_n_train_steps: null
+      tokenizer_eval:
+        lightning_config:
+          eval_on_epoch_end: true
+          quick_eval_n_batches: 3
+          full_eval_every_n_epochs: 1
+          max_sessions_for_full_eval: 5
+          compare_to_poisson: true
+          full_eval_at_training_end: false

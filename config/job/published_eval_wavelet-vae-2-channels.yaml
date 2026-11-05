@@ -1,0 +1,9 @@
+# wavelet-vae-2-channels: input/latent robustness on its own n_neurons units (no unit covering in the robustness passes).
+defaults:
+  - /job/published_eval@_here_
+  - _self_
+
+input_robustness:
+  evaluate_all_neurons: false
+latent_robustness:
+  evaluate_all_neurons: false

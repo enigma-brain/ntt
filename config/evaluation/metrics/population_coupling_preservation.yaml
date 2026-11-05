@@ -1,0 +1,6 @@
+# Pinned to 1 ms: at >=5 ms the Poisson floor saturates (0.97-0.999), leaving no
+# headroom and a near-degenerate normalization denominator (see the metric
+# docstring). The metric warns above 5 ms; comparison.py gates near-degenerate axes.
+metric_class: population_coupling
+population_bin_size_ms: 1.0
+coupling_agreement: ccc

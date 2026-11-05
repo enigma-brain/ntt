@@ -1,0 +1,4 @@
+# L1 (Mean Absolute Error) loss configuration
+_target_: ntt.contrib.loss.L1LossSpec
+KIND: l1
+reduction: mean

@@ -1,0 +1,4 @@
+_target_: ntt.contrib.tokenizer.PoissonBaselineTokenizerSpec
+KIND: poisson_baseline
+rate_estimation_bin_ms: 10.0
+seed: 42

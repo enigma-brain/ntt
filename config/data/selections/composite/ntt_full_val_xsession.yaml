@@ -1,0 +1,40 @@
+# Tier 2 — Cross-session val: held-out sessions from subjects
+# seen in training.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - csh_zad_022_20200526_csh_zad_022
+      - cshl047_20200122_cshl047
+      - nyu-37_20210127_nyu-37
+      - nyu-45_20210720_nyu-45
+      - zfm-01936_20210122_zfm-01936
+      - zm_2241_20200131_zm_2241
+  - brainset: allen_visual_behaviour_neuropixels
+    sessions:
+      - mouse544456_session1064400234
+      - mouse558306_session1095340643
+      - mouse560356_session1093638203
+      - mouse560962_session1099869737
+      - mouse576323_session1117148442
+  - brainset: churchland_shenoy_neural_2012
+    sessions:
+      - nitschke_20090819_center_out_reaching
+      - nitschke_20100923_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    sessions:
+      - monkey_c_e1_reaching
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20160419_01
+      - indy_20160916_01
+      - indy_20170127_03
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151104_center_out_reaching
+      - c_20151106_center_out_reaching
+      - c_20151201_center_out_reaching
+      - c_20161005_center_out_reaching
+      - m_20140303_center_out_reaching
+config:
+  ignore_splits: true

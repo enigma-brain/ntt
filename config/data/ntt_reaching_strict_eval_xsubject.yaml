@@ -1,0 +1,8 @@
+# ntt_reaching_strict: Tier 3 (`xsubject`) evaluation.
+# Val/test match `ntt_full` cross-subject splits restricted to the reaching subset.
+
+defaults:
+  - _ntt
+  - selections@train_selections.0: ntt_reaching_strict_train
+  - selections@val_selections.0: ntt_reaching_strict_tier3_xsubject_val
+  - selections@test_selections.0: ntt_reaching_strict_tier3_xsubject_test

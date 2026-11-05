@@ -1,0 +1,9 @@
+# Train: all sessions except cross-session and cross-subject eval holdouts.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: churchland_shenoy_neural_2012
+    exclude_sessions:
+      - jenkins_20090923_center_out_reaching
+      - nitschke_20090819_center_out_reaching
+      - nitschke_20090910_center_out_reaching
+      - nitschke_20100923_center_out_reaching

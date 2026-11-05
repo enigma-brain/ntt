@@ -1,0 +1,35 @@
+# @package _global_
+# Base WanNeural experiment config
+
+defaults:
+  - /logger@job.trainer.logger.wandb: mlflow
+  - override /job: train
+  - override /tokenizer@job.tokenizer_config: contrib/wanneural/base
+  - override /loss@job.loss_config: contrib/poisson_nll
+  - override /data@job.data_config: ntt_full
+  - override /logger@job.trainer.logger.mlflow: null
+
+
+paths:
+  run_name: wanneural_base
+
+job:
+  weights_only: false
+  watch_freq: 50
+  viz_every_n_steps: 100
+  data_config:
+    unit_dropout_exclude_zero: false
+    unit_dropout_sampling_strategy: linear_weighted
+    unit_dropout_sampling_use_global_stats: true
+    dataloader:
+      batch_size: 512
+  compile_config:
+    enabled: false
+  trainer:
+    log_every_n_steps: 50
+    val_check_interval: 1000
+    limit_val_batches: 100
+    max_epochs: 4
+    num_sanity_val_steps: 1
+    callbacks:
+      tokenizer_eval: null

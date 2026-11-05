@@ -1,0 +1,14 @@
+# Zeta annealing callback for BSQ training (anneals BSQBottleneck.zeta, the
+# entropy-penalty scale). Not included in default callbacks — composed by
+# experiment configs. value_min > value_max ramps DOWN (push codebook spread
+# early, refine reconstruction late). Targeting (BSQBottleneck.zeta) is baked
+# into the subclass; only the schedule knobs are configured here.
+
+zeta_annealing:
+  _target_: ntt.contrib.tokenizer.wanneural.bottleneck.BSQZetaAnnealingCallback
+  schedule: "linear"
+  value_max: 1.0
+  value_min: 0.0
+  n_cycles: 1
+  ratio: 0.5
+  delay_steps: 0

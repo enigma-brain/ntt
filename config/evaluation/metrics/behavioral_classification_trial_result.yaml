@@ -1,0 +1,6 @@
+metric_class: behavioral_classification
+target_field: trial_result
+drop_invalid: true
+include_phases: [return_period]
+filter_field: trial_result
+filter_values: [0, 2]

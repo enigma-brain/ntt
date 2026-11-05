@@ -1,0 +1,25 @@
+# Intrinsic evaluation (reconstruction, repeat SNR, input- and latent-corruption robustness)
+# with the settings the published scores of the Hugging Face tokenizers were computed with.
+# Models that need more than these settings have their own file next to this one, which
+# extends it. scripts/eval/published_commands.py picks the right file.
+#
+#   uv run ntt job=published_eval paths.run_name=<name> paths.data_dir=<brainsets> \
+#       job.ckpt_path=hf://the-enigma-project/ntt-tokenizers/<name>@<revision> \
+#       job.output_path=<dir>
+#
+# All four passes run by default; disable one with job.<pass>.enabled=false
+# (main, snr, input_robustness, latent_robustness).
+defaults:
+  - /job/eval_all@_here_
+  - _self_
+
+split: test
+# precision = repeat SNR on all Cowley V4 validation sessions; it changes only the SNR pass's data
+mode: precision
+# Reconstruction metrics are compared with the published Poisson reference: spikes resampled
+# from the recording's rates in 10 ms bins, on 0.1 s windows, 5 realisations (see the README in
+# the repo's poisson_references/). Models with 10 ms bins use the 10 ms-bin file (their configs).
+compare_poisson: true
+poisson_reference: hf://the-enigma-project/ntt-tokenizers/poisson_references/recon_bin1ms_rate10ms_window0.1s.json@64d8bb47951d4d1b06765a74db0e7ae8aec36436
+poisson_rate_bin_ms: 10.0
+poisson_n_realisations: 5

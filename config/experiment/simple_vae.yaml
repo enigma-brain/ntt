@@ -1,0 +1,17 @@
+# @package _global_
+
+defaults:
+  - override /job: train
+  - override /tokenizer@job.tokenizer_config: contrib/simple_vae
+  - override /loss@job.loss_config: contrib/mse
+  - override /data@job.data_config: ntt_full
+
+job:
+  data_config:
+    unit_dropout_exclude_zero: true
+    unit_dropout_sampling_strategy: linear_weighted
+    dataloader:
+      batch_size: 256
+  trainer:
+    val_check_interval: 750
+    limit_val_batches: 100

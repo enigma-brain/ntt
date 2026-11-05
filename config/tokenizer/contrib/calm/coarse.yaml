@@ -1,0 +1,39 @@
+_target_: ntt.contrib.tokenizer.CalmTokenizerSpec
+KIND: calm
+
+# Data parameters — coarser binning for slow dynamics
+n_neurons: 200
+window_length_seconds: 10.0
+bin_size_ms: 100.0
+
+# Patchification
+patch_length: 2  # token coverage = 200ms
+
+# Transformer
+embed_dim: 512
+num_encoder_layers: 4
+num_decoder_layers: 4
+num_heads: 4
+causal: true
+
+# Bottleneck
+bottleneck_type: vq
+codebook_size: 128
+ema_decay: 0.99
+commitment_weight: 0.5
+entropy_weight: 0.5
+orthogonality_weight: 0.1
+entropy_temperature: 1.0
+dead_code_threshold: 1.0
+
+# AR regularization
+ar_weight: 0.5
+ar_horizon: 4
+
+# Output
+output_activation: softplus
+reconstruct_sample: none
+
+# Capabilities
+input_type: rates
+output_type: rates

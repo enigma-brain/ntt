@@ -1,0 +1,19 @@
+# Train: all sessions except cross-session and cross-subject eval holdouts.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    exclude_sessions:
+      - csh_zad_022_20200526_csh_zad_022
+      - cshl045_20200226_cshl045
+      - cshl047_20200122_cshl047
+      - cshl052_20200217_cshl052
+      - cshl053_20200201_cshl053
+      - ibl_witten_17_20200723_ibl_witten_17
+      - ks094_20220616_ks094
+      - nyu-37_20210127_nyu-37
+      - nyu-45_20210720_nyu-45
+      - ucla005_20210802_ucla005
+      - ucla011_20210720_ucla011
+      - zfm-01936_20210122_zfm-01936
+      - zm_2241_20200127_zm_2241
+      - zm_2241_20200131_zm_2241

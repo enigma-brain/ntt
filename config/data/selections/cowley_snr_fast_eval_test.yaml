@@ -1,0 +1,10 @@
+# Test-split counterpart of cowley_snr_fast_eval: the shortest cowley session in
+# ntt_full_test_xsource (PE_201014, ~11 MB; cowley is in no public train
+# selection). Same OOM caveat as the val selection: keep to one short session.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201014
+config:
+  ignore_splits: true

@@ -1,0 +1,9 @@
+# NuCLR brain region probe callback
+# Runs logistic regression probes on frozen embeddings during training
+
+nuclr_probe:
+  _target_: ntt.contrib.nuclr.eval_callback.NuclrProbeCallback
+  data_root: ${paths.data_dir}
+  brainset: IBL_brainwide_2023
+  eval_every_n_epochs: 10
+  method: l1out

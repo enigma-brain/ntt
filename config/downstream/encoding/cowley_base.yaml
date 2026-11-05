@@ -1,0 +1,74 @@
+# Baseline downstream Cowley-V4 ENCODING recipe (ntt-side, path-form external
+# overlay). Composed by `ntt job=downstream_encoding job.recipe=<this file>`,
+# which shells into the ntt-downstream submodule and ADDS this
+# folder to Hydra's search path — so the `- model: image_encoding_diffusion`
+# group refs below resolve INSIDE the submodule (downstream/configs/encoding/).
+#
+# Two properties worth noting:
+#   (1) the tokenizer CHECKPOINT is not set here — the launcher injects it from
+#       job.ckpt (--tokenizer-ckpt -> ++tokenizer.checkpoint_path +
+#       ++tokenizer.enabled=true). Keep the tokenizer block out of this file.
+#   (2) inference-time flow sampling is euler / 5 steps / shift 3.0 (trainer
+#       block below), not the downstream defaults (heun at final_eval, shift 1.0).
+#
+# Everything here targets ntt-downstream-INTERNAL Hydra keys (the unversioned
+# side of the contract — see docs/downstream_eval.md). job.loss_mode / job.seed /
+# job.out are emitted by the launcher AFTER this file composes and WIN over it —
+# set those on the job, not here.
+defaults:
+    - data: cowley_v4
+    - backbone: hiera_small_112
+    - model: image_encoding_diffusion
+    - trainer: default
+    - _self_
+
+# 200 ms response @ 1 ms bins; tokenizer compresses 100 ms -> 1 token (t_comp = 2).
+data:
+    dataset_path: ??? # Needs to be set to the path of the cowley_v4 dataset.
+    bin_size: 0.001
+    response_window: 0.200
+    response_offset: 0.000
+    subjects: "Pepe" # Pepe-only; subject embedding off below.
+
+dataloader:
+    batch_size: 64
+
+model:
+    # job.loss_mode=flow_matching is authoritative (appended last by the launcher);
+    # kept here so the recipe is also correct if composed standalone.
+    loss_mode: "flow_matching"
+    token_t_latent: 2 # MUST equal tokenizer t_comp (200 ms / 100 ms = 2).
+    token_prediction_dim: null # auto-derive from the tokenizer's latent_dim.
+    diffusion: null # flow uses flow_head_*; drop the diffusion block.
+    flow_head_width: 256
+    flow_head_depth: 3
+    readout_use_subject_embedding: false # single-animal run.
+    flow_time_sampling: "logit_normal" # SD3-style TRAINING-time t sampling.
+
+trainer:
+    lr: 5e-4
+    n_epochs: 60
+    max_steps: -1
+    check_val_every_n_epoch: 31
+    compile: false
+    eval_rebin_hz: 100
+    # --- inference-time flow sampling: euler / 5 steps / shift 3.0 ---
+    # tokenizer_eval drives the mid-training val AND is the source-of-truth for the
+    # n_flow_steps + flow_shift that final_eval inherits (final_eval has no own
+    # flow_shift key — see downstream training/final_eval.py).
+    tokenizer_eval:
+        flow_solver: "euler"
+        n_flow_steps: 5
+        flow_shift: 3.0
+    final_eval:
+        flow_solver: "euler" # default is "heun"
+        n_flow_steps: 5 # explicit (also inherited from tokenizer_eval).
+        # flow_shift inherits tokenizer_eval.flow_shift (3.0).
+    experiment_name: "ntt-encoding-cowley"
+
+tags:
+    model: "hiera_small_flow_logitnormal_200ms"
+    dataset: "cowley_v4"
+    subjects: "Pepe"
+
+description: "ntt-side downstream encoding for continuous-latent tokenizers: flow + logit-normal training-time sampling, euler/5-step/shift-3.0 inference, 200 ms, 60 epochs, Pepe-only, bs=64 lr=5e-4. Tokenizer set per-experiment."

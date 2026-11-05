@@ -1,0 +1,95 @@
+# Tier 1 — Within-session temporal eval. Same sessions as train; use with
+# split='valid' to evaluate on the held-out temporal portion (valid_domain).
+# NOTE: Do NOT set ignore_splits for this tier.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    exclude_sessions:
+      - csh_zad_022_20200526_csh_zad_022
+      - cshl045_20200226_cshl045
+      - cshl047_20200122_cshl047
+      - cshl052_20200217_cshl052
+      - cshl053_20200201_cshl053
+      - ibl_witten_17_20200723_ibl_witten_17
+      - ks094_20220616_ks094
+      - nyu-37_20210127_nyu-37
+      - nyu-45_20210720_nyu-45
+      - ucla005_20210802_ucla005
+      - ucla011_20210720_ucla011
+      - zfm-01936_20210122_zfm-01936
+      - zm_2241_20200127_zm_2241
+      - zm_2241_20200131_zm_2241
+  - brainset: allen_visual_behaviour_neuropixels
+    exclude_sessions:
+      - mouse533537_session1055403683
+      - mouse536480_session1064415305
+      - mouse544456_session1064400234
+      - mouse558306_session1095340643
+      - mouse560356_session1093638203
+      - mouse560962_session1099869737
+      - mouse568963_session1111013640
+      - mouse574078_session1115086689
+      - mouse576323_session1117148442
+      - mouse578003_session1119946360
+  - brainset: allen_visual_coding_neuropixels
+    exclude_sessions:
+      - specimen754477358_session768515987
+      - specimen756578435_session771990200
+      - specimen763808604_session789848216
+      - specimen774672366_session794812542
+  - brainset: churchland_shenoy_neural_2012
+    exclude_sessions:
+      - jenkins_20090923_center_out_reaching
+      - nitschke_20090819_center_out_reaching
+      - nitschke_20090910_center_out_reaching
+      - nitschke_20100923_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    exclude_sessions:
+      - monkey_c_e1_reaching
+      - monkey_c_e2_reaching
+  - brainset: odoherty_sabes_nonhuman_2017
+    exclude_sessions:
+      - indy_20160419_01
+      - indy_20160622_01
+      - indy_20160916_01
+      - indy_20161006_02
+      - indy_20161011_03
+      - indy_20161207_02
+      - indy_20170127_03
+      - loco_20170210_03
+      - loco_20170213_02
+      - loco_20170214_02
+      - loco_20170215_02
+      - loco_20170216_02
+      - loco_20170217_02
+      - loco_20170227_04
+      - loco_20170228_02
+      - loco_20170301_05
+      - loco_20170302_02
+  - brainset: perich_miller_population_2018
+    exclude_sessions:
+      - c_20131220_center_out_reaching
+      - c_20151104_center_out_reaching
+      - c_20151106_center_out_reaching
+      - c_20151201_center_out_reaching
+      - c_20160912_center_out_reaching
+      - c_20161005_center_out_reaching
+      - j_20160405_center_out_reaching
+      - j_20160406_center_out_reaching
+      - j_20160407_center_out_reaching
+      - m_20140116_random_target_reaching
+      - m_20140221_random_target_reaching
+      - m_20140303_center_out_reaching
+      - m_20150612_center_out_reaching
+      - t_20130819_center_out_reaching
+      - t_20130820_random_target_reaching
+      - t_20130821_center_out_reaching
+      - t_20130822_random_target_reaching
+      - t_20130823_center_out_reaching
+      - t_20130830_random_target_reaching
+      - t_20130903_center_out_reaching
+      - t_20130904_random_target_reaching
+      - t_20130905_center_out_reaching
+      - t_20130906_random_target_reaching
+      - t_20130909_center_out_reaching
+      - t_20130910_random_target_reaching

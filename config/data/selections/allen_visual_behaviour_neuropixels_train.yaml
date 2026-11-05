@@ -1,0 +1,15 @@
+# Train: all sessions except cross-session and cross-subject eval holdouts.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: allen_visual_behaviour_neuropixels
+    exclude_sessions:
+      - mouse533537_session1055403683
+      - mouse536480_session1064415305
+      - mouse544456_session1064400234
+      - mouse558306_session1095340643
+      - mouse560356_session1093638203
+      - mouse560962_session1099869737
+      - mouse568963_session1111013640
+      - mouse574078_session1115086689
+      - mouse576323_session1117148442
+      - mouse578003_session1119946360

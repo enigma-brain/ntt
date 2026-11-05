@@ -1,0 +1,26 @@
+# Light eval job: fast validation across all tiers with all-neuron evaluation.
+# ~27 sessions, evaluate_all_neurons=true.
+defaults:
+  - eval
+  - override /data@data_config: ntt_eval_light
+  - _self_
+
+# Evaluate all neurons per session, ignoring `n_neurons` in the tokenizer spec
+# Will still respect the max_neurons limit in the eval_config.
+evaluate_all_neurons: true
+
+compare_poisson: true
+
+# Minimal bin size for which Poisson makes sense
+poisson_rate_bin_ms: 10
+
+mlflow_logging:
+  enabled: true
+  experiment_name: "ntt-eval"
+
+generate_plots: true
+
+# Cap per-session duration and neuron count to keep light eval fast.
+eval_config:
+  max_eval_seconds: 600
+  max_neurons: 200

@@ -1,0 +1,41 @@
+# Tokenizer evaluation callback configuration
+# This callback runs evaluation metrics during training
+
+tokenizer_eval:
+  _target_: ntt.evaluation.lightning.TokenizerEvalCallback
+
+  # Main evaluation config (EvaluationConfig)
+  eval_config:
+    _target_: ntt.evaluation.config.schema.EvaluationConfig
+    # Data type handling
+    allow_lossy_conversion: true
+    conversion_bin_size_ms: 1.0
+    # Validation collation
+    max_windows: null
+    max_bytes: null
+    # Metric selection (null = all registered metrics)
+    metrics: null
+
+  # Lightning-specific config (LightningEvalConfig)
+  lightning_config:
+    _target_: ntt.evaluation.config.schema.LightningEvalConfig
+    # Quick evaluation during training
+    eval_every_n_batches: 999999  # Set high to effectively disable per-batch eval
+    eval_on_epoch_end: true
+    quick_metrics_only: true
+    quick_metrics:
+      - spike_detection_f1
+      - temporal_precision
+      - spike_count_correlation
+      - smoothed_squared_error
+      - binned_rate_difference
+      - isi_divergence
+      - acg_correlation
+      - cv_error
+      - cv2_error
+    # Full session-collated evaluation
+    full_eval_every_n_epochs: null
+    full_eval_at_training_end: true
+    max_sessions_for_full_eval: 5
+    # Batching
+    max_units_for_pairwise: 50

@@ -1,0 +1,13 @@
+# Test: cross-session held-out sessions (subjects seen in train).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - cshl045_20200226_cshl045
+      - cshl052_20200217_cshl052
+      - cshl053_20200201_cshl053
+      - ibl_witten_17_20200723_ibl_witten_17
+      - ks094_20220616_ks094
+      - zm_2241_20200127_zm_2241
+config:
+  ignore_splits: true

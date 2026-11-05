@@ -1,0 +1,97 @@
+defaults:
+  - /tokenizer@tokenizer_config: null # only needed for untrained tokenizers
+  - /data@data_config: ntt_eval_light # same as eval_all's main pass; use ntt_debug for a quick sandbox run
+  - /evaluation@eval_config: hill_climb # evaluation metrics & baseline config; same as eval_all's main pass
+  - _self_
+
+_target_: ntt.jobs.eval.NTTEvalJob
+
+KIND: eval
+
+# Provide exactly one: ckpt_path (trained tokenizer) or tokenizer_config (untrained)
+ckpt_path: null
+ckpt_weights_only: false
+
+# Optional
+seed: 42
+device: auto # "auto", "cpu", "cuda", "cuda:0"
+output_path: null # set to e.g. "results/eval" to save eval artifacts in that directory
+split: val # "val" or "test"
+aggregation_strategy: mean # "mean", "median", "weighted_mean"
+
+# Tiered evaluation — aggregate per-session results into per-tier reports
+# using composite selection yamls.  Keys are tier names, values are paths
+# to composite selection yamls under config/data/selections/composite/.
+# Sessions in the tier YAMLs but not actually evaluated are silently
+# ignored, so referencing the full-suite composites with a smaller eval
+# data subset works as a natural filter.
+# Set via override:  ntt job=eval '+tier@tier_selections=ntt_full_val'
+tier_selections: null
+
+# Poisson baseline comparison
+compare_poisson: false
+# precomputed poisson_baseline.json instead of an in-run baseline: local path,
+# mlflow-artifacts:/ or hf://<owner>/<repo>/<file>[@<revision>]
+poisson_reference: null
+# defaults to tokenizer.token_bin_size_ms when available; override explicitly to
+# compare against a different Poisson rate scale
+poisson_rate_bin_ms: null
+poisson_seed: 42
+poisson_n_realisations: 5
+poisson_use_all_neurons: false  # true = Poisson on the full-neuron selection; forced on with evaluate_all_neurons
+
+# Neuron count of the dummy input the compression record is computed on, for specs
+# without a fixed int n_neurons (n_neurons: false, whose rate depends on it, or a Dist,
+# which it must lie in). Ignored with a warning when the spec fixes an int count.
+# null = the spec decides (its count, a Dist draw, or the dummy default of 8).
+compression_n_neurons: null
+
+# Full-neuron evaluation: every model is scored on the same units — all of each
+# session's units, capped at eval_config.max_neurons by a seeded random subset; compress_n
+# tokenizers with a fixed n_neurons are tiled over them. false = padded mode: each model
+# is scored on its own first n_neurons units, zero-padded (the padding enters the
+# metrics), which is not comparable across models; logs a warning.
+evaluate_all_neurons: true
+
+# Same cap as eval_all's main pass (eval_all._HILL_CLIMB_MAIN_DEFAULTS) and the Poisson
+# baselines, so a standalone eval matches their units.
+eval_config:
+  max_neurons: 200
+# Only used with evaluate_all_neurons=true and compress_n tokenizers.
+# all_groups = concatenate latents from every covering group, including the padded last group.
+# exclude_padded_group = drop the padded last group's latents to avoid duplicate neurons.
+compress_n_latent_strategy: all_groups
+
+# MLflow evaluation logging
+mlflow_logging:
+  enabled: false
+  experiment_name: "ntt-eval"
+  tracking_uri: null  # uses MLFLOW_TRACKING_URI env var when null
+  # When null, falls back to the training run's name (looked up from MLflow
+  # when ckpt_path is an mlflow-artifacts:/ URI), else the tokenizer
+  # spec.KIND. A short hex suffix is always appended so repeat evals of the
+  # same model don't collide in the UI.
+  run_name: null      # auto-generated when null
+  # Suffix appended to ``run_name`` to differentiate parallel passes when
+  # ``job=eval_all`` runs main /
+  # snr / m1 / m2 in sequence. Empty by default for standalone runs.
+  run_name_suffix: ""
+  # Top-level prefix for logged metric names. eval_all sets it to
+  # ``eval_snr`` for the SNR pass; input_robustness (M1)/latent_robustness (M2) jobs override to ``eval_m1`` /
+  # ``eval_m2`` in their own job configs.
+  metric_prefix: "eval"
+  # Whether to upload the checkpoint bytes as an MLflow artifact. The
+  # primary pass uploads (default true); secondary passes set this to
+  # false so a single checkpoint isn't duplicated across runs.
+  upload_checkpoint: true
+  always_copy_checkpoint: false
+  tags: {}
+  # When the source ckpt is an ``mlflow-artifacts:/`` URI, false leaves the
+  # bytes in the training run (the eval run is linked via the
+  # ``ntt.eval.training_run_id`` tag).  Set true to duplicate the checkpoint
+  # into the eval run's artifacts (useful for cross-machine reproducibility).
+
+# Plot generation
+generate_plots: false
+plot_seconds: 600.0
+plot_sessions: 10

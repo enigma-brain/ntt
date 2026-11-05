@@ -1,0 +1,8 @@
+# Encoding recipe of the Hugging Face model transformer-vq-100to1, as its published score was computed:
+# cowley_ce.yaml plus the settings below. Run with job.loss_mode=cross_entropy.
+defaults:
+    - cowley_ce
+    - _self_
+
+model:
+  ce_focal_gamma: 0.0

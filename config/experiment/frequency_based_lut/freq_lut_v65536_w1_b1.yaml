@@ -1,0 +1,17 @@
+# @package _global_
+
+defaults:
+  - override /job: train
+  - override /tokenizer@job.tokenizer_config: contrib/frequency_based_lut
+  - override /loss@job.loss_config: contrib/mse
+  - override /data@job.data_config: ntt_full
+
+paths:
+  run_name: freq_lut_exp_v65536_w1_b1
+
+job:
+  # You can override any tokenizer parameters here
+  tokenizer_config:
+    vocab_size: 65536
+    window_length_seconds: 1.0
+    bin_size_ms: 1.0

@@ -1,0 +1,3 @@
+tokenizer,gen_tier/xsession,gen_tier/xsubject,gen_tier/xsource,gen_tier/xsession::mean,gen_tier/xsubject::mean,gen_tier/xsource::mean,gen_tier/xsession::n,gen_tier/xsubject::n,gen_tier/xsource::n
+wanx_A_vae_bce_dw_k1_lightdec_noncausal_anneal1e-6_sigreg_b1e-3_z32,0.88,0.84,0.55,0.90,0.95,0.66,50,50,50
+cosmos_public_lc2_rfsq,0.80,0.78,0.50,0.83,0.81,0.58,48,48,48

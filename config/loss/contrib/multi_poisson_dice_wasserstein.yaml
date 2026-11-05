@@ -1,0 +1,31 @@
+# Composite loss: Poisson NLL + Dice + Wasserstein for 1ms spike tokenizers
+#
+# Poisson NLL provides per-element spike-localized gradients (the workhorse).
+# Dice adds set-level detection quality (imbalance-invariant).
+# Wasserstein adds temporal structure awareness (penalizes timing errors).
+
+_target_: ntt.contrib.loss.MultiLossSpec
+KIND: multi
+
+reduction: mean
+components:
+  - loss:
+      KIND: poisson_nll
+      log_input: false
+      full: false
+      eps: 1.0e-8
+    weight: 1.0
+    name: poisson_nll
+  - loss:
+      KIND: dice
+      eps: 1.0
+      alpha: 0.5
+      beta: 0.7
+    weight: 0.5
+    name: dice
+  - loss:
+      KIND: wasserstein
+      normalize: false
+      p: 1
+    weight: 0.5
+    name: wasserstein

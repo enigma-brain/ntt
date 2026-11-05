@@ -1,0 +1,93 @@
+# Cowley-V4 ENCODING recipe for DISCRETE-token tokenizers (cross_entropy) —
+# ntt-side path-form external overlay. Sibling of cowley_base.yaml (which is
+# flow_matching / continuous-latent). Composed by
+#   `ntt job=downstream_encoding job.recipe=<this file> job.loss_mode=cross_entropy`,
+# which shells into the ntt-downstream submodule and adds this
+# folder to Hydra's search path so the `- model: image_encoding` group below
+# resolves INSIDE the submodule (downstream/configs/encoding/).
+#
+# Use for FSQ / plain-VQ / residual-VQ (vqpt) / CALM-VQ tokenizers — anything
+# whose latent_type is `discrete` and is NOT BSQ (BSQ -> cowley_bsq.yaml + bce).
+#
+# Differences from cowley_base.yaml:
+#   (1) model group is `image_encoding` (no flow/diffusion head), not
+#       `image_encoding_diffusion`.
+#   (2) loss_mode is cross_entropy (job.loss_mode=cross_entropy wins; kept here
+#       for standalone correctness).
+#   (3) ce_vocab_size + num_codebooks are LEFT UNSET — auto-derived from the
+#       tokenizer probe at EncodingLitModule.setup(). Never pin them.
+#   (4) tokenizer.latent_scale=1.0 — for discrete targets latent_scale is a
+#       no-op, so pin it to skip the 50-batch auto-calibration ("auto" default)
+#       that only makes sense for continuous latents.
+# As in cowley_base, the tokenizer CHECKPOINT is injected by the launcher from
+# job.ckpt (--tokenizer-ckpt -> ++tokenizer.checkpoint_path + ++enabled +
+# ++checkpoint_first); keep the checkpoint out of this file.
+defaults:
+    - data: cowley_v4
+    - backbone: hiera_small_112
+    - model: image_encoding
+    - trainer: default
+    - _self_
+
+# 200 ms response @ 1 ms bins; tokenizer compresses 100 ms -> 1 token (t_comp = 2).
+data:
+    dataset_path: ??? # required override — supplied per-experiment via job.data_root.
+    bin_size: 0.001
+    response_window: 0.200
+    response_offset: 0.000
+    subjects: "Pepe" # Pepe-only; subject embedding off below.
+
+dataloader:
+    batch_size: 64
+
+model:
+    # job.loss_mode=cross_entropy is authoritative (appended last by the launcher);
+    # kept here so the recipe is also correct if composed standalone.
+    loss_mode: "cross_entropy"
+    token_t_latent: 2 # MUST equal tokenizer t_comp (200 ms / 100 ms = 2).
+    readout_use_subject_embedding: false # single-animal run.
+    # Anti-collapse: focal loss ON by default for CE. With a generous head
+    # (token_prediction_dim floor 32, below) a discrete-CE encoder can over-fit the
+    # silence-dominated marginal ("predict-the-mean": PSTH/temporal ok, per-image rate
+    # collapses — observed on fsq_z5 @ tpd32, rate -0.001). focal down-weights the easy
+    # confident-silent positions so the model must use the image. This rescues
+    # tokenizers prone to the collapse and costs slightly on those that do not need it
+    # (e.g. CALM). Disable/tune per-experiment via ++model.ce_focal_gamma=0.0.
+    ce_focal_gamma: 2.0
+    # ce_vocab_size + num_codebooks: leave UNSET — auto-derived from the tokenizer.
+    #
+    # token_prediction_dim (CLASSIFIER-INPUT WIDTH) — leave UNSET here.
+    #   For cross_entropy the model predicts token INDICES via
+    #   ce_head=Linear(token_prediction_dim, ce_vocab_size). The CE target carries
+    #   NO latent-shape constraint, so this width is a FREE hyperparameter and must
+    #   NOT be tied to the tokenizer z_dim (UNLIKE flow_matching/mse/diffusion,
+    #   where the head regresses the latent and the width MUST equal z_dim, or bce,
+    #   which predicts z_dim bits). Tying it to a tiny z_dim — z_dim=1 for CALM —
+    #   would make ce_head=Linear(1, V), squeezing the encoder's image features
+    #   through a scalar bottleneck and crushing the signal at the softmax.
+    #   EncodingLitModule.setup() auto-derives token_prediction_dim=max(z_dim, 32)
+    #   for cross_entropy (never below 32). To widen further, override per-experiment:
+    #       job.extra: "++model.token_prediction_dim=128"
+    #   A resolved value < 16 triggers a loud WARNING at setup.
+
+tokenizer:
+    # Discrete targets are int64 indices; latent_scale is a no-op for CE. Pin to
+    # 1.0 so setup skips the 50-batch calibrate_latent_scale() data probe (the
+    # "auto" default is only correct for continuous latents).
+    latent_scale: 1.0
+
+trainer:
+    lr: 5e-4
+    n_epochs: 50 # CE plateaus by ~50 (vs 60 for flow).
+    max_steps: -1
+    check_val_every_n_epoch: 26 # one mid-train val near the midpoint.
+    compile: false
+    eval_rebin_hz: 100
+    experiment_name: "ntt-encoding-cowley"
+
+tags:
+    model: "hiera_small_ce_200ms"
+    dataset: "cowley_v4"
+    subjects: "Pepe"
+
+description: "ntt-side downstream encoding for discrete-token tokenizers (cross_entropy), 200 ms, Pepe-only, bs=64 lr=5e-4. Tokenizer name set per-experiment."

@@ -1,0 +1,50 @@
+# Light eval — OOD block: xsession/xsubject/xsource sessions,
+# evaluated on the full recording (ignore_splits=true). These sessions were never
+# trained on, so full-recording eval is leak-free; some also lack a valid_domain.
+# Paired with ntt_eval_light_xtime.yaml (split-respecting xtime).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  # ── xsession (held-out sessions from trained subjects) ──
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20160419_01
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151104_center_out_reaching
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - csh_zad_022_20200526_csh_zad_022
+  - brainset: allen_visual_behaviour_neuropixels
+    sessions:
+      - mouse544456_session1064400234
+  - brainset: churchland_shenoy_neural_2012
+    sessions:
+      - nitschke_20090819_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    sessions:
+      - monkey_c_e1_reaching
+  # ── xsubject (subjects not in training) ──
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - loco_20170210_03
+  - brainset: perich_miller_population_2018
+    sessions:
+      - j_20160406_center_out_reaching
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - ucla005_20210802_ucla005
+  - brainset: allen_visual_coding_neuropixels
+    sessions:
+      - specimen763808604_session789848216
+  # ── xsource (datasets held out from training) ──
+  - brainset: c4_dataset_cerebellum_2025
+    sessions:
+      - hausser_19-01-24_YC013_probe1
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201015
+  - brainset: wingert_auditory_cortex_2026
+    sessions:
+      - CLT027c
+config:
+  ignore_splits: true

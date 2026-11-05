@@ -1,0 +1,6 @@
+# conv-vae-1000to1: scored on 5 s windows (its training window).
+defaults:
+  - /job/published_eval@_here_
+  - _self_
+
+eval_window_seconds: 5.0

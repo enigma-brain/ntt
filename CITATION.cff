@@ -1,0 +1,95 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "Neurons To Tokens (NTT)"
+type: software
+license: MIT
+repository-code: "https://github.com/enigma-brain/ntt"
+url: "https://github.com/enigma-brain/ntt"
+authors:
+  - given-names: Federico
+    family-names: D'Agostino
+  - given-names: Alex
+    family-names: Gilbert
+  - given-names: Susanne
+    family-names: Keller
+  - given-names: Jaivardhan
+    family-names: Kapoor
+  - given-names: Nicolas
+    family-names: Reategui
+  - given-names: Vedang
+    family-names: Lad
+  - given-names: Matthias
+    family-names: Kümmerer
+  - given-names: Jai
+    family-names: Bhagat
+  - given-names: Emin
+    family-names: Orhan
+  - given-names: Hasan Atakan
+    family-names: Bedel
+  - given-names: Nikos
+    family-names: Karantzas
+  - given-names: Fabian H.
+    family-names: Sinz
+  - given-names: Surya
+    family-names: Ganguli
+  - given-names: Jakob H.
+    family-names: Macke
+  - given-names: Sophia
+    family-names: Sanborn
+  - given-names: Alexander S.
+    family-names: Ecker
+  - given-names: Katrin
+    family-names: Franke
+  - given-names: Matthias
+    family-names: Bethge
+  - given-names: Andreas S.
+    family-names: Tolias
+  - given-names: Konstantin F.
+    family-names: Willeke
+preferred-citation:
+  type: conference-paper
+  title: "Evaluating Neural Data Tokenizers: A Framework for Assessing Learned Representations of Spiking Activity"
+  collection-title: "Advances in Neural Information Processing Systems (Datasets and Benchmarks Track)"
+  year: 2026
+  url: "https://github.com/enigma-brain/ntt"
+  authors:
+    - given-names: Federico
+      family-names: D'Agostino
+    - given-names: Alex
+      family-names: Gilbert
+    - given-names: Susanne
+      family-names: Keller
+    - given-names: Jaivardhan
+      family-names: Kapoor
+    - given-names: Nicolas
+      family-names: Reategui
+    - given-names: Vedang
+      family-names: Lad
+    - given-names: Matthias
+      family-names: Kümmerer
+    - given-names: Jai
+      family-names: Bhagat
+    - given-names: Emin
+      family-names: Orhan
+    - given-names: Hasan Atakan
+      family-names: Bedel
+    - given-names: Nikos
+      family-names: Karantzas
+    - given-names: Fabian H.
+      family-names: Sinz
+    - given-names: Surya
+      family-names: Ganguli
+    - given-names: Jakob H.
+      family-names: Macke
+    - given-names: Sophia
+      family-names: Sanborn
+    - given-names: Alexander S.
+      family-names: Ecker
+    - given-names: Katrin
+      family-names: Franke
+    - given-names: Matthias
+      family-names: Bethge
+    - given-names: Andreas S.
+      family-names: Tolias
+    - given-names: Konstantin F.
+      family-names: Willeke

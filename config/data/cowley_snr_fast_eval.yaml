@@ -1,0 +1,15 @@
+# SNR-only fast eval data config. Single short Cowley session.
+#
+# Inherits the same dataloader settings as cowley_v4_compact_val (notably
+# num_workers=0 — interval-windowing memory profile). For a full SNR
+# production run, swap ``snr_data=cowley_v4_compact_val`` on the wrapper.
+defaults:
+  - _ntt
+  - selections@train_selections.0: cowley_snr_fast_eval
+  - selections@val_selections.0: cowley_snr_fast_eval
+  - selections@test_selections.0: cowley_snr_fast_eval_test
+
+disable_data_leakage_check: true
+
+dataloader:
+  num_workers: 0

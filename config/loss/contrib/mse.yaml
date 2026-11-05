@@ -1,0 +1,11 @@
+# MSE (Mean Squared Error) loss configuration
+# Computes MSE between input spike data and reconstruction
+
+# Direct hydra target specification
+_target_: ntt.contrib.loss.MSELossSpec
+
+# Discriminator field - determines which loss spec class to use
+KIND: mse
+
+# Loss-specific parameters
+reduction: mean  # "mean", "sum", or "none"

@@ -1,0 +1,8 @@
+# ntt_reaching_strict: training + Tier 1 (`xtime`) validation.
+# Train matches `ntt_full/train.yaml` restricted to odoherty/perich/churchland.
+# Val matches `ntt_full/tier1_xtime_val.yaml` on the same sessions.
+
+defaults:
+  - _ntt
+  - selections@train_selections.0: ntt_reaching_strict_train
+  - selections@val_selections.0: ntt_reaching_strict_tier1_xtime_val

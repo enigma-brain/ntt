@@ -1,0 +1,17 @@
+# Example tokenizer spec configuration
+# This uses the identity tokenizer as a demonstration
+
+# Direct hydra target specification
+_target_: ntt.contrib.tokenizer.IdentityTokenizerSpec
+# Discriminator field - determines which tokenizer spec class to use
+KIND: identity
+
+# Base TokenizerSpec parameters (required by all tokenizers)
+window_length_seconds: 1.0  # 1 second windows
+bin_size_seconds: 0.01      # 10ms bins (null for unbinned spike times)
+n_neurons: null             # null = use full population
+shuffling_strategy: "none"
+sampling_strategy: "uniform"
+
+# IdentityTokenizerSpec-specific parameters
+vocab_size: 1024

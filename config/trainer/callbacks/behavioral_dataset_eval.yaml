@@ -1,0 +1,65 @@
+behavioral_dataset_eval:
+  _target_: ntt.evaluation.lightning.BehavioralDatasetEvalCallback
+
+  eval_config:
+    _target_: ntt.evaluation.config.schema.EvaluationConfig
+    allow_lossy_conversion: true
+    conversion_bin_size_ms: 1.0
+    max_windows: null
+    max_bytes: null
+    compute_baseline: false
+    metrics:
+      behavioral_classification_trial_target_id:
+        metric_class: behavioral_classification
+        target_field: trial_target_id
+        drop_invalid: true
+        include_phases: [reach_period, random_period]
+        n_splits: 1           # single train/test split for speed; increase for more robust estimates
+        standardize: false    # enable for tokenizers with very small latent magnitudes (e.g. LDNS)
+      # Additional metrics below add significant runtime to the callback.
+      # Uncomment selectively if needed.
+      # behavioral_regression_cursor_pos:
+      #   metric_class: behavioral_regression
+      #   target_field: cursor_pos
+      #   include_phases: [reach_period, random_period]
+      #   drop_invalid: true
+      # behavioral_regression_cursor_vel:
+      #   metric_class: behavioral_regression
+      #   target_field: cursor_vel
+      #   include_phases: [reach_period, random_period]
+      #   drop_invalid: true
+      # behavioral_classification_movement_phase:
+      #   metric_class: behavioral_classification
+      #   target_field: movement_phase
+      #   drop_invalid: true
+      #   balance_classes: true
+      # behavioral_classification_trial_result:
+      #   metric_class: behavioral_classification
+      #   target_field: trial_result
+      #   drop_invalid: true
+      #   include_phases: [return_period]
+      #   filter_field: trial_result
+      #   filter_values: [0, 2]
+
+  # Default: single session, classification only. Kept intentionally light so
+  # the callback is cheap to run every validation epoch. For a wider
+  # cross-session eval with regression metrics, use
+  # `behavioral_dataset_eval_full.yaml` instead.
+  selections:
+    - _target_: ntt.core.data.components.config.SelectionConfig
+      selection:
+        - brainset: perich_miller_population_2018
+          sessions:
+            - c_20131022_center_out_reaching
+      config:
+        ignore_splits: true
+
+  compute_poisson_baseline: true
+  log_prefix: behavioral_dataset_eval
+  max_batches: 10
+  max_windows_per_session: null
+  max_sessions: null
+  aggregation_strategy: mean
+  eval_on_epoch_end: true
+  every_n_epochs: 1
+  run_on_fit_end: true

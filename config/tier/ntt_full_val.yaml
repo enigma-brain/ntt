@@ -1,0 +1,7 @@
+# ── Tier definitions for ntt_full validation split ───────────────────
+# Maps tier names to composite selection yamls. Use via Hydra override:
+#   ntt job=eval 'tier@job.tier_selections=ntt_full_val'
+xtime: config/data/selections/composite/ntt_full_val_xtime.yaml
+xsession: config/data/selections/composite/ntt_full_val_xsession.yaml
+xsubject: config/data/selections/composite/ntt_full_val_xsubject.yaml
+xsource: config/data/selections/composite/ntt_full_val_xsource.yaml

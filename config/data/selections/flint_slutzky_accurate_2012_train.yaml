@@ -1,0 +1,7 @@
+# Train: all sessions except cross-session and cross-subject eval holdouts.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: flint_slutzky_accurate_2012
+    exclude_sessions:
+      - monkey_c_e1_reaching
+      - monkey_c_e2_reaching

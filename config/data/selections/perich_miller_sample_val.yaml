@@ -1,0 +1,13 @@
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151201_center_out_reaching     # ntt_full_val_xsession; replaces c_20131022 (a training session)
+      - t_20130906_random_target_reaching  # ntt_full_val_xsubject; replaces t_20130910 (a test_xsubject holdout)
+config:
+  ignore_splits: true  # Use full session instead of val_domain subset.
+                       # (Else we are subsampling twice, once we sample
+                       #  just validation sessions (the two above), and
+                       #  then it automatically samples the parts of the
+                       #  predefined validation split within those
+                       #  recordings, leading to very little data.)

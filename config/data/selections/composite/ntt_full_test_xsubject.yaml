@@ -1,0 +1,30 @@
+# Tier 3 — Cross-subject test: sessions from subjects not in
+# training.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - ucla011_20210720_ucla011
+  - brainset: allen_visual_coding_neuropixels
+    sessions:
+      - specimen754477358_session768515987
+      - specimen756578435_session771990200
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - loco_20170217_02
+      - loco_20170227_04
+      - loco_20170228_02
+      - loco_20170301_05
+      - loco_20170302_02
+  - brainset: perich_miller_population_2018
+    sessions:
+      - j_20160405_center_out_reaching
+      - j_20160407_center_out_reaching
+      - t_20130820_random_target_reaching
+      - t_20130823_center_out_reaching
+      - t_20130830_random_target_reaching
+      - t_20130904_random_target_reaching
+      - t_20130909_center_out_reaching
+      - t_20130910_random_target_reaching
+config:
+  ignore_splits: true

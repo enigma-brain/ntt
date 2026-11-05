@@ -1,0 +1,5 @@
+_target_: ntt.contrib.loss.WassersteinLossSpec
+KIND: wasserstein
+reduction: mean
+normalize: false
+p: 1

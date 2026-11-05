@@ -1,0 +1,4 @@
+metric_class: behavioral_classification
+target_field: trial_target_id
+drop_invalid: true
+include_phases: [reach_period, random_period]

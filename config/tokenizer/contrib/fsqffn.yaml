@@ -1,0 +1,24 @@
+_target_: ntt.contrib.tokenizer.FSQFFNTokenizerSpec
+KIND: fsqffn
+
+# Architecture parameters
+q_levels: [7,5,5,5,5]  # 2^10 = 1024 codebook size
+q_dim: null  # Defaults to len(q_levels)
+q_scale: null
+
+# FFN parameters
+ffn_model_dim: 128
+ffn_n_layers: 3
+ffn_mult: 4
+ffn_multiple_of: 128
+ffn_activation: silu
+ffn_use_gated_activation: true
+ffn_use_post_projection: true
+ffn_use_projection_bias: true
+ffn_use_pre_norm: true
+ffn_use_post_norm: true
+ffn_norm: layer
+ffn_init_depth_scaling: 'current'
+
+# Initialization
+init_std: null

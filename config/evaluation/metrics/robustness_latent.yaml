@@ -1,0 +1,90 @@
+# Eval config: latent-corruption robustness (M2).
+#
+# latent_robustness (M2) sweeps noise scales (``epsilons`` × ``n_samples_per_epsilon``) over
+# the tokenizer's latent space, decodes each noisy latent back to the
+# input space, and runs reconstruction-side metrics for each random
+# sample. Final scores are then averaged over those random samples.
+# ``results.jsonl`` stores one final row per ``(session, epsilon, metric)``,
+# and downstream consumers can filter by epsilon directly via the
+# ``epsilon`` field.
+#
+# The reconstruction metric pack here mirrors ``config/evaluation/default.yaml``
+# minus:
+#   - downstream / behavioral metrics (don't change under latent noise),
+#   - RSA-style structure-preservation metrics
+#     (``population_structure_preservation``,
+#     ``per_unit_structure_preservation``) — those compare latent vs
+#     reconstruction structure and aren't informative as latent_robustness (M2) robustness
+#     curves.
+#
+# Direction (higher-is-better vs lower-is-better) is carried per-metric
+# via the registered metric class; consumers should respect it when
+# aggregating across the latent_robustness (M2) metric set.
+
+defaults:
+  # Spike detection / temporal-fidelity
+  - metrics/spike_detection_f1@metrics.spike_detection_f1
+  - metrics/temporal_precision@metrics.temporal_precision
+  - metrics/spike_count_correlation@metrics.spike_count_correlation
+  - metrics/smoothed_squared_error@metrics.smoothed_squared_error
+  - metrics/binned_rate_difference@metrics.binned_rate_difference
+  # Single-unit statistics
+  - metrics/isi_divergence@metrics.isi_divergence
+  - metrics/acg_correlation@metrics.acg_correlation
+  - metrics/isi_cv_error@metrics.isi_cv_error
+  - metrics/isi_cv2_error@metrics.isi_cv2_error
+  - metrics/firing_rate_error@metrics.firing_rate_error
+  - metrics/fano_factor_error@metrics.fano_factor_error
+  # Pairwise / population
+  - metrics/ccg_correlation@metrics.ccg_correlation
+  - metrics/functional_connectivity_f1@metrics.functional_connectivity_f1
+  - metrics/participation_ratio_error@metrics.participation_ratio_error
+  - metrics/subspace_overlap@metrics.subspace_overlap
+  - metrics/population_coupling_preservation@metrics.population_coupling_preservation
+  # Information
+  - metrics/mutual_information@metrics.mutual_information
+  - _self_
+
+compute_baseline: false
+max_eval_seconds: null
+# Units per session: all of them, a seeded random subset of this many where there are
+# more (the same units as the main eval and its Poisson baseline). Used with the job's
+# evaluate_all_neurons=true.
+max_neurons: 200
+
+# Additional ACG/CCG correlogram RESOLUTIONS (metric bin sizes, NOT tokenizer
+# bins). The base ``acg_correlation`` / ``ccg_correlation`` above already use a
+# 1 ms correlogram bin, so here we add 5 ms and 10 ms — latent_robustness (M2) then reports all of
+# {1, 5, 10} ms. Merged onto the defaults-loaded metrics via ``_self_``.
+metrics:
+  acg_correlation_5ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    acg_smoothing_kernel: 1
+  acg_correlation_10ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    acg_smoothing_kernel: 1
+  ccg_correlation_5ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    max_pairs_to_compute: 50
+  ccg_correlation_10ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    max_pairs_to_compute: 50
+
+robustness_latent:
+  # epsilons: [ 0.03] # for quick running.
+  epsilons: [0.0, 0.01, 0.03, 0.1, 0.3, 1.0]  # full latent_robustness (M2) sweep
+  n_samples_per_epsilon: 10
+  noise_distribution: gaussian
+  # ACG/CCG correlation needs ~64 windows minimum for a stable estimate;
+  # lowering this floor produces noisy correlogram robustness curves.
+  # (It probably needs more windows for a reliable estimate.)
+  n_eval_windows: 300
+  plot_examples: true

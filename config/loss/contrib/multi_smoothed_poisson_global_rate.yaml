@@ -1,0 +1,26 @@
+# Composite loss: Smoothed Poisson NLL + Global Rate for 1ms spike tokenizers
+#
+# Poisson NLL with Gaussian smoothing (sigma=1.0 bins = 1ms) provides
+# spike-localized gradients with temporal tolerance.
+# Global Rate loss constrains the total predicted rate integral to match
+# the observed spike count per neuron, correcting systematic over-counting
+# without interfering with the per-bin rate profile shape.
+
+_target_: ntt.contrib.loss.MultiLossSpec
+KIND: multi
+
+reduction: mean
+components:
+  - loss:
+      KIND: poisson_nll
+      log_input: false
+      full: false
+      eps: 1.0e-8
+      gaussian_sigma: 1.0
+    weight: 1.0
+    name: poisson_nll
+  - loss:
+      KIND: global_rate
+      normalize: true
+    weight: 5.0
+    name: global_rate

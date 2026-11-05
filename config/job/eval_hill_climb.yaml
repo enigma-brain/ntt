@@ -1,0 +1,19 @@
+# Hill-climb eval job: same setup as eval_light (light data, max_eval_seconds
+# and max_neurons caps) but uses the hill_climb evaluation config, which
+# sweeps a small set of binnable metrics across bin sizes for fast iteration
+# during model development.
+#
+# Tiered aggregation is enabled with the full ntt_full val tier definitions.
+# The eval data subset (eval_light) is smaller than the full composites, so
+# only the sessions actually evaluated will appear in each tier's aggregate.
+defaults:
+  - eval_light
+  - /tier@tier_selections: ntt_full_val
+  - override /evaluation@eval_config: hill_climb
+  - _self_
+
+# Force the source checkpoint to be copied into the eval run's artifacts so
+# each hill-climb run is self-contained even when the source ckpt is an
+# mlflow-artifacts:/ URI from a training run.
+mlflow_logging:
+  always_copy_checkpoint: true

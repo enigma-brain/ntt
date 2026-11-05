@@ -1,0 +1,96 @@
+# Cowley-V4 ENCODING recipe for the vanilla LDNS tokenizer (compress_n, 10 ms
+# bins, 32-d latent) — ntt-side path-form external overlay. Sibling of
+# cowley_cosmos.yaml (same population/compress_n structure). Composed by
+#   `ntt job=downstream_encoding job.recipe=<this file> job.loss_mode=flow_matching`,
+# which shells into the ntt-downstream submodule and adds this
+# folder to Hydra's search path so the `- data:`/`- backbone:`/`- trainer:`
+# groups resolve INSIDE the submodule (downstream/configs/encoding/).
+#
+# This is the recipe behind the published ldns encoding score. Keep the settings
+# below as they are (do not mix in the cowley_cosmos knobs) so that the published
+# number stays reproducible.
+#
+# Differences from cowley_cosmos.yaml:
+#   (1) 10 ms bins, 2.5 s response window -> 250 bins; the tokenizer encodes the
+#       full 2.5 s and the encoder predicts only the first 20 latent bins
+#       (compress_n_target_slice=20 = 200 ms), via 5 coarse temporal queries
+#       upsampled to 20 (compress_n_t_coarse / _t_target).
+#   (2) compress_n_latent_n=32 = LDNS latent_dim. token_prediction_dim unset.
+#   (3) NO flow_time_sampling (uniform t), NO use_full_grid_denoiser /
+#       diffusion_batch_mul; LDNS denoiser OFF (ldns_* shapes = code defaults,
+#       logged explicitly).
+#   (4) tokenizer block: latent_scale only (no cosmos window / target-slice keys).
+#   (5) inference: tokenizer_eval euler / 5 steps (trainer default); final_eval
+#       left at its default (heun, n_flow_steps inherited -> 5). eval_rebin_hz=null.
+#
+# Tokenizer CHECKPOINT injected by the launcher from job.ckpt; keep it OUT here.
+# job.loss_mode / job.data_root / job.out are appended last and WIN — set on the job.
+defaults:
+    - data: cowley_v4
+    - backbone: hiera_small_112
+    - trainer: default
+    - _self_
+
+# 2.5 s response @ 10 ms bins = 250 bins; only the first 20 latent bins are predicted.
+data:
+    dataset_path: ??? # required override — supplied per-experiment via job.data_root.
+    bin_size: 0.01
+    response_window: 2.5
+    response_offset: 0.0
+    subjects: "Pepe" # Pepe-only; subject embedding off below.
+
+dataloader:
+    batch_size: 64
+
+model:
+    model_type: "image_encoding"
+    # job.loss_mode=flow_matching is authoritative (appended last); kept for standalone.
+    loss_mode: "flow_matching"
+
+    # Readout.
+    dim_head: 48
+    num_heads: 4
+    readout_mlp_ratio: 4
+    readout_use_session_embedding: true
+    readout_use_subject_embedding: false # Pepe-only single-animal.
+    readout_use_gated_ffn: false
+
+    # compress_n target shape: (B, S, T=20, D=32).
+    compress_n_latent_n: 32 # LDNS latent_dim.
+    compress_n_t_coarse: 5 # readout temporal slots, upsampled to t_target.
+    compress_n_t_target: 20 # predicted latent-T (200 ms @ 10 ms).
+    compress_n_temporal_upsample: "interpolate"
+    compress_n_target_slice: 20 # leading latent bins of the 250-bin encode.
+
+    use_ldns_denoiser: false
+    ldns_hidden_channels: 64
+    ldns_num_blocks: 4
+    ldns_kernel_size: 15
+
+    flow_head_width: 256
+    flow_head_depth: 3
+
+tokenizer:
+    # checkpoint_path / enabled / checkpoint_first: injected by the launcher.
+    latent_scale: "auto_per_channel" # per-channel std calib of continuous z.
+
+trainer:
+    lr: 5e-4
+    n_epochs: 60
+    max_steps: -1
+    check_val_every_n_epoch: 31 # one mid-training val.
+    compile: false
+    eval_rebin_hz: null # native 10 ms eval.
+    # Inference-time flow sampling: euler / 5 steps (tokenizer_eval, = trainer
+    # default); final_eval keeps its default heun solver.
+    tokenizer_eval:
+        flow_solver: "euler"
+        n_flow_steps: 5
+    experiment_name: "ntt-encoding-cowley"
+
+tags:
+    model: "ldns_flow_10ms_pointwise"
+    dataset: "cowley_v4"
+    subjects: "Pepe"
+
+description: "ntt-side downstream encoding for the vanilla LDNS tokenizer (flow_matching, 10ms bins, 32-d latent, 2.5s encode / 20-bin predict slice), Pepe-only, bs=64 lr=5e-4."

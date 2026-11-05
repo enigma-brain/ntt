@@ -1,0 +1,12 @@
+# Val: cross-session held-out sessions (subjects seen in train).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: allen_visual_behaviour_neuropixels
+    sessions:
+      - mouse544456_session1064400234
+      - mouse558306_session1095340643
+      - mouse560356_session1093638203
+      - mouse560962_session1099869737
+      - mouse576323_session1117148442
+config:
+  ignore_splits: true

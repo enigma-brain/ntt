@@ -1,0 +1,198 @@
+# Hill-climb evaluation: reduced default for fast iteration during model dev.
+# Inherits all spike-quality, ISI, population, structure, behavioral regression,
+# and behavioral classification metrics from default.  Disables temporal-decoder
+# metrics, and sweeps a subset of binnable metrics across bin sizes.
+#
+# The 1ms point is encoded by overriding the existing default entry (deep
+# merge) so that side params from metrics/<X>.yaml are preserved.  Higher bin
+# sizes are added as fresh _Xms entries that restate side params explicitly
+# to avoid silent drops.
+#
+# Sweep grid:
+#   spike_count_correlation, binned_rate_difference, fano_factor_error,
+#   mutual_information:                                 1, 5, 10, 25, 50 ms
+#   smoothed_squared_error:                             1, 5, 10, 50, 100 ms
+#   acg_correlation, ccg_correlation,                   1, 5, 10 ms
+#   participation_ratio_error, subspace_overlap,
+#   population_coupling_preservation:
+#
+# Note: acg_correlation / ccg_correlation maintain a 100·X lag relationship,
+# i.e. correlogram_max_lag_ms = 100 * correlogram_bin_size_ms.
+#
+# Note: population_structure_preservation and per_unit_structure_preservation
+# have no temporal bin-size parameter (smoothing is in bins, not ms), so they
+# are not swept here and run at their default settings.
+defaults:
+  - default
+  - _self_
+
+metrics:
+  # Use the smallest configured chunk size that is valid and at least 200 ms.
+  behavioral_regression_cursor_pos:
+    chunk_window_ms: [200, 1000]
+  behavioral_regression_cursor_vel:
+    chunk_window_ms: [200, 1000]
+
+  # Disable temporal decoder (already null in default, but explicit for clarity)
+  behavioral_temporal_decoder_cursor_pos: null
+  behavioral_temporal_decoder_cursor_vel: null
+
+  # ════════════════════════════════════════════════════════════════════
+  # 1 ms — base entries overridden in place (deep merge keeps side params)
+  # ════════════════════════════════════════════════════════════════════
+  spike_count_correlation:
+    bin_sizes_ms: [1.0]
+  binned_rate_difference:
+    bin_size_ms: 1.0
+  fano_factor_error:
+    fano_bin_size_ms: 1.0
+  mutual_information:
+    bin_sizes_ms: [1.0]
+  smoothed_squared_error:
+    sigma_ms: 1.0
+  acg_correlation:
+    correlogram_bin_size_ms: 1.0
+    correlogram_max_lag_ms: 100.0
+  ccg_correlation:
+    correlogram_bin_size_ms: 1.0
+    correlogram_max_lag_ms: 100.0
+  participation_ratio_error:
+    population_bin_size_ms: 1.0
+  subspace_overlap:
+    population_bin_size_ms: 1.0
+  population_coupling_preservation:
+    population_bin_size_ms: 1.0
+
+  # ════════════════════════════════════════════════════════════════════
+  # 5 ms
+  # ════════════════════════════════════════════════════════════════════
+  spike_count_correlation_5ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [5.0]
+  binned_rate_difference_5ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 5.0
+    normalize: false
+  fano_factor_error_5ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 5.0
+  mutual_information_5ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [5.0]
+    min_samples: 50
+  smoothed_squared_error_5ms:
+    metric_class: smoothed_squared_error
+    sigma_ms: 5.0
+    causal: false
+    filter_type: gaussian
+  acg_correlation_5ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    acg_smoothing_kernel: 1
+  ccg_correlation_5ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 5.0
+    correlogram_max_lag_ms: 500.0
+    max_pairs_to_compute: 50
+  participation_ratio_error_5ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 5.0
+  subspace_overlap_5ms:
+    metric_class: subspace_overlap
+    population_bin_size_ms: 5.0
+    pca_n_components: 20
+  population_coupling_preservation_5ms:
+    metric_class: population_coupling
+    population_bin_size_ms: 5.0
+
+  # ════════════════════════════════════════════════════════════════════
+  # 10 ms
+  # ════════════════════════════════════════════════════════════════════
+  spike_count_correlation_10ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [10.0]
+  binned_rate_difference_10ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 10.0
+    normalize: false
+  fano_factor_error_10ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 10.0
+  mutual_information_10ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [10.0]
+    min_samples: 50
+  smoothed_squared_error_10ms:
+    metric_class: smoothed_squared_error
+    sigma_ms: 10.0
+    causal: false
+    filter_type: gaussian
+  acg_correlation_10ms:
+    metric_class: acg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    acg_smoothing_kernel: 1
+  ccg_correlation_10ms:
+    metric_class: ccg_correlation
+    correlogram_bin_size_ms: 10.0
+    correlogram_max_lag_ms: 1000.0
+    max_pairs_to_compute: 50
+  participation_ratio_error_10ms:
+    metric_class: dimensionality_error
+    population_bin_size_ms: 10.0
+  subspace_overlap_10ms:
+    metric_class: subspace_overlap
+    population_bin_size_ms: 10.0
+    pca_n_components: 20
+  # population_coupling omitted at 10 ms: Poisson floor saturates.
+
+  # ════════════════════════════════════════════════════════════════════
+  # 25 ms — only the 1/5/10/25/50 group
+  # ════════════════════════════════════════════════════════════════════
+  spike_count_correlation_25ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [25.0]
+  binned_rate_difference_25ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 25.0
+    normalize: false
+  fano_factor_error_25ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 25.0
+  mutual_information_25ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [25.0]
+    min_samples: 50
+
+  # ════════════════════════════════════════════════════════════════════
+  # 50 ms — 1/5/10/25/50 group plus smoothed_squared_error
+  # ════════════════════════════════════════════════════════════════════
+  spike_count_correlation_50ms:
+    metric_class: spike_count_correlation
+    bin_sizes_ms: [50.0]
+  binned_rate_difference_50ms:
+    metric_class: binned_rate_difference
+    bin_size_ms: 50.0
+    normalize: false
+  fano_factor_error_50ms:
+    metric_class: fano_factor_error
+    fano_bin_size_ms: 50.0
+  mutual_information_50ms:
+    metric_class: mutual_information
+    bin_sizes_ms: [50.0]
+    min_samples: 50
+  smoothed_squared_error_50ms:
+    metric_class: smoothed_squared_error
+    sigma_ms: 50.0
+    causal: false
+    filter_type: gaussian
+
+  # ════════════════════════════════════════════════════════════════════
+  # 100 ms — smoothed_squared_error only
+  # ════════════════════════════════════════════════════════════════════
+  smoothed_squared_error_100ms:
+    metric_class: smoothed_squared_error
+    sigma_ms: 100.0
+    causal: false
+    filter_type: gaussian

@@ -1,0 +1,29 @@
+_target_: ntt.jobs.downstream.NTTDownstreamJob
+
+KIND: downstream
+task: encoding
+
+# The user's frozen ntt tokenizer ---------------------------------------------
+ckpt: null                 # local .ckpt path or mlflow-artifacts:/ URI
+
+# Encoding eval ---------------------------------------------------------------
+recipe: cowley_v4_base     # bare name under the submodule's configs/encoding/ OR a path to an
+                           # external Hydra config (absolute, or relative to the ntt repo root)
+                           # — see config/downstream/encoding/example_overlay.yaml
+loss_mode: null            # null -> "mse" (predict the tokenizer's latents). Override for
+                           # flow_matching / diffusion / energy / mar / cross_entropy.
+seed: null                 # global RNG seed (lightning.seed_everything in the submodule)
+
+# Data / output ---------------------------------------------------------------
+data_root: null            # absolute is enforced; forwarded via --data-root
+out: null                  # host-side output root (hydra.run.dir); absolute is enforced
+gpus: null                 # space-separated GPU indices; null -> auto-discover
+extra: []                  # raw passthrough Hydra overrides
+dry_run: false             # print the resolved command + env, do not execute
+
+# Advanced --------------------------------------------------------------------
+root_dir: null             # host repo root; auto-discovered from .project-root when null
+submodule_dir: downstream
+downstream_env: auto       # auto: check the submodule env, build the host-ntt overlay if needed
+                           # verify: check only, raise if wrong (fan-outs from one shared checkout:
+                           # build once with auto, then fan out with verify) — docs/downstream_eval.md

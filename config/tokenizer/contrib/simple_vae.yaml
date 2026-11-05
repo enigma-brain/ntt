@@ -1,0 +1,7 @@
+_target_: ntt.contrib.tokenizer.SimpleVAETokenizerSpec
+KIND: simple_vae
+latent_dim: 8
+hidden_dims:
+ - 64
+ - 32
+beta: 1.0

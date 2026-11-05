@@ -1,0 +1,6 @@
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20131003_center_out_reaching
+      - c_20131010_random_target_reaching  # full train; replaces t_20130820 (a test_xsubject holdout)

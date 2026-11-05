@@ -1,0 +1,34 @@
+defaults:
+  - model_checkpoint
+  - early_stopping
+  - model_summary
+  - rich_progress_bar
+  - learning_rate_monitor
+  # tokenizer_eval excluded — NuCLR is not a tokenizer
+  - _self_
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  filename: "epoch{epoch}-step{step}-val_loss{val/loss:.2f}"
+  monitor: "val/loss"
+  mode: "min"
+  save_last: "link"
+  auto_insert_metric_name: False
+  every_n_epochs: 1
+
+early_stopping:
+  monitor: "val/loss"
+  min_delta: 1.e-4
+  patience: 10
+  mode: "min"
+  divergence_threshold: 10.
+  check_on_train_epoch_end: False
+  check_finite: True
+  strict: True
+
+model_summary:
+  max_depth: 2
+
+learning_rate_monitor:
+  log_momentum: True
+  log_weight_decay: True

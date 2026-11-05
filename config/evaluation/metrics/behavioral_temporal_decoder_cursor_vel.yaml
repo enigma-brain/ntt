@@ -1,0 +1,20 @@
+metric_class: behavioral_temporal_decoder
+target_field: cursor_vel
+grouping_field: trial_id
+grouping_transition: change
+hidden_channels: 32
+kernel_size: 5
+dropout: 0.1
+lr: 1e-3
+weight_decay: 1e-4
+num_epochs: 50
+eval_every: 5
+early_stopping: true
+early_stopping_patience: 5
+random_seed: 42
+device: auto
+drop_invalid: true
+include_phases: [reach_period, random_period]
+filter_field: null
+filter_values: null
+sample_trial_count: 4

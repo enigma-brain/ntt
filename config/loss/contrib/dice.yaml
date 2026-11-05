@@ -1,0 +1,9 @@
+# Asymmetric Tversky (beta > alpha) penalizes missed spikes (FN) more than
+# false alarms (FP), appropriate for sparse spike detection where recall
+# matters more than precision.
+_target_: ntt.contrib.loss.DiceLossSpec
+KIND: dice
+reduction: mean
+eps: 1.0
+alpha: 0.5
+beta: 0.7

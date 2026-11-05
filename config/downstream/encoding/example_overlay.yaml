@@ -1,0 +1,24 @@
+# Example EXTERNAL encoding recipe — lives in ntt, composed against the
+# submodule's internal config tree: the contract launcher adds this folder to
+# Hydra's search path, so `/cowley_v4_base` below resolves inside the
+# submodule (downstream/configs/encoding/). Copy this file as a starting
+# point for per-experiment eval recipes that should be versioned with ntt.
+#
+#   uv run ntt paths.run_name=enc_eval job=downstream_encoding \
+#       job.ckpt=mlflow-artifacts:/123/model.ckpt \
+#       job.recipe=config/downstream/encoding/example_overlay.yaml
+#
+# Everything in this file targets ntt-downstream-INTERNAL Hydra keys — the
+# unversioned side of the contract boundary (see docs/downstream_eval.md).
+# It fails loudly on a bad key but may need updating on submodule bumps.
+# NOTE: ntt-side job.* knobs (job.loss_mode, job.seed, job.data_root, job.out) are
+# emitted as flags / trailing overrides AFTER this file composes, so they win over
+# values set here — set those via the job, not in this file.
+defaults:
+  - /cowley_v4_base   # the submodule's baseline recipe (absolute = search-path root)
+  - _self_
+
+trainer:
+  max_epochs: 50
+data:
+  batch_size: 32

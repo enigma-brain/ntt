@@ -1,0 +1,11 @@
+_target_: ntt.core.model.components.compile.CompileConfig
+enabled: true
+dynamo_cache_size_limit: 4096
+accumulated_cache_size_limit: 4096
+fullgraph: false
+dynamic: true
+mode: null
+coordinate_descent_tuning: false
+prologue_fusion: false
+epilogue_fusion: false
+max_autotune: false

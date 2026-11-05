@@ -1,0 +1,46 @@
+# Base config v2: 64 neurons, no attention, 8-dim latent
+_target_: ntt.contrib.tokenizer.WanNeuralTokenizerSpec
+KIND: wanneural
+
+# Data parameters
+n_neurons: 32
+window_length_seconds: 2.0
+bin_size_ms: 1.0
+
+# Encoder architecture — Wan-scale
+dim: 64
+dec_dim: null
+z_dim: 16
+num_levels: 4
+dim_mult: [1, 2, 4, 4]
+num_res_blocks: 2
+attn_levels: []
+num_attn_heads: 1
+
+# Temporal processing — merged
+temporal_patch_size: 50
+temporal_downsample: [false, true, true]
+k_t: 3
+k_t_down: 3
+s_t_down: 2
+k_t_init: 3
+s_t_init: 1
+
+# Stage shortcuts
+stage_shortcut: true
+
+# Neuron dimension
+neuron_kernel_size: 1
+
+# Bottleneck — VAE
+bottleneck_type: vae
+beta: 1e-6
+
+# Output
+output_activation: softplus
+output_act_beta: 0.1
+
+# Capability metadata
+input_type: rates
+output_type: rates
+token_bin_size_ms: 200.

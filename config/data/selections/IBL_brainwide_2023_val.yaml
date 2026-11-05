@@ -1,0 +1,13 @@
+# Val: cross-session held-out sessions (subjects seen in train).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - csh_zad_022_20200526_csh_zad_022
+      - cshl047_20200122_cshl047
+      - nyu-37_20210127_nyu-37
+      - nyu-45_20210720_nyu-45
+      - zfm-01936_20210122_zfm-01936
+      - zm_2241_20200131_zm_2241
+config:
+  ignore_splits: true

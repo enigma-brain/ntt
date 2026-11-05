@@ -1,0 +1,29 @@
+# EXAMPLE profile for a shared cluster. The paths below are placeholders: copy this
+# file, edit them, and select it with `paths=<name>`. It is not used by default.
+_target_: ntt.settings.PathSettings
+# path to root directory
+# this requires PROJECT_ROOT environment variable to exist
+# you can replace it with "." if you want the root to be the current working directory
+root_dir: ${oc.env:PROJECT_ROOT}
+
+# # Create a temporary directory that will be automatically removed when the process exits
+# efemeral_dir: ${generate_temp_dir:nfmtmp_}
+
+# path to data directory
+data_dir: /shared/datasets/brainsets/processed  # placeholder
+
+# Name of larger experiment which run is a part of, e.g. "response-only-modeling"
+experiment_name: ntt
+# Required interpretable name for current run
+run_name: ???
+
+# path to logging directory
+log_dir: ${paths.root_dir}/logs # ${paths.efemeral_dir}/logs/
+
+# path to output directory, created dynamically by hydra
+# path generation pattern is specified in `configs/hydra/default.yaml`
+# use it to store all files generated during the run, like ckpts and metrics
+output_dir: ${.log_dir}/${hydra:runtime.choices.job}/${.run_name}
+
+# path to working directory
+work_dir: ${hydra:runtime.cwd}

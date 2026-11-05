@@ -1,0 +1,41 @@
+# Base data configuration for NTT experiments. Load from here and override
+#  selections with specific splits.
+defaults:
+  - dataloader: default
+
+_target_: ntt.core.data.datamodule.NTTDataModuleConfig
+root: ${paths.data_dir}
+train_transforms: null
+val_transforms: null
+test_transforms: null
+
+dataloader:
+  batch_size: 32
+  num_workers: 8
+
+# UnitDropout configuration
+unit_dropout_exclude_zero: true
+unit_dropout_sampling_strategy: uniform
+unit_dropout_sampling_temperature: 1.0
+unit_dropout_sampling_weight_minimum: 1e-3
+
+shuffle_train: true
+
+disable_data_leakage_check: false
+
+# Deep unit-index validation: verifies spikes.unit_index.max() < len(units) per
+# recording at init. Adds minutes of network file system I/O on large Neuropixels splits;
+# enable in CI / post-export smoke, leave off for training.
+deep_validate_units: false
+
+########################################################
+######### NOTE: DO NOT REMOVE THIS SECTION!!! ##########
+########################################################
+# This is a workaround to allow for nested instantiation of a `Trainer` object,
+# which takes lists of callbacks, loggers, etc. See :func:`ntt.utils.dict_config_to_list`.
+train_selections:
+  _target_: ntt.utils.dict_config_to_list
+val_selections:
+  _target_: ntt.utils.dict_config_to_list
+test_selections:
+  _target_: ntt.utils.dict_config_to_list

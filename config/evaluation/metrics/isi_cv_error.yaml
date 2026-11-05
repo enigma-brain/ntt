@@ -1,0 +1,2 @@
+metric_class: cv_error
+isi_smoothing_kernel: 1

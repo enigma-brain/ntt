@@ -1,0 +1,8 @@
+# Encoding recipe of the Hugging Face model conv-bsq-100to1, as its published score was computed:
+# cowley_bsq.yaml plus the settings below. Run with job.loss_mode=bce.
+defaults:
+    - cowley_bsq
+    - _self_
+
+trainer:
+  lr: 0.001

@@ -1,0 +1,184 @@
+[project]
+name = "ntt"
+version = "0.1.0"
+description = "Neurons To Tokens: tokenizers and an evaluation suite for neural spike data."
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+license-files = ["LICENSE", "LICENSES/*"]
+authors = [{ name = "Enigma", email = "dev@enigma-brain.com" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "beartype",
+    "brainsets",
+    "debugpy>=1.8.21",
+    "einops>=0.6.0",
+    "hydra-colorlog>=1.2.0",
+    "jaxtyping>=0.3.11",
+    "lightning>=2.6.5",
+    "loguru>=0.7.3",
+    "matplotlib>=3.11.0",
+    "mlflow>=3.14.0",
+    "plotly>=6.9.0",
+    "pandas>=2.0.0",
+    "pyyaml",
+    "pydantic-settings>=2.14.2",
+    "pytorch-brain",
+    "pytorch-wavelets>=1.3.0",
+    "pywavelets>=1.6.0",
+    "random-word>=1.0.13",
+    "rootutils>=1.0.7",
+    "temporaldata",
+    "torchdata>=0.11.0",
+    "seaborn>=0.13.2",
+    "setuptools>=80,<81",
+    "tqdm",
+    "vector-quantize-pytorch",
+    "wandb>=0.28.0",
+    "huggingface-hub>=0.20.0",
+    "safetensors>=0.4.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel>=7.3.0",
+    "jupyter>=1.0.0",
+    "mlcroissant>=1.1.0",
+    "pre-commit>=4.6.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "pyright>=1.1.411",
+    "ruff>=0.15.21",
+]
+
+[tool.uv.sources]
+brainsets = { git = "https://github.com/neuro-galaxy/brainsets.git", rev = "6691f062c2caf92d7eda711df0f7b2f0dc1a7082" }
+pytorch-brain = { git = "https://github.com/neuro-galaxy/torch_brain.git", rev = "e43044d4011299f040399559328238c10f314ad6" }
+temporaldata = { git = "https://github.com/neuro-galaxy/temporaldata.git", rev = "c3d5097aeeb1fba004f14471eed81afe9f3188d3" }
+vector-quantize-pytorch = { git = "https://github.com/lucidrains/vector-quantize-pytorch.git" }
+
+
+[project.urls]
+Homepage = "https://github.com/enigma-brain/ntt"
+Repository = "https://github.com/enigma-brain/ntt"
+
+
+[project.scripts]
+ntt = 'ntt.scripts:main'
+
+[build-system]
+requires = ["setuptools>=80,<81", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+# Only scripts/analysis/dashboard.py and its tests use bokeh. Kept out of the package dependencies so the
+# downstream env overlay (which installs ntt with its dependencies) does not pull it in.
+dashboard = [
+    "bokeh>=3.9.1",
+]
+csensing = [
+    "cvxpylayers>=1.2.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.15.21",
+    "pyright[nodejs]>=1.1.411",
+    "pre-commit>=4.6.0",
+    "ipykernel>=7.3.0",
+    "jupyter>=1.0.0",
+]
+
+[tool.uv]
+package = true
+default-groups = ["dev", "dashboard"]
+# einops is capped <0.7 for torch_brain / flex_attention compatibility; this
+# override narrows the open `einops>=0.6.0` requirement above.
+override-dependencies = ["einops>=0.6.0,<0.7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 99
+src = ["src"]
+# Apply the excludes to paths passed explicitly too (pre-commit passes each file).
+force-exclude = true
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "F722", # syntax error in forward declaration
+    "E201", # whitespace after '('
+    "E202", # whitespace before ')'
+    "E203", # whitespace before ':'
+    "E402", # module level import not at top of file
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*" = ["B018", "F401", "F811"]
+"*.ipynb" = ["E501"]
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules", "**/__pycache__"]
+reportMissingImports = false
+reportMissingTypeStubs = false
+pythonVersion = "3.13"
+pythonPlatform = "Linux"
+typeCheckingMode = "basic"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=src/ntt",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-branch",
+    "-m",
+    "not slow",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

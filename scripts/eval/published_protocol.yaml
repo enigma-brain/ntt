@@ -1,0 +1,158 @@
+# The models of the-enigma-project/ntt-tokenizers on Hugging Face and the settings their
+# published scores were computed with. scripts/eval/published_commands.py turns an entry
+# into ntt commands.
+#
+#   table     the score table the model is in: 200ms, or 1000ms (models with 1000 ms tokens)
+#   encoding  recipe = config/downstream/encoding/<recipe>.yaml and its loss_mode;
+#             null = no encoding score (window or token length does not fit the 200 ms response)
+#   decoding  gpus (default 1) and extra (overrides for every session's run); absent = defaults
+#             The models that encode the whole population at once (LDNS and the Wavelet models) set
+#             tokenizer.full_window_units=true: their encoder reads each neuron by its position, so it
+#             must see every unit of the session in a fixed order. The default hands over only the units
+#             that spike in each window, packed together, which moves neurons between positions.
+#
+# The intrinsic evaluation (reconstruction, repeat SNR, input/latent robustness) uses
+# config/job/published_eval_<name>.yaml when that file exists, else published_eval.yaml.
+models:
+  transformer-vq-100to1-no-population-context:
+    table: 200ms
+    encoding: {recipe: published_transformer-vq-100to1-no-population-context, loss_mode: cross_entropy}
+  transformer-vq-100to1:
+    table: 200ms
+    encoding: {recipe: published_transformer-vq-100to1, loss_mode: cross_entropy}
+  cs-1000to1: {table: 1000ms, encoding: null}
+  cs-100to1:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  cs-1000to1-sinusoidal: {table: 1000ms, encoding: null}
+  cs-100to1-sinusoidal:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  wavelet-ae-2-channels:
+    table: 200ms
+    encoding: {recipe: published_wavelet-ae-2-channels, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-fsq:
+    table: 200ms
+    encoding: {recipe: published_wavelet-fsq, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-rfsq-2-stages:
+    table: 200ms
+    encoding: {recipe: cowley_cosmos, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-vae-2-channels:
+    table: 200ms
+    encoding: {recipe: published_wavelet-vae-2-channels, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-ae-4-channels:
+    table: 200ms
+    encoding: {recipe: published_wavelet-ae-4-channels, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-fsq-8-5-5-5-levels:
+    table: 200ms
+    encoding: {recipe: published_wavelet-fsq-8-5-5-5-levels, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-rfsq-4-stages:
+    table: 200ms
+    encoding: {recipe: cowley_cosmos, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  wavelet-vae-4-channels:
+    table: 200ms
+    encoding: {recipe: published_wavelet-vae-4-channels, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  ldns:
+    table: 200ms
+    encoding: {recipe: cowley_ldns, loss_mode: flow_matching}
+    decoding: {extra: [tokenizer.full_window_units=true]}
+  ldns-perceiver:
+    table: 200ms
+    encoding: {recipe: cowley_perceiver, loss_mode: flow_matching}
+    decoding: {gpus: 4}
+  pca-1000to1: {table: 1000ms, encoding: null}
+  pca-1000to1-10-components: {table: 1000ms, encoding: null}
+  conv-mmd-vae-100to1-lambda-0.01:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-mmd-vae-100to1-z32-lambda-0.01-sigreg-1e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-mmd-vae-100to1-z32-lambda-0.01-sigreg-1e-3-input-jitter:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-mmd-vae-100to1-z32-lambda-0.01-input-jitter:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-mmd-vae-100to1-z32-lambda-0.1:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-bsq-100to1-8-bits:
+    table: 200ms
+    encoding: {recipe: cowley_bsq, loss_mode: bce}
+  conv-bsq-100to1-16-bits:
+    table: 200ms
+    encoding: {recipe: published_conv-bsq-100to1-16-bits, loss_mode: bce}
+  conv-bsq-100to1:
+    table: 200ms
+    encoding: {recipe: published_conv-bsq-100to1, loss_mode: bce}
+  conv-fsq-100to1-5-dims:
+    table: 200ms
+    encoding: {recipe: published_conv-fsq-100to1-5-dims, loss_mode: cross_entropy}
+  conv-fsq-100to1:
+    table: 200ms
+    encoding: {recipe: published_conv-fsq-100to1, loss_mode: cross_entropy}
+  conv-fsq-100to1-6-dims:
+    table: 200ms
+    encoding: {recipe: published_conv-fsq-100to1-6-dims, loss_mode: cross_entropy}
+  conv-rfsq-100to1:
+    table: 200ms
+    encoding: {recipe: published_conv-rfsq-100to1, loss_mode: cross_entropy}
+  conv-rlfq-100to1:
+    table: 200ms
+    encoding: {recipe: published_conv-rlfq-100to1, loss_mode: cross_entropy}
+  conv-vae-100to1-no-sigreg:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-sigreg-1e-3-medium-data:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-sigreg-1e-3-small-data:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-sigreg-1e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-z32-sigreg-1e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-z32-sigreg-1e-3-input-jitter:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-z4-sigreg-1e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-z8-sigreg-1e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-z32-sigreg-2e-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-causal-kl-1e-6:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-causal-kl-1e-7-straightening:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-causal-kl-1e-7-kernel-3:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-100to1-causal-kl-1e-7-kernel-3-straightening:
+    table: 200ms
+    encoding: {recipe: cowley_base, loss_mode: flow_matching}
+  conv-vae-1000to1:
+    table: 1000ms
+    encoding: null
+    decoding:
+      extra: [tokenizer.fixed_window_seconds=1.0]

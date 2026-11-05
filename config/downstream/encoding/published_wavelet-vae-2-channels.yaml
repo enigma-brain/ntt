@@ -1,0 +1,9 @@
+# Encoding recipe of the Hugging Face model wavelet-vae-2-channels, as its published score was computed:
+# cowley_cosmos.yaml plus the settings below. Run with job.loss_mode=flow_matching.
+defaults:
+    - cowley_cosmos
+    - _self_
+
+model:
+  compress_n_latent_n: 2
+  token_prediction_dim: 2

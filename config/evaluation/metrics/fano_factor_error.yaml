@@ -1,0 +1,2 @@
+metric_class: fano_factor_error
+fano_bin_size_ms: 100.0

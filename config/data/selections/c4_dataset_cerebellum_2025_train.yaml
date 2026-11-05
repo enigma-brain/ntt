@@ -1,0 +1,5 @@
+# c4 cerebellum: no training; this selection is intentionally empty.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: c4_dataset_cerebellum_2025
+    sessions: []

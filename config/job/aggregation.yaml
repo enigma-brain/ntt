@@ -1,0 +1,57 @@
+_target_: ntt.jobs.aggregation.NTTAggregationJob
+
+# Input eval result JSONs — local file paths or mlflow-artifacts:/ URIs; all optional
+recon_path: null
+m1_path: null
+m2_path: null
+encoding_path: null
+decoding_path: null
+
+# Poisson reference for normalization of the RECON buckets only (optional).
+# The latent_structure_and_robustness bucket is NOT Poisson-normalized — it reads
+# raw M1/M2/structure values and applies bounded [0,1] transforms — so it ignores this.
+# Set to a local path or mlflow-artifacts:/ URI to enable the recompute path.
+poisson_reference: null
+force_recompute_poisson: false
+# On recompute, a recorded session/setting difference vs the reference is always an
+# error; an aspect the files do not save is an error unless this is true (then a warning).
+common_parts_only: false
+
+# Scoring parameters
+score_clip: -1.0  # recon buckets only; the latent bucket never clips
+compression_metric: compression_rate  # compression_rate | latent_dim_reduction
+# A decoding cohort with missing cells (metadata.cohort.complete = false in downstream's
+# record) scores decoding = None; true scores it over the found cells instead (the missing
+# sessions stay recorded in metadata.downstream.decoding).
+allow_incomplete_decoding_cohort: false
+
+# latent_structure_and_robustness — M2 latent-noise robustness (ON by default;
+# ACG-under-noise at ε=0.1 discriminates cleanly across the tokenizer set).
+# include_m2/m2_epsilon are GLOBAL: fixed across ALL tokenizers in a comparison
+# (never per-tokenizer), so every tokenizer is bounded at the same ACG operating point.
+# Tokenizers without that row are warned-and-excluded (bucket scores on M1+structure).
+include_m2: true
+m2_metric: acg_correlation
+m2_epsilon: 0.1
+
+# Generalization fallback: when the recon report lacks a precomputed
+# `generalization` block, recompute the score from its per_session data.
+generalization_fallback: true
+gen_config_root: config                 # repo config root holding data/selections/composite
+gen_selection_family: ntt_full
+gen_split: val                          # val | test
+gen_baseline_tier: xtime
+
+# Provenance tag — the checkpoint MLflow URI that generated the input JSONs
+ckpt_uri: null
+
+# Required: where to write category_scores.json
+output_path: ???
+
+mlflow_logging:
+  enabled: false
+  experiment_name: ntt-aggregation
+  tracking_uri: null
+  run_name: null
+  run_name_suffix: ""
+  tags: {}

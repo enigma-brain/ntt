@@ -1,0 +1,5 @@
+# Train (small): c4_dataset_cerebellum_2025 has no training data (OOD eval only).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: c4_dataset_cerebellum_2025
+    sessions: []

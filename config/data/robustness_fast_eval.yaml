@@ -1,0 +1,15 @@
+# Small fast-turnaround data config for input_robustness (M1) / latent_robustness (M2) robustness eval.
+#
+# Wired as the default ``data@data_config`` for both the input_robustness (M1) and latent_robustness (M2) job
+# YAMLs. The session mix is defined in the selection file below and stays
+# intentionally small so fast-mode robustness reruns remain tractable.
+defaults:
+  - _ntt
+  - selections@train_selections.0: robustness_fast_eval
+  - selections@val_selections.0: robustness_fast_eval
+  - selections@test_selections.0: robustness_fast_eval
+
+# Pydantic enforces a non-empty train_selections list, so we point train
+# at the same selection — leakage is disabled because this config is
+# only ever used for evaluation, never training.
+disable_data_leakage_check: true

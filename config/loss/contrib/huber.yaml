@@ -1,0 +1,5 @@
+# Huber (Smooth L1) loss configuration
+_target_: ntt.contrib.loss.HuberLossSpec
+KIND: huber
+reduction: mean
+delta: 1.0     # Threshold where loss transitions from quadratic to linear

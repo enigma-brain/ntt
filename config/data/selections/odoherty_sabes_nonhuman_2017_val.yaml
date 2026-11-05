@@ -1,0 +1,10 @@
+# Val: cross-session held-out sessions (subjects seen in train).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20160419_01
+      - indy_20160916_01
+      - indy_20170127_03
+config:
+  ignore_splits: true

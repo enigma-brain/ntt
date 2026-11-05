@@ -1,0 +1,16 @@
+# PCA baseline tokenizer — 100:1 (k=10 components per neuron per window).
+#
+# Per-neuron 1-second window (1000 bins @ 1 ms) collapses to 10 PCA components.
+# Compression ratio = 1000 / 10 = 100:1. Latent shape [B, 1, N, 10].
+
+_target_: ntt.contrib.tokenizer.PCABaselineTokenizerSpec
+KIND: pca_baseline
+
+n_neurons: 32
+window_length_seconds: 1.0
+bin_size_ms: 1.0
+
+n_components: 10
+
+input_type: rates
+output_type: rates

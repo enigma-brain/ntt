@@ -1,0 +1,4 @@
+# Binary Cross-Entropy loss configuration
+_target_: ntt.contrib.loss.BCELossSpec
+KIND: bce
+reduction: mean

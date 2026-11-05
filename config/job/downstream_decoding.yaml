@@ -1,0 +1,54 @@
+_target_: ntt.jobs.downstream.NTTDownstreamJob
+
+KIND: downstream
+task: decoding
+
+# mode: single-run (one lightweight POYO run, no GPU-pool sweep)
+#       | calibrate (single-session base-train + fine-tune sweep)
+#       | benchmark (multi-tokenizer cohort sweep)
+# Each shells into the matching versioned console script:
+#   ntt-downstream-{decode,calibrate,benchmark}.
+mode: single-run
+
+# The user's frozen ntt tokenizer ---------------------------------------------
+# single-run + calibrate: a local .ckpt path or mlflow-artifacts:/ URI.
+ckpt: null
+# benchmark REQUIRES this (and ignores `ckpt`): a directory of tokenizers the
+# contract discovers as <ckpt_root>/<name>/checkpoints/model.ckpt (a symlink into
+# that layout is fine). No more auto-wrapping of a single `ckpt`.
+ckpt_root: null
+
+# Data / cohort ---------------------------------------------------------------
+data_root: null            # absolute is enforced; defaults to ./data/processed in-submodule
+session: null              # single-run: a single recording id
+# Decoding cohorts — names of ntt selections under config/data/selections/
+# (defaults resolve to config/data/selections/decoding/* when null).
+train_selection: null      # calibrate base-train -> TRAIN_SESSIONS
+eval_selection: null       # calibrate -> OTHER_SESSIONS ; benchmark -> SESSIONS
+
+# Training knobs (null -> downstream default) ---------------------------------
+# Apply to single-run + benchmark; calibrate is step-driven, so epochs/model_cfg
+# are ignored there (use job.extra for per-cell train.py overrides).
+epochs: null
+batch_size: null
+seed: null                 # global seed; promoted to every mode (decode/calibrate/benchmark)
+num_workers: null
+model_cfg: null            # poyo_1.3M | poyo_1.3M_no_crossattn | poyo_11.8M
+unit_embedding_mode: null  # none | add | concat
+sentinels: null            # true | false
+
+# Shared knobs ----------------------------------------------------------------
+out: null                  # host-side output root (absolute is enforced)
+gpus: null                 # space-separated GPU indices; null -> auto-discover
+                           # only reaches calibrate/benchmark (via the sweep config); ignored for mode=single-run
+mlflow: null               # calibrate/benchmark: auto | true | false; null -> auto (on iff MLFLOW_TRACKING_URI
+                           # is set). single-run rejects it: it logs only with mlflow.enabled=true in job.extra
+extra: []                  # raw passthrough Hydra overrides (appended last)
+dry_run: false             # print the resolved command + env, do not execute
+
+# Advanced --------------------------------------------------------------------
+root_dir: null             # host repo root; auto-discovered from .project-root when null
+submodule_dir: downstream
+downstream_env: auto       # auto: check the submodule env, build the host-ntt overlay if needed
+                           # verify: check only, raise if wrong (fan-outs from one shared checkout:
+                           # build once with auto, then fan out with verify) — docs/downstream_eval.md

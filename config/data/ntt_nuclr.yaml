@@ -1,0 +1,42 @@
+# NuCLR config composing train/val/test from public datasets.
+# Splits: ~2–3 sessions per brainset for val and test (held out); all others for train.
+# c4_dataset_cerebellum_2025 is val/test only (no training) for out-of-distribution evaluation.
+
+defaults:
+  - _ntt
+  # Full config composing train/val/test sets from all available datasets
+  #
+  # Dataset summary:
+  # ----------------
+  # IBL_brainwide_2023                    | Neuropixels | brainwide      | mouse         | 325 sessions | 97985 units
+  # allen_visual_behaviour_neuropixels    | Neuropixels | visual cortex  | mouse         | 103 sessions |  82133 units
+  # allen_visual_coding_neuropixels       | Neuropixels | visual cortex  | mouse         |  58 sessions |  40010 units
+  # c4_dataset_cerebellum_2025            | Neuropixels | cerebellum     | macaque,mouse | 321 sessions |   4960 units
+  # churchland_shenoy_neural_2012         | Utah array  | M1,PMd         | macaque       |  10 sessions |   1911 units
+  # flint_slutzky_accurate_2012           | Utah array  | M1,PMd         | macaque       |   5 sessions |    957 units
+  # odoherty_sabes_nonhuman_2017          | Utah array  | M1,S1          | macaque       |  47 sessions |  16566 units
+  # perich_miller_population_2018         | Utah array  | M1,PMd         | macaque       | 111 sessions |  10410 units
+
+  # Train selections (all sessions except val+test; c4 train is empty)
+  - selections@train_selections.0: IBL_brainwide_2023_train
+  - selections@train_selections.1: allen_visual_behaviour_neuropixels_train
+  - selections@train_selections.2: allen_visual_coding_neuropixels_train
+  # - selections@train_selections.3: c4_dataset_cerebellum_2025_train # source reserved for val/test only
+  # - selections@train_selections.4: churchland_shenoy_neural_2012_train
+  # - selections@train_selections.6: flint_slutzky_accurate_2012_train
+  # - selections@train_selections.7: odoherty_sabes_nonhuman_2017_train
+  # - selections@train_selections.8: perich_miller_population_2018_train
+
+  # Validation selections
+  - selections@val_selections.0: IBL_brainwide_2023_val
+  - selections@val_selections.1: allen_visual_behaviour_neuropixels_val
+  - selections@val_selections.2: allen_visual_coding_neuropixels_xsubject_val  # no xsession holdouts (1 session per mouse)
+  # - selections@val_selections.7: odoherty_sabes_nonhuman_2017_val
+  # - selections@val_selections.8: perich_miller_population_2018_val
+
+  # Test selections
+  - selections@test_selections.0: IBL_brainwide_2023_test
+  - selections@test_selections.1: allen_visual_behaviour_neuropixels_test
+  - selections@test_selections.2: allen_visual_coding_neuropixels_xsubject_test
+  # - selections@test_selections.7: odoherty_sabes_nonhuman_2017_test
+  # - selections@test_selections.8: perich_miller_population_2018_test

@@ -1,0 +1,28 @@
+_target_: ntt.contrib.tokenizer.compressed_sensing.CompressedSensingTokenizerSpec
+KIND: compressed_sensing
+
+# Base TokenizerSpec parameters
+# 100 ms window keeps token_bin_size_ms (= window_length_seconds * 1000)
+# divisible into the 200 ms behavioural chunk, so behavioural-decoding
+# metrics are not skipped.
+window_length_seconds: 0.1
+bin_size_ms: 1.0
+n_neurons: 10 # per_neuron mode will still treat them independently
+shuffling_strategy: "none"
+sampling_strategy: "uniform"
+
+# CompressedSensingTokenizerSpec parameters
+# signal_dim = window_length_seconds / bin_size_ms = 100 bins per neuron;
+# latent_dim = 10 → 10× compression, well within the regime where CS recovery
+# is meaningful for sparse spike data.
+compress_mode: per_neuron # Sensing [m, T] applied per neuron independently
+latent_dim: 10
+trainable: false
+random_seed: 0
+solver: fista
+fista_iterations: 500
+fista_lambda: 0.01
+nonneg: true
+
+# Matrix initialization
+matrix_type: gaussian

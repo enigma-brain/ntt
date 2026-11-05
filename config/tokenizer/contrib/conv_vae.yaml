@@ -1,0 +1,40 @@
+# Convolutional VAE tokenizer
+#
+# 1D conv VAE for multi-neuron spike data.
+# - compress_n=false (default): each neuron encoded independently, latent has U dim
+# - compress_n=true: neurons mixed as channels, latent has singleton U dim
+#
+# Temporal compression is controlled by downsample_factors (product of all values).
+# channel_multipliers controls width only.
+#
+# Output type is RATES, pair with Poisson NLL loss.
+
+_target_: ntt.contrib.tokenizer.ConvVAETokenizerSpec
+KIND: conv_vae
+
+# Data parameters
+n_neurons: 32
+window_length_seconds: 0.5
+bin_size_ms: 5.0
+
+# Architecture
+hidden_channels: 32
+latent_channels: 16
+channel_multipliers: # Width per stage (does NOT control compression)
+  - 1
+  - 2
+  - 4
+downsample_factors: # Temporal stride per stage (product = total compression)
+  - 10 # 100 → 10
+  - 10 # 10  → 1    (total 100x, token_bin = 500ms)
+num_res_blocks: 1
+dropout: 0.1
+
+# Neuron compression (false = per-neuron encoding with shared weights)
+compress_n: false
+
+# KL parameters — cyclical cosine annealing (Fu et al., 2019)
+kl_weight: 5.0e-3
+kl_anneal_steps: 60000 # Total steps for all cycles
+kl_n_cycles: 3 # Number of ramp-and-hold cycles
+kl_cycle_ratio: 0.75 # Fraction of each cycle spent ramping (rest holds at max)

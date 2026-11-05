@@ -1,0 +1,33 @@
+# Downstream decoding — tokenizer-benchmark EVAL cohort (12 sessions).
+#
+# Source of truth for `mode=benchmark`'s SESSIONS, promoted from ntt-downstream
+# configs/decoding/single_session/data_benchmark.yaml (`other_sessions`).
+# Restricted to monkeys c and t, balanced 6/6, each session kept under ~90
+# units to bound memory/runtime. Single brainset (perich_miller_population_2018).
+#
+# The inline label is each session's status in ntt_full (the tokenizers' split):
+#   train         — in ntt_full train (Tier 1 / xtime: seen during training)
+#   val_xsession  — Tier 2 holdout (subject c seen in training)
+#   val_xsubject / test_xsubject — Tier 3 holdout (monkey t never in training)
+# ntt_full split: 5 train, 1 val_xsession, 3 val_xsubject, 3 test_xsubject.
+# The source file's "4 per tier" grouping was relative to the calibration
+# train sessions and does not match these. Labels are comments only: the
+# benchmark receives a flat session list and computes no per-tier result.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151103_center_out_reaching                  # 38 units (CO) train
+      - c_20131217_random_target_reaching               # 57 units (RT) train
+      - t_20130904_random_target_reaching               # 73 units (RT) test_xsubject
+      - c_20131031_center_out_reaching                  # 49 units (CO) train
+      - c_20151104_center_out_reaching                  # 59 units (CO) val_xsession
+      - c_20131022_center_out_reaching                  # 41 units (CO) train
+      - c_20150629_center_out_reaching                  # 49 units (CO) train
+      - t_20130819_center_out_reaching                  # 55 units (CO) val_xsubject
+      - t_20130821_center_out_reaching                  # 59 units (CO) val_xsubject
+      - t_20130822_random_target_reaching               # 64 units (RT) val_xsubject
+      - t_20130820_random_target_reaching               # 54 units (RT) test_xsubject
+      - t_20130823_center_out_reaching                  # 45 units (CO) test_xsubject
+config:
+  ignore_splits: true

@@ -1,0 +1,4 @@
+metric_class: behavioral_classification
+target_field: movement_phase
+drop_invalid: true
+balance_classes: true

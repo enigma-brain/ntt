@@ -1,0 +1,18 @@
+# Evaluation config without behavioral/downstream metrics.
+# Inherits all spike-quality, ISI, population, and structure metrics from default.
+# Used as the base for temporal sweep configs.
+defaults:
+  - default
+  - _self_
+
+metrics:
+  # Disable behavioral regression
+  behavioral_regression_cursor_pos: null
+  behavioral_regression_cursor_vel: null
+  # Disable behavioral classification
+  behavioral_classification_trial_target_id: null
+  behavioral_classification_movement_phase: null
+  behavioral_classification_trial_result: null
+  # Disable temporal decoder (already null in default, but explicit for clarity)
+  behavioral_temporal_decoder_cursor_pos: null
+  behavioral_temporal_decoder_cursor_vel: null

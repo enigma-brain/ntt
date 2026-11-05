@@ -1,0 +1,16 @@
+# Downstream decoding — single-session calibration BASE-TRAIN cohort.
+#
+# Source of truth for `mode=calibrate`'s TRAIN_SESSIONS, promoted from
+# ntt-downstream configs/decoding/single_session/data.yaml (`train_sessions`).
+# Pairs one tier-1 center_out and one tier-1 random_target session, both with
+# n_valid_trials >= ceil(86/0.7) ~= 123 so the full calibration is unclamped.
+# Single brainset (perich_miller_population_2018) — required by the flagship
+# script's ${data_root}/${brainset}/${session}.h5 path resolution.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151103_center_out_reaching
+      - c_20131217_random_target_reaching
+config:
+  ignore_splits: true

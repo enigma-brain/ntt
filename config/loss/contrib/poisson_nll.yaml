@@ -1,0 +1,16 @@
+# Poisson Negative Log-Likelihood loss configuration
+#
+# This loss is appropriate for tokenizers that predict firing rates
+# from spike count data. Neural spike counts follow a Poisson distribution,
+# so this loss provides proper probabilistic training.
+#
+# Loss formula: -target * log(rate) + rate + log(target!)
+
+_target_: ntt.contrib.loss.PoissonNLLLossSpec
+KIND: poisson_nll
+
+# Loss settings
+reduction: mean           # How to reduce loss ('mean', 'sum', or 'none')
+log_input: false          # Input is rates, not log-rates
+full: false               # Exclude Stirling approximation term: log(target!)
+eps: 1.0e-8               # Small value for numerical stability

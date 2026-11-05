@@ -1,0 +1,23 @@
+# Combined small fast-eval selection for input_robustness (M1) / latent_robustness (M2) robustness eval.
+#
+# Every session is held out of training (ntt_full_test_* composites), so the
+# full-recording (ignore_splits) scoring is leak-free.
+# Four held-out sessions spanning four datasets, kept deliberately small so
+# input_robustness (M1)/latent_robustness (M2) turnaround stays practical while still probing more than the original
+# Perich+Cowley pair.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    sessions:
+      - t_20130830_random_target_reaching  # ~7.9 MB; ntt_full_test_xsubject (subject T), excluded from full train, absent from medium/small
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201014                          # ~11 MB; ntt_full_test_xsource (cowley is not in any public train selection)
+  - brainset: c4_dataset_cerebellum_2025
+    sessions:
+      - hausser_18-08-30_YC001_probe1      # ntt_full_test_xsource (c4 is not in any public train selection)
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - ibl_witten_17_20200723_ibl_witten_17   # ~22 MB; ntt_full_test_xsession (public), excluded from full train, absent from medium/small
+config:
+  ignore_splits: true  # use full session, not the val_domain subset (matches perich_miller_sample_val behaviour)

@@ -1,0 +1,18 @@
+# https://lightning.ai/docs/pytorch/latest/api/lightning.pytorch.callbacks.RichProgressBar.html
+
+rich_progress_bar:
+  _target_: lightning.pytorch.callbacks.RichProgressBar
+  refresh_rate: 1 # Determines at which rate (in number of batches) the progress bars get updated. Set it to 0 to disable the display.
+  leave: False # Leaves the finished progress bar in the terminal at the end of the epoch.
+  # theme: # (RichProgressBarTheme) Contains styles used to stylize the progress bar
+  #   _target_: lightning.pytorch.callbacks.RichProgressBarTheme
+  #   progress_bar: '#6206E0'
+  #   progress_bar_finished: '#6206E0'
+  #   progress_bar_pulse: '#6206E0'
+  #   batch_progress: ''
+  #   time: 'dim'
+  #   processing_speed: 'dim underline'
+  #   metrics: 'italic'
+  #   metrics_text_delimiter: ' '
+  #   metrics_format: '.3f'
+  # console_kwargs: null

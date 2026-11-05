@@ -1,0 +1,15 @@
+# Encoding recipe of the Hugging Face model conv-fsq-100to1, as its published score was computed:
+# cowley_ce.yaml plus the settings below. Run with job.loss_mode=cross_entropy.
+defaults:
+    - cowley_ce
+    - _self_
+
+model:
+  ce_focal_gamma: 0.0
+  token_prediction_dim: 8
+  ce_eval_use_sampling: true
+trainer:
+  val_micro_batch: 8
+  gradient_accumulation_steps: 2
+dataloader:
+  batch_size: 32

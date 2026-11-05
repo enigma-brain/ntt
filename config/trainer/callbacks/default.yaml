@@ -1,0 +1,40 @@
+defaults:
+  - model_checkpoint
+  - early_stopping
+  - model_summary
+  - rich_progress_bar
+  - learning_rate_monitor
+  - tokenizer_eval
+  - _self_
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  filename: "epoch{epoch}-step{step}-val_loss{validation/loss:.2f}"
+  monitor: "train/loss"
+  mode: "min"
+  save_last: True
+  save_top_k: 2
+  auto_insert_metric_name: False
+  every_n_epochs: null
+  every_n_train_steps: 500
+  save_on_train_epoch_end: True
+  save_on_exception: True
+  verbose: True
+
+
+early_stopping:
+  monitor: "train/loss"
+  min_delta: 1.e-4
+  patience: 5
+  mode: "min"
+  divergence_threshold: 10.
+  check_on_train_epoch_end: True
+  check_finite: True
+  strict: True
+
+model_summary:
+  max_depth: 2
+
+learning_rate_monitor:
+  log_momentum: True
+  log_weight_decay: True

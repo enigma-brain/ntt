@@ -1,0 +1,2 @@
+metric_class: spike_count_correlation
+bin_sizes_ms: [1.0, 5.0, 10.0, 50.0, 100.0]

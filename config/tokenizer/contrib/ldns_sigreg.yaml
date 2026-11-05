@@ -1,0 +1,9 @@
+# LDNS tokenizer with native SigReg enabled.
+
+defaults:
+  - contrib/ldns@_here_
+  - _self_
+
+use_sigreg: true
+sigreg_seed: 42
+views: 0 # No alignment views here, so the auxiliary budget stays entirely on SigReg

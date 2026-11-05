@@ -1,0 +1,9 @@
+# Cross-subject test: sessions from subjects not in training.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: allen_visual_coding_neuropixels
+    sessions:
+      - specimen754477358_session768515987
+      - specimen756578435_session771990200
+config:
+  ignore_splits: true

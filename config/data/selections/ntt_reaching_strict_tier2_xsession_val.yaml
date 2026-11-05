@@ -1,0 +1,22 @@
+# ntt_reaching_strict: exact `ntt_full` subset for tier2_xsession_val.
+# Filtered to odoherty/perich/churchland and to sessions with available binned-deep embeddings.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20160419_01
+      - indy_20160916_01
+      - indy_20170127_03
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20151104_center_out_reaching
+      - c_20151106_center_out_reaching
+      - c_20151201_center_out_reaching
+      - c_20161005_center_out_reaching
+      - m_20140303_center_out_reaching
+  - brainset: churchland_shenoy_neural_2012
+    sessions:
+      - nitschke_20090819_center_out_reaching
+      - nitschke_20100923_center_out_reaching
+config:
+  ignore_splits: true

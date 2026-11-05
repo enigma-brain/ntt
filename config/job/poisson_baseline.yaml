@@ -1,0 +1,41 @@
+# Standalone Poisson-baseline job. Produces poisson_baseline.json that
+# other eval jobs can consume via NTTEvalJob.poisson_reference, skipping
+# their own Poisson computation when the metadata matches.
+#
+# Defaults mirror eval_light (~27 sessions across all tiers, max_eval_seconds=600,
+# max_neurons=200, all neurons used) so a baseline produced here is reusable by
+# any tokenizer eval that runs against the same eval-light scope.
+
+defaults:
+  - /data@data_config: ntt_eval_light
+  - /evaluation@eval_config: hill_climb
+  - _self_
+
+_target_: ntt.jobs.poisson_baseline.NTTPoissonBaselineJob
+
+# Output directory for the artifact (overrideable per-run).
+output_path: null
+
+# Required matching parameters — consumers will be validated against these.
+bin_size_ms: 1.0
+window_length_seconds: 0.1
+rate_estimation_bin_ms: 10.0
+
+split: val
+n_realisations: 5
+seed: 42
+n_workers: null  # null → auto from SLURM_CPUS_PER_TASK
+
+use_all_neurons: true
+
+aggregation_strategy: mean
+
+# Match the eval_light per-session caps so produced baselines are
+# directly comparable to the corresponding model evals.
+eval_config:
+  max_eval_seconds: 600
+  max_neurons: 200
+
+mlflow_logging:
+  enabled: true
+  experiment_name: "ntt-eval"

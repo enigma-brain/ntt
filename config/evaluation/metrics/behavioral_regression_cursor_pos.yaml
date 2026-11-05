@@ -1,0 +1,6 @@
+metric_class: behavioral_regression
+target_field: cursor_pos
+train_include_phases: [reach_period, random_period, inter_trial, return_period]
+train_drop_invalid: false
+eval_include_phases: [reach_period, random_period]
+eval_drop_invalid: false

@@ -1,0 +1,41 @@
+# Eval config: input-corruption robustness (M1).
+#
+# Keep this pass metric-only by default: run ``robustness_input`` and skip
+# the standard metric pack / Poisson baseline work.
+#
+# The default input_robustness (M1) sweep lives here in YAML so it can be inspected and swapped
+# without touching Python. ``schema.py`` still carries fallback defaults for
+# programmatic construction / tests, but normal eval presets should define the
+# sweep explicitly in config.
+
+defaults:
+  - _self_
+
+compute_baseline: false
+# input_robustness (M1) eval quota. Single source of truth: this value applies in both
+# fast and precision modes.
+max_eval_seconds: 300
+# Units per session: all of them, a seeded random subset of this many where there are
+# more (the same units as the main eval and its Poisson baseline). Used with the job's
+# evaluate_all_neurons=true.
+max_neurons: 200
+
+metrics:
+  robustness_input:
+    metric_class: robustness_input
+
+robustness_input:
+  n_replicas: 10
+  plot_examples: true
+  corruptions:
+      # For plotting, this is nicer: (for getting results fast, the other is nicer.)
+    - {type: window_shift, max_shift_ms: [5.0, 3.0, 1.0, 0.0]}
+    - {type: jitter, k_ms: [0.0, 1.0, 3.0], p: 0.2}
+    - {type: drop_and_add, fraction: [0.0, 0.02, 0.05]}
+    - {type: drop_neurons, fraction: [0.0, 0.15],
+       deterministic_per_replica: true}
+    - {type: permute_neurons, deterministic_per_replica: true}
+    # - {type: window_shift, max_shift_ms: [ 3.0]}
+    # - {type: jitter, k_ms: [1.0], p: 0.2}
+    # - {type: drop_and_add, fraction: [0.02]}
+    # - {type: permute_neurons, deterministic_per_replica: true}

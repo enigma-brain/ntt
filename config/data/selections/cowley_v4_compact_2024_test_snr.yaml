@@ -1,0 +1,42 @@
+# Cross-source test sessions for the precision RepeatsSNR pass
+# (data=cowley_v4_compact_val): cowley_v4_compact_2024_test minus the 3
+# sessions the per-stimulus sampler cannot window.
+#
+# config/evaluation/pipelines/cowley_per_stimulus.yaml uses a fixed 200 ms
+# window per stimulus and caps its overlap into the next stimulus at
+# cross_stim_padding_ms=20, so per_stimulus_sampler.py raises "fixed_window
+# overlap with next stimulus exceeds cross_stim_padding_ms" on any session with
+# two stimulus starts < 180 ms apart. Dropped (pairs < 180 ms, min gap):
+#   - PE_210303: 1 pair,   0.123 s
+#   - RA_211025: 10 pairs, 0.178 s
+#   - WE_190927: 12 pairs, 0.113 s
+# The windowing of the remaining 22 sessions is unchanged, so their per-session
+# SNR values are unaffected.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201014
+      - PE_201016
+      - PE_201017
+      - PE_201020
+      - PE_201022
+      - PE_201025
+      - PE_210301
+      - PE_210304
+      - PE_210309
+      - PE_210323
+      - PE_210324
+      - PE_210325
+      - RA_210620
+      - RA_210621
+      - RA_211015
+      - RA_211018
+      - RA_211027
+      - RA_211028
+      - WE_190923
+      - WE_190924
+      - WE_190925
+      - WE_190928
+config:
+  ignore_splits: true

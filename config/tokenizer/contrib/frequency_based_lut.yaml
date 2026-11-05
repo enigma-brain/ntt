@@ -1,0 +1,7 @@
+_target_: ntt.contrib.tokenizer.frequency_based_lut.FrequencyBasedLUTTokenizerSpec
+KIND: frequency_based_lut
+
+vocab_size: 65536
+n_neurons: 1
+window_length_seconds: 1.0
+bin_size_ms: 1.0

@@ -1,0 +1,7 @@
+_target_: ntt.core.data.components.config.DataLoaderConfig
+batch_size: 8
+num_workers: 4
+pin_memory: True
+drop_last: True
+persistent_workers: true
+prefetch_factor: 2

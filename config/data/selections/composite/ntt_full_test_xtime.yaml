@@ -1,0 +1,69 @@
+# Tier 1 (test) — Within-session temporal eval. Same sessions as train;
+# use with split='test' to evaluate on the held-out test_domain.
+# NOTE: Do NOT set ignore_splits for this tier (split-respecting).
+# Membership = training sessions = each training brainset MINUS its
+# test-OOD sessions (the exclude lists below are the union of the
+# ntt_full_test_xsession + ntt_full_test_xsubject composites).
+# xsource brainsets (c4/cowley/wingert) are entirely held out from
+# training and have no xtime membership, so they are omitted here
+# (mirrors ntt_full_val_xtime.yaml).
+# Regenerate when the test-OOD composites change: the exclude lists are the
+# per-brainset union of ntt_full_test_xsession.yaml + ntt_full_test_xsubject.yaml.
+# NOTE: this is the tier-GROUPING definition only. Computing a leak-free
+# test_domain baseline also requires a data config with ignore_splits=false
+# at split=test, which is not yet wired.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    exclude_sessions:
+      - cshl045_20200226_cshl045
+      - cshl052_20200217_cshl052
+      - cshl053_20200201_cshl053
+      - ibl_witten_17_20200723_ibl_witten_17
+      - ks094_20220616_ks094
+      - ucla011_20210720_ucla011
+      - zm_2241_20200127_zm_2241
+  - brainset: allen_visual_behaviour_neuropixels
+    exclude_sessions:
+      - mouse533537_session1055403683
+      - mouse536480_session1064415305
+      - mouse568963_session1111013640
+      - mouse574078_session1115086689
+      - mouse578003_session1119946360
+  - brainset: allen_visual_coding_neuropixels
+    exclude_sessions:
+      - specimen754477358_session768515987
+      - specimen756578435_session771990200
+  - brainset: churchland_shenoy_neural_2012
+    exclude_sessions:
+      - jenkins_20090923_center_out_reaching
+      - nitschke_20090910_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    exclude_sessions:
+      - monkey_c_e2_reaching
+  - brainset: odoherty_sabes_nonhuman_2017
+    exclude_sessions:
+      - indy_20160622_01
+      - indy_20161006_02
+      - indy_20161011_03
+      - indy_20161207_02
+      - loco_20170217_02
+      - loco_20170227_04
+      - loco_20170228_02
+      - loco_20170301_05
+      - loco_20170302_02
+  - brainset: perich_miller_population_2018
+    exclude_sessions:
+      - c_20131220_center_out_reaching
+      - c_20160912_center_out_reaching
+      - j_20160405_center_out_reaching
+      - j_20160407_center_out_reaching
+      - m_20140116_random_target_reaching
+      - m_20140221_random_target_reaching
+      - m_20150612_center_out_reaching
+      - t_20130820_random_target_reaching
+      - t_20130823_center_out_reaching
+      - t_20130830_random_target_reaching
+      - t_20130904_random_target_reaching
+      - t_20130909_center_out_reaching
+      - t_20130910_random_target_reaching

@@ -1,0 +1,3 @@
+metric_class: binned_rate_difference
+bin_size_ms: 5.0
+normalize: false

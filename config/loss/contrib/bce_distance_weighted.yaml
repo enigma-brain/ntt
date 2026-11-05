@@ -1,0 +1,5 @@
+# BCE with distance-weighted false penalty
+_target_: ntt.contrib.loss.BCELossSpec
+KIND: bce
+reduction: mean
+distance_weight_window: 2    # Half-window (in bins) for distance-weighted penalty reduction

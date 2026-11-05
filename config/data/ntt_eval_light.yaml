@@ -1,0 +1,30 @@
+# Light eval (default): 20 sessions across all tiers.
+# Pairs with config/job/eval_light.yaml (evaluate_all_neurons=true).
+
+defaults:
+  - _ntt
+
+  # Train selections (needed for tokenizer spec resolution)
+  - selections@train_selections.0: IBL_brainwide_2023_train
+  - selections@train_selections.1: allen_visual_behaviour_neuropixels_train
+  - selections@train_selections.2: allen_visual_coding_neuropixels_train
+  - selections@train_selections.4: churchland_shenoy_neural_2012_train
+  - selections@train_selections.6: flint_slutzky_accurate_2012_train
+  - selections@train_selections.7: odoherty_sabes_nonhuman_2017_train
+  - selections@train_selections.8: perich_miller_population_2018_train
+
+  # Validation: light eval split by leakage policy.
+  # xtime = training sessions, split-respecting (leak-free held-out window);
+  # OOD   = xsession/xsubject/xsource, full recording (never trained on).
+  - selections@val_selections.0: composite/ntt_eval_light_xtime
+  - selections@val_selections.1: composite/ntt_eval_light_ood
+
+  # Test (job.split=test): same 7 xtime sessions read via test_domain
+  # (ignore_splits=false), plus an OOD block of the same 13 brainset x tier cells
+  # drawn from the ntt_full_test_* composites (never trained on).
+  - selections@test_selections.0: composite/ntt_eval_light_xtime
+  - selections@test_selections.1: composite/ntt_eval_light_ood_test
+
+# Leakage check ON: xtime block is split-respecting (valid_domain); OOD block
+# skips the check via its per-recording ignore_splits=true.
+disable_data_leakage_check: false

@@ -1,0 +1,4 @@
+metric_class: smoothed_squared_error
+causal: false
+filter_type: gaussian
+sigma_ms: 10.0

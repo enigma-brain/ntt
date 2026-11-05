@@ -1,0 +1,273 @@
+# Upstream-source registry for the NTT public dataset Croissant manifest.
+#
+# One entry per public brainset (10 total: 7 held-in + 3 xsource held-out).
+# Consumed by scripts/generate_croissant.py to build the FileObject / FileSet
+# entries that point at upstream public sources.
+#
+# Field semantics:
+#   contentUrl(s) : canonical public URL(s) where the source bytes can be
+#                   obtained. A single string -> one FileObject. A list ->
+#                   multiple FileObjects under one FileSet for that brainset.
+#   license       : SPDX identifier (preferred) or canonical license URL when
+#                   no SPDX equivalent exists (Allen Terms of Use, CRCNS).
+#   license_url   : Canonical URL where the license text lives.
+#   citation      : BibTeX entry for the upstream paper / dataset.
+#   description   : Short prose describing the upstream dataset.
+#   retrieved     : ISO date the URL was last verified.
+#   notes         : Human-readable caveats (NC restriction, redistributability).
+
+IBL_brainwide_2023:
+  contentUrl: https://dandiarchive.org/dandiset/000409
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  citation: |
+    @misc{ibl_dandi_000409,
+      title = {IBL - Brain Wide Map},
+      author = {{International Brain Laboratory}},
+      year = {2023},
+      howpublished = {DANDI Archive, dandiset 000409},
+      doi = {10.48324/dandi.000409},
+    }
+  description: |
+    The International Brain Laboratory brain-wide map: Neuropixels recordings
+    spanning nearly all major mouse brain areas during a visual decision-making
+    task. Released via DANDI archive as dandiset 000409.
+  origin_version: dandi/000409
+  retrieved: "2026-05-03"
+  notes: |
+    License confirmed via DANDI metadata (spdx:CC-BY-4.0).
+
+allen_visual_behaviour_neuropixels:
+  contentUrl: https://allensdk.readthedocs.io/en/latest/visual_behavior_neuropixels.html
+  license: Allen Institute Terms of Use
+  license_url: https://alleninstitute.org/legal/terms-of-use/
+  citation: |
+    @misc{allen_vbn,
+      title = {Allen Brain Observatory: Visual Behavior Neuropixels},
+      author = {{Allen Institute for Brain Science}},
+      year = {2022},
+      url = {https://allensdk.readthedocs.io/en/latest/visual_behavior_neuropixels.html},
+    }
+  description: |
+    Neuropixels recordings from mice performing a visual change-detection task.
+    Distributed via the Allen Institute SDK; documentation and download
+    instructions at the AllenSDK URL.
+  origin_version: allen/vbn
+  retrieved: "2026-05-03"
+  notes: |
+    NonCommercial restriction: the Allen Institute Terms of Use limit use to
+    "research or other noncommercial purposes" and prohibit commercial
+    redistribution without written permission. This is NOT a Creative Commons
+    license; do not encode as CC-BY-NC-4.0.
+
+allen_visual_coding_neuropixels:
+  contentUrl: https://allensdk.readthedocs.io/en/latest/visual_coding_neuropixels.html
+  license: Allen Institute Terms of Use
+  license_url: https://alleninstitute.org/legal/terms-of-use/
+  citation: |
+    @article{siegle2021survey,
+      title = {Survey of spiking in the mouse visual system reveals functional hierarchy},
+      author = {Siegle, Joshua H. and Jia, Xiaoxuan and Durand, S{\'e}verine and others},
+      journal = {Nature},
+      volume = {592},
+      number = {7852},
+      pages = {86--92},
+      year = {2021},
+      doi = {10.1038/s41586-020-03171-x},
+    }
+  description: |
+    Neuropixels recordings from mouse visual cortex and associated structures
+    during passive visual stimulation (drifting gratings, natural scenes,
+    movies). Distributed via the Allen Institute SDK.
+  origin_version: allen/v1
+  retrieved: "2026-05-03"
+  notes: |
+    Same Allen Institute Terms of Use as visual_behaviour_neuropixels;
+    NonCommercial restriction applies.
+
+churchland_shenoy_neural_2012:
+  contentUrl: https://dandiarchive.org/dandiset/000070
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  citation: |
+    @article{churchland2012neural,
+      title = {Neural population dynamics during reaching},
+      author = {Churchland, Mark M. and Cunningham, John P. and Kaufman, Matthew T. and Foster, Justin D. and Nuyujukian, Paul and Ryu, Stephen I. and Shenoy, Krishna V.},
+      journal = {Nature},
+      volume = {487},
+      number = {7405},
+      pages = {51--56},
+      year = {2012},
+      doi = {10.1038/nature11129},
+    }
+  description: |
+    Macaque M1 / dorsal premotor cortex recordings (Utah arrays) during
+    delayed center-out reaching. Released on DANDI as dandiset 000070.
+  origin_version: dandi/000070/draft
+  retrieved: "2026-05-03"
+  notes: |
+    License confirmed via DANDI metadata (spdx:CC-BY-4.0).
+
+flint_slutzky_accurate_2012:
+  contentUrl: https://portal.nersc.gov/project/crcns/download/dream/data_sets/Flint_2012
+  license: CRCNS Data Sharing Policy
+  license_url: https://crcns.org/terms
+  citation: |
+    @article{flint2012accurate,
+      title = {Accurate decoding of reaching movements from field potentials in the absence of spikes},
+      author = {Flint, Robert D. and Lindberg, Eric W. and Jordan, Luke R. and Miller, Lee E. and Slutzky, Marc W.},
+      journal = {Journal of Neural Engineering},
+      volume = {9},
+      number = {4},
+      pages = {046006},
+      year = {2012},
+      doi = {10.1088/1741-2560/9/4/046006},
+    }
+  description: |
+    Macaque M1 / dorsal premotor cortex recordings during reaching. Released
+    via CRCNS as part of the DREAM project.
+  origin_version: "0.0.0"
+  retrieved: "2026-05-03"
+  notes: |
+    The CRCNS Data Sharing Policy is NOT a Creative Commons license. Key
+    constraints: scientific-use only, citation-required, and **redistribution
+    is not permitted** except to direct collaborators or classroom students.
+    This means users of the NTT recipe must download Flint_2012 from CRCNS
+    themselves; the NTT manifest only references the upstream URL.
+
+odoherty_sabes_nonhuman_2017:
+  contentUrl: https://zenodo.org/records/3854034
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  citation: |
+    @article{makin2018superior,
+      title = {Superior arm-movement decoding from cortex with a new, unsupervised-learning algorithm},
+      author = {Makin, Joseph G. and O'Doherty, Joseph E. and Cardoso, Mariana M. B. and Sabes, Philip N.},
+      journal = {Journal of Neural Engineering},
+      volume = {15},
+      number = {2},
+      pages = {026010},
+      year = {2018},
+      doi = {10.1088/1741-2552/aa9e95},
+    }
+  description: |
+    Macaque M1 / S1 recordings during self-paced grid reaching tasks.
+    Released on Zenodo (companion to Makin et al. 2018). The pipeline
+    downloads record 3854034, the 2020 version of the record first published
+    as 583331 (same Zenodo concept record).
+  origin_version: zenodo/583331
+  retrieved: "2026-11-04"
+  notes: |
+    License confirmed via Zenodo API (metadata.license.id = "cc-by-4.0").
+    Dataset DOI: 10.5281/zenodo.3854034. The H5 brainset.source attribute
+    written by the pipeline still reads https://zenodo.org/record/583331.
+
+perich_miller_population_2018:
+  contentUrl: https://dandiarchive.org/dandiset/000688
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  citation: |
+    @article{perich2018neural,
+      title = {A neural population mechanism for rapid learning},
+      author = {Perich, Matthew G. and Gallego, Juan A. and Miller, Lee E.},
+      journal = {Neuron},
+      volume = {100},
+      number = {4},
+      pages = {964--976},
+      year = {2018},
+      doi = {10.1016/j.neuron.2018.09.030},
+    }
+  description: |
+    Macaque M1 / dorsal premotor cortex recordings during center-out and
+    random-target reaching across multiple sessions and subjects. Released
+    on DANDI as dandiset 000688.
+  origin_version: dandi/000688/draft
+  retrieved: "2026-05-03"
+  notes: |
+    License confirmed via DANDI metadata (spdx:CC-BY-4.0).
+
+c4_dataset_cerebellum_2025:
+  # All five sub-records belong to one parent UCL RDR article (id 23702850),
+  # so they share a single license and DOI. We list one FileObject per
+  # download URL so the manifest reflects the actual pipeline inputs.
+  contentUrls:
+    - https://rdr.ucl.ac.uk/ndownloader/files/43102990   # hausser_ground_truth (43.4 GB)
+    - https://rdr.ucl.ac.uk/ndownloader/files/43102996   # hull_ground_truth (2.27 GB)
+    - https://rdr.ucl.ac.uk/ndownloader/files/41721090   # lisberger (41.4 GB)
+    - https://rdr.ucl.ac.uk/ndownloader/files/41720901   # hull_unlabelled (30.6 GB)
+    - https://rdr.ucl.ac.uk/ndownloader/files/42117129   # medina_unlabelled (5.95 GB)
+  parent_record_url: https://rdr.ucl.ac.uk/articles/dataset/Cerebellum_cell_type_collaboration_database/23702850
+  doi: 10.5522/04/23702850.v1
+  license: CC-BY-NC-SA-4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+  citation: |
+    @article{beau2025deep,
+      title = {A deep-learning strategy to identify cell types across species from high-density extracellular recordings},
+      author = {Beau, Maxime and Herzfeld, David J. and Naveros, Francisco and Hemelt, Marie E. and D'Agostino, Federico and Oostland, Marlies and Sanchez-Lopez, Alvaro and Chung, Young Yoon and Maibach, Michael and Kyranakis, Stephen and Stabb, Hannah N. and Martinez Lopera, M. Gabriela and Lajko, Agoston and Zedler, Marie and Ohmae, Shogo and Hall, Nathan J. and Clark, Beverley A. and Cohen, Dana and Lisberger, Stephen G. and Kostadinov, Dimitar and Hull, Court and H{\"a}usser, Michael and Medina, Javier F.},
+      journal = {Cell},
+      volume = {188},
+      number = {8},
+      pages = {2218--2234.e22},
+      year = {2025},
+      doi = {10.1016/j.cell.2025.01.041},
+    }
+    @misc{c4_cerebellum_2025,
+      title = {Cerebellum cell type collaboration database},
+      year = {2025},
+      doi = {10.5522/04/23702850.v1},
+      howpublished = {University College London Research Data Repository, article 23702850},
+    }
+  description: |
+    Cerebellar Neuropixels recordings from multiple labs (Häusser, Hull,
+    Lisberger, Medina) with optotagging labels and layer information where
+    available. Pipeline-bundled URLs at the UCL Research Data Repository.
+  origin_version: c4/2025
+  retrieved: "2026-05-03"
+  notes: |
+    NonCommercial + ShareAlike restrictions apply (CC-BY-NC-SA-4.0). Cite
+    both the companion paper (Beau et al., Cell 2025) and the dataset DOI.
+
+cowley_v4_compact_2024:
+  contentUrl: https://kilthub.cmu.edu/articles/dataset/30500090
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  doi: 10.1184/R1/30500090.v1
+  citation: |
+    @misc{cowley_v4_kilthub_2025,
+      title = {Data from "Compact deep neural network models of visual cortex"},
+      author = {Cowley, B. and Stan, P. and Pillow, J. and Smith, M.},
+      year = {2025},
+      doi = {10.1184/R1/30500090.v1},
+      howpublished = {Carnegie Mellon University Kilthub repository, article 30500090},
+    }
+  description: |
+    Macaque V4 Utah-array recordings during rapid serial visual presentation
+    of natural images. Includes sorted single-unit spike times and the
+    associated 112x112 stimulus images. Hosted on the CMU Kilthub repository.
+  origin_version: kilthub/30500090
+  retrieved: "2026-05-03"
+  notes: |
+    License confirmed via figshare API (license.name = "CC BY 4.0").
+
+wingert_auditory_cortex_2026:
+  contentUrl: https://zenodo.org/records/18331549
+  license: CC-BY-4.0
+  license_url: https://creativecommons.org/licenses/by/4.0/
+  doi: 10.5281/zenodo.18331549
+  citation: |
+    @article{wingert2026auditory,
+      title = {Convolutional neural network models describe the encoding subspace of local circuits in auditory cortex},
+      author = {Wingert, J. C. and Parida, S. and Norman-Haignere, S. V. and David, S. V.},
+      journal = {Nature Neuroscience},
+      year = {2026},
+      doi = {10.1038/s41593-026-02216-0},
+    }
+  description: |
+    Ferret auditory cortex (A1, PEG) recordings during passive listening to
+    natural sounds. Sorted single-unit spike times and 32-channel cochleagram
+    spectrograms. Released on Zenodo as record 18331549.
+  origin_version: zenodo/18331549
+  retrieved: "2026-05-03"
+  notes: |
+    License confirmed via Zenodo API (metadata.license.id = "cc-by-4.0").
+    Dataset DOI: 10.5281/zenodo.18331549.

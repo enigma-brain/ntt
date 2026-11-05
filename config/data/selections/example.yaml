@@ -1,0 +1,19 @@
+# Template for a selection file (schema: ntt.core.data.components.config.SelectionConfig).
+# Use it from a data config as e.g. `- selections@val_selections.0: <file stem>`.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  # One entry per brainset. Give at most ONE of `session`, `sessions`, `subject`,
+  # `subjects`; with none, every session of the brainset is selected.
+  # `exclude_sessions` is then removed from that set.
+  - brainset: BRAINSET_ID_1
+    sessions:
+      - SESSION_ID_1
+      - SESSION_ID_2
+  - brainset: BRAINSET_ID_2
+    exclude_sessions:
+      - HELD_OUT_SESSION_ID
+config:
+  # false (default): use only each session's split interval (train, or the xtime
+  #   holdout). true: use the full session, for held-out val/test sessions.
+  # `sampling_intervals_modifier` is disabled and must stay unset.
+  ignore_splits: false

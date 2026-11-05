@@ -1,0 +1,32 @@
+# Cross-source test: cowley_v4_compact_2024 (entirely held out from training).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201014
+      - PE_201016
+      - PE_201017
+      - PE_201020
+      - PE_201022
+      - PE_201025
+      - PE_210301
+      - PE_210303
+      - PE_210304
+      - PE_210309
+      - PE_210323
+      - PE_210324
+      - PE_210325
+      - RA_210620
+      - RA_210621
+      - RA_211015
+      - RA_211018
+      - RA_211025
+      - RA_211027
+      - RA_211028
+      - WE_190923
+      - WE_190924
+      - WE_190925
+      - WE_190927
+      - WE_190928
+config:
+  ignore_splits: true

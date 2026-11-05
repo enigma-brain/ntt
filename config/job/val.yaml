@@ -1,0 +1,17 @@
+defaults:
+  - /tokenizer@tokenizer_config: ??? # e.g., `contrib/simple_vae`
+  - /loss@loss_config: ??? # e.g., `contrib/mse`
+  - /data@data_config: ntt_full
+  - /compile@compile_config: default
+  - /trainer: default
+  - _self_
+
+_target_: ntt.jobs.val.NTTValJob
+
+KIND: val
+
+# path to a trained Lightning checkpoint (.ckpt)
+ckpt_path: ???
+
+# seed for random number generators in pytorch, numpy and python.random
+seed: null

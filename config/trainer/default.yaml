@@ -1,0 +1,45 @@
+defaults:
+  - /logger@logger.mlflow: mlflow
+  # - /logger@logger.csv: csv # NOTE: You can log to multiple tracking services simultaneously
+  - callbacks: default
+  - _self_
+
+_target_: lightning.pytorch.trainer.Trainer
+
+default_root_dir: ${paths.output_dir}
+
+min_epochs: 1 # prevents early stopping
+max_epochs: 100
+
+accelerator: auto
+devices: 1
+
+# perform a validation loop every N training epochs
+val_check_interval: 10000
+check_val_every_n_epoch: 1
+log_every_n_steps: 500
+
+# set True to to ensure deterministic results
+# makes training slower but gives more reproducibility than just setting seeds
+deterministic: False
+
+detect_anomaly: False
+
+# gradient clipping
+gradient_clip_val: 1.
+gradient_clip_algorithm: norm
+
+accumulate_grad_batches: 1
+
+# precision (choose from [None, bf16-mixed, bf16-true, 16-true])
+precision: bf16-mixed
+
+########################################################
+######### NOTE: DO NOT REMOVE THIS SECTION!!! ##########
+########################################################
+# This is a workaround to allow for nested instantiation of a `Trainer` object,
+# which takes lists of callbacks, loggers, etc. See :func:`ntt.utils.dict_config_to_list`.
+callbacks:
+  _target_: ntt.utils.dict_config_to_list
+logger:
+  _target_: ntt.utils.dict_config_to_list

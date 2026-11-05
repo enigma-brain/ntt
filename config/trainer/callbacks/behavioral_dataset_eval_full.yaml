@@ -1,0 +1,87 @@
+behavioral_dataset_eval:
+  _target_: ntt.evaluation.lightning.BehavioralDatasetEvalCallback
+
+  # Full held-out behavioral eval: classification + regression on all 12
+  # perich_miller VAL holdouts of ntt_full (composite/ntt_full_val_xsession:
+  # subjects c, m; composite/ntt_full_val_xsubject: subjects j, t). None is in
+  # ntt_full train. VAL only, since this is a training-time monitor; the test
+  # holdouts stay untouched. Slower than the default preset; intended for
+  # explicit experiment-level opt-in, not every-epoch use.
+  #
+  # Recommended for large multi-GPU, multi-session tokenizer training runs:
+  # the callback shards sessions round-robin across DDP ranks, so a 4-GPU run
+  # with `max_sessions: 4` evaluates all four held-out sessions in parallel,
+  # one per rank, at roughly the wall-clock cost of a single-session eval.
+  # On a single GPU, prefer the lightweight default preset.
+
+  eval_config:
+    _target_: ntt.evaluation.config.schema.EvaluationConfig
+    allow_lossy_conversion: true
+    conversion_bin_size_ms: 1.0
+    max_windows: null
+    max_bytes: null
+    compute_baseline: false
+    metrics:
+      behavioral_classification_trial_target_id:
+        metric_class: behavioral_classification
+        target_field: trial_target_id
+        drop_invalid: true
+        include_phases: [reach_period, random_period]
+        n_splits: 1
+        standardize: false
+      behavioral_regression_cursor_pos:
+        metric_class: behavioral_regression
+        target_field: cursor_pos
+        train_include_phases: [inter_trial, reach_period, return_period, random_period]
+        train_drop_invalid: false
+        eval_include_phases: [reach_period, random_period]
+        eval_drop_invalid: true
+      behavioral_regression_cursor_vel:
+        metric_class: behavioral_regression
+        target_field: cursor_vel
+        train_include_phases: [inter_trial, reach_period, return_period, random_period]
+        train_drop_invalid: false
+        eval_include_phases: [reach_period, random_period]
+        eval_drop_invalid: true
+
+  selections:
+    - _target_: ntt.core.data.components.config.SelectionConfig
+      selection:
+        - brainset: perich_miller_population_2018
+          # val_xsession (Tier 2): all center-out
+          sessions:
+            - c_20151104_center_out_reaching
+            - c_20151106_center_out_reaching
+            - c_20151201_center_out_reaching
+            - c_20161005_center_out_reaching
+            - m_20140303_center_out_reaching
+      config:
+        ignore_splits: true
+    # odoherty_sabes indy sessions excluded: behavioral fields (cursor_timestamps)
+    # are empty after alignment, causing evaluation to fail.
+    - _target_: ntt.core.data.components.config.SelectionConfig
+      selection:
+        - brainset: perich_miller_population_2018
+          # val_xsubject (Tier 3): the only 2 random-target val holdouts are here.
+          # Order puts one RT session among the first 4 picked by max_sessions
+          # (sessions interleave round-robin across the two blocks).
+          sessions:
+            - t_20130822_random_target_reaching
+            - j_20160406_center_out_reaching
+            - t_20130819_center_out_reaching
+            - t_20130821_center_out_reaching
+            - t_20130903_center_out_reaching
+            - t_20130905_center_out_reaching
+            - t_20130906_random_target_reaching
+      config:
+        ignore_splits: true
+
+  compute_poisson_baseline: true
+  log_prefix: behavioral_xsession_eval
+  max_batches: 10
+  max_windows_per_session: null
+  max_sessions: 4
+  aggregation_strategy: mean
+  eval_on_epoch_end: true
+  every_n_epochs: 5
+  run_on_fit_end: true

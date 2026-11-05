@@ -1,0 +1,93 @@
+defaults:
+  - /tokenizer@tokenizer_config: null # only needed for untrained tokenizers
+  - _self_
+
+_target_: ntt.jobs.eval_all.NTTEvalAllJob
+
+KIND: eval_all
+
+# Provide exactly one: ckpt_path (trained tokenizer) or tokenizer_config (untrained)
+ckpt_path: null
+ckpt_weights_only: false
+
+# Common settings forwarded to the main eval and shared logically across the
+# secondary passes.
+seed: 42
+device: auto
+output_path: null
+split: val
+aggregation_strategy: mean
+tier_selections: null
+
+# Poisson baseline comparison of the reconstruction (main) pass; the SNR and robustness
+# passes run without these settings, the reference included.
+compare_poisson: false
+poisson_reference: null  # local path, mlflow-artifacts:/ or hf://<owner>/<repo>/<file>[@<revision>]
+poisson_rate_bin_ms: null
+poisson_seed: 42
+poisson_n_realisations: 5
+poisson_use_all_neurons: false
+
+# Neuron count for the compression record (main eval pass only; see
+# config/job/eval.yaml). Stripped from the SNR and robustness passes.
+compression_n_neurons: null
+
+# Full-neuron evaluation for every pass (see config/job/eval.yaml); override one pass
+# with job.<pass>.evaluate_all_neurons (e.g. job.latent_robustness.evaluate_all_neurons=false
+# to run padded M2 for cosmos / ldns, which M1/M2 cannot evaluate on all neurons).
+evaluate_all_neurons: true
+
+# Eval window of every pass, in seconds, or "native" = the tokenizer's own window_length_seconds
+# (an error for a distribution-valued window). null = 1.0 s. Saved as scored_window_seconds.
+eval_window_seconds: null
+
+# MLflow logging.
+mlflow_logging:
+  enabled: false
+  experiment_name: "ntt-eval"
+  tracking_uri: null
+  run_name: null
+  run_name_suffix: ""
+  metric_prefix: "eval"
+  # Applies to the main pass only (eval_all.py passes it on). SNR / input_robustness (M1) /
+  # latent_robustness (M2) always get upload_checkpoint=false, so there are no duplicate
+  # artifacts. With the default true, a tokenizer built from a config (Poisson, compressed
+  # sensing) gets a checkpoints/model.ckpt that downstream evals can load. Set
+  # job.mlflow_logging.upload_checkpoint=false to skip the upload. The other
+  # mlflow_logging keys are declared here so they can be overridden on the command line;
+  # the passes take only those overrides, not these defaults.
+  upload_checkpoint: true
+  always_copy_checkpoint: false
+  tags: {}
+
+# Plot generation (main eval / SNR pass only).
+generate_plots: false
+plot_seconds: 600.0
+plot_sessions: 10
+
+# Pass orchestration.
+mode: fast # fast | precision
+
+main:
+  enabled: true
+  evaluate_all_neurons: null # null = job.evaluate_all_neurons
+  evaluation: hill_climb
+  data: ntt_eval_light
+
+snr:
+  enabled: true
+  evaluate_all_neurons: null # null = job.evaluate_all_neurons
+  evaluation: pipelines/cowley_per_stimulus
+  data: null # fast -> cowley_snr_fast_eval, precision -> cowley_v4_compact_val
+
+input_robustness:
+  enabled: true
+  evaluate_all_neurons: null # null = job.evaluate_all_neurons
+  evaluation: metrics/robustness_input
+  data: robustness_fast_eval
+
+latent_robustness:
+  enabled: true
+  evaluate_all_neurons: null # null = job.evaluate_all_neurons
+  evaluation: metrics/robustness_latent
+  data: robustness_fast_eval

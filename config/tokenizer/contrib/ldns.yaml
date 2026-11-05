@@ -1,0 +1,37 @@
+# LDNS (Latent Diffusion for Neural Spiking) tokenizer configuration
+#
+# This tokenizer uses S4 (Structured State Space) blocks for temporal modeling
+# of neural spike data. It encodes spike counts to a continuous latent representation
+# and decodes to predicted firing rates. It compresses the neuron dimension in doing so.
+#
+# Based on: Kapoor, J., et al., 2024. "Latent diffusion for neural spiking data."
+
+_target_: ntt.contrib.tokenizer.ldns.LDNSTokenizerSpec
+KIND: ldns
+
+# Data settings
+n_neurons: 128
+window_length_seconds: 2.56 # 512 bins at 5ms
+bin_size_ms: 5.0
+
+# Architecture settings
+hidden_dim: 256 # Hidden dimension in autoencoder
+latent_dim: 32 # Latent space dimension
+num_encoder_blocks: 6 # Number of S4 encoder blocks
+num_decoder_blocks: 0 # 0 = just GELU + projection (minimal decoder)
+num_lin_per_mlp: 2 # Linear layers per MLP in blocks
+bidirectional: false # Causal (unidirectional) by default
+
+# Regularization settings
+latent_beta: 0.001 # Weight for latent L2 regularization
+latent_td_beta: 0.02 # Weight for temporal dynamics regularization
+latent_td_k: 5 # Number of time differences to consider
+mask_prob: 0.20 # Coordinated dropout probability during training
+use_sigreg: false # Enables SigReg; if views > 0, sigreg_beta also sets the SigReg/alignment tradeoff
+sigreg_seed: 42 # Dedicated RNG seed for reproducible SigReg projections
+views: 0 # Extra latent views; when active, alignment weight is implicitly 1 - sigreg_beta
+
+# Stage 2 settings (disabled by default)
+enable_spike_adapter: false
+spike_history_length: 20
+freeze_autoencoder: false

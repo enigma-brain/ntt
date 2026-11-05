@@ -1,0 +1,27 @@
+# @package _global_
+
+defaults:
+  - paths: default
+  - hydra: default
+  - optional job: train
+
+  # experiment configs allow for version control of specific hyperparameters
+  # e.g. best hyperparameters for given model and datamodule
+  - experiment: null
+
+  # optional local config for machine/user specific settings
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: null
+
+  # debugging config (enable through command line, e.g. `python train.py debug=default)
+  - debug: null
+
+  - _self_
+
+# NOTE: We use the `_target_` and `hydra.instantiate` as the config
+#  still contains non-serializeable objects.
+_target_: ntt.settings.MainSettings
+# Optional configuration flags
+print_cfg: true
+print_schema: false
+ignore_warnings: false

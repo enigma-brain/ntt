@@ -1,0 +1,26 @@
+# Cowley-V4 encoding recipe for Perceiver tokenizers (perceiver_s4, e.g. ldns_perceiver).
+# Usage: ntt job=downstream_encoding job.recipe=<this file> job.loss_mode=flow_matching
+#
+# = cowley_base with only the latent geometry changed (comparable with the other rows).
+# Target: (B, S=M=8 slots, T=20 x 10 ms, D=C=8); 1 ms responses are rebinned to 10 ms.
+# The ckpt's embeddings_path is relative: pass
+# ++tokenizer.embeddings_path=<abs path> via job.extra. Budget ~25-30 h on an A100 40 GB.
+# Checkpoint, loss_mode, data_root and out come from the launcher/job, not this file.
+defaults:
+    - cowley_base
+    - _self_
+
+model:
+    token_t_latent: 1 # compress_n tiling instead of cowley_base's compress_t
+    token_prediction_dim: null
+    compress_n_latent_n: 8 # = perceiver latent_dim C
+    compress_n_t_coarse: 20 # one query per 10 ms bin, no upsampling
+    compress_n_t_target: 20
+
+tokenizer:
+    latent_layout: "m_as_spatial"
+
+tags:
+    model: "hiera_small_perceiver_flowperfs_logitnormal_flow_200ms"
+
+description: "cowley_base with Perceiver latent geometry (8 slots x 8 dims, 20 x 10 ms bins)."

@@ -1,0 +1,39 @@
+defaults:
+  - /tokenizer@tokenizer_config: null # only needed for untrained tokenizers
+  - /data@data_config: robustness_fast_eval
+  - /evaluation@eval_config: metrics/robustness_latent
+  - _self_
+
+_target_: ntt.jobs.eval_robustness_latent.NTTEvalRobustnessLatentJob
+
+KIND: eval_robustness_latent
+
+ckpt_path: null
+ckpt_weights_only: false
+
+seed: 42
+device: auto
+output_path: null
+split: val
+
+# Full-neuron evaluation: every model is scored on the same units (all of each session's
+# units, capped at eval_config.max_neurons by a seeded random subset). false = padded
+# mode: each model is scored on its own first n_neurons units, zero-padded, which is not
+# comparable across models (logs a warning). Not supported for compress_n tokenizers with
+# a fixed n_neurons (cosmos, ldns): those need evaluate_all_neurons=false here.
+evaluate_all_neurons: true
+
+# MLflow logging — disabled by default. When enabled the latent_robustness (M2)
+# pass opens its own MLflow run suffixed ``__m2``, tagged with the same
+# ``ntt.eval.checkpoint_path`` as the main pass. ``upload_checkpoint`` is
+# ``false`` because the main pass uploads bytes; this run links via tag.
+mlflow_logging:
+  enabled: false
+  experiment_name: "ntt-eval"
+  tracking_uri: null
+  run_name: null
+  run_name_suffix: "__m2"
+  metric_prefix: "eval_m2"
+  upload_checkpoint: false
+  always_copy_checkpoint: false
+  tags: {}

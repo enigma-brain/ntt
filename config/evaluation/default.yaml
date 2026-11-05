@@ -1,0 +1,146 @@
+# ── Metric selection ──────────────────────────────────────────────────
+# Individual metric configs live in metrics/*.yaml and are composed via
+# the Hydra defaults list.  Each is injected under metrics.<display_name>.
+# To override a parameter:  +metrics.spike_detection_f1.spike_match_tolerance_ms=2.0
+# To disable a metric:      ~metrics.spike_detection_f1
+defaults:
+  # Spike detection
+  - metrics/spike_detection_f1@metrics.spike_detection_f1
+  - metrics/temporal_precision@metrics.temporal_precision
+  - metrics/spike_count_correlation@metrics.spike_count_correlation
+  - metrics/smoothed_squared_error@metrics.smoothed_squared_error
+  - metrics/binned_rate_difference@metrics.binned_rate_difference
+  # Single unit
+  - metrics/isi_divergence@metrics.isi_divergence
+  - metrics/acg_correlation@metrics.acg_correlation
+  - metrics/isi_cv_error@metrics.isi_cv_error
+  - metrics/isi_cv2_error@metrics.isi_cv2_error
+  - metrics/firing_rate_error@metrics.firing_rate_error
+  - metrics/fano_factor_error@metrics.fano_factor_error
+  # Pairwise
+  - metrics/ccg_correlation@metrics.ccg_correlation
+  - metrics/functional_connectivity_f1@metrics.functional_connectivity_f1
+  # Population
+  - metrics/participation_ratio_error@metrics.participation_ratio_error
+  - metrics/subspace_overlap@metrics.subspace_overlap
+  - metrics/population_coupling_preservation@metrics.population_coupling_preservation
+  # Information
+  - metrics/mutual_information@metrics.mutual_information
+  - metrics/token_dims_per_second@metrics.token_dims_per_second
+  # Structure preservation
+  - metrics/population_structure_preservation@metrics.population_structure_preservation
+  - metrics/per_unit_structure_preservation@metrics.per_unit_structure_preservation
+  # Downstream regression
+  - metrics/behavioral_regression_cursor_pos@metrics.behavioral_regression_cursor_pos
+  - metrics/behavioral_regression_cursor_vel@metrics.behavioral_regression_cursor_vel
+  # Downstream classification
+  - metrics/behavioral_classification_trial_target_id@metrics.behavioral_classification_trial_target_id
+  - metrics/behavioral_classification_movement_phase@metrics.behavioral_classification_movement_phase
+  - metrics/behavioral_classification_trial_result@metrics.behavioral_classification_trial_result
+  - _self_
+
+# Data type handling
+allow_lossy_conversion: true
+conversion_bin_size_ms: 1.0
+
+# Validation collation / segmenting
+max_windows: null
+max_bytes: null
+max_eval_seconds: null  # null = evaluate full session; set e.g. 600 for 10-minute cap
+max_neurons: null         # null = all neurons; set e.g. 200 to cap per-session neuron count
+neuron_subsample_seed: 42
+
+# ── Additional metric selection examples ───────────────────────────────────
+# Each key is a display name; value must contain 'metric_class' referencing
+# a registered metric name, plus optional parameter overrides.
+# Set to null to run all registered metrics with default parameters.
+metrics:
+  # Spike detection
+  spike_detection_f1_strict:
+    metric_class: spike_detection_f1
+    spike_match_tolerance_ms: 0.5 # tighter than the default 1.0
+  # Downstream regression
+  behavioral_regression_cursor_pos:
+    metric_class: behavioral_regression
+    target_field: cursor_pos
+    # Train: broad chunk-level filtering (25% threshold)
+    train_include_phases: [inter_trial, reach_period, return_period, random_period]
+    train_drop_invalid: false
+    # Eval: strict bin-level filtering
+    eval_include_phases: [reach_period, random_period]
+    eval_drop_invalid: true
+    chunk_window_ms: [200, 1000]
+    n_features: null
+    feature_reduction: none
+    behavioral_bin_size_ms: 10
+  behavioral_regression_cursor_vel:
+    metric_class: behavioral_regression
+    target_field: cursor_vel
+    # Train: broad chunk-level filtering (25% threshold)
+    train_include_phases: [inter_trial, reach_period, return_period, random_period]
+    train_drop_invalid: false
+    # Eval: strict bin-level filtering
+    eval_include_phases: [reach_period, random_period]
+    eval_drop_invalid: true
+    chunk_window_ms: [200, 1000]
+    n_features: null
+    feature_reduction: none
+    behavioral_bin_size_ms: 10
+  # Downstream classification
+  behavioral_classification_trial_target_id:
+    metric_class: behavioral_classification
+    target_field: trial_target_id
+    drop_invalid: true
+    include_phases: [reach_period, random_period]
+    chunk_window_ms: [200, 1000]
+    n_features: null
+    feature_reduction: none
+  ## Dropping as this is the same conceptually as target_id:
+  # behavioral_classification_trial_target_dir:
+  #   metric_class: behavioral_classification
+  #   target_field: trial_target_dir
+  #   drop_invalid: true
+  #   include_phases: [reach_period, random_period]
+  behavioral_classification_movement_phase:
+    metric_class: behavioral_classification
+    target_field: movement_phase
+    drop_invalid: true
+    # No phase filter — all phases are valid classes
+    chunk_window_ms: [200, 1000]
+    n_features: null
+    feature_reduction: none
+    balance_classes: true
+    # inter_trial (0) is a valid class, so no excluded labels
+  behavioral_classification_trial_result:
+    ## Does not work for all sessions, since some have only successful trials.
+    metric_class: behavioral_classification
+    target_field: trial_result
+    drop_invalid: true
+    include_phases: [return_period]
+    filter_field: trial_result
+    filter_values: [0, 2]
+    chunk_window_ms: [200, 1000]
+    n_features: null
+    feature_reduction: none
+
+# Normalization
+compute_baseline: true
+
+# Lightning evaluation (used when reading from evaluation defaults)
+lightning_eval:
+  eval_every_n_batches: 100
+  eval_on_epoch_end: true
+  quick_metrics_only: true
+  quick_metrics:
+    - spike_detection_f1
+    - temporal_precision
+    - spike_count_correlation
+    - smoothed_squared_error
+    - binned_rate_difference
+    - isi_divergence
+    - acg_correlation
+    - isi_cv_error
+    - isi_cv2_error
+    - firing_rate_error
+    - fano_factor_error
+  max_units_for_pairwise: 50

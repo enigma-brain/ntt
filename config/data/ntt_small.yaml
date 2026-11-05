@@ -1,0 +1,42 @@
+# Small config: ntt_full with each brainset's train selection replaced by a
+# seeded 30% subset (<brainset>_train_small.yaml, from scripts/generate_scaled_selections.py).
+# Val/test are identical to ntt_full; diff against it to see that only train differs.
+#
+# Eval tiers:
+#   Tier 1 (xtime)    — within-session temporal holdout of the train sessions
+#                       (composite/ntt_full_{val,test}_xtime.yaml; not in val/test here)
+#   Tier 2 (xsession) — held-out sessions from subjects seen in training
+#   Tier 3 (xsubject) — sessions from subjects NOT in training
+#   Tier 4 (xsource)  — sources entirely excluded from training:
+#                        c4_dataset_cerebellum_2025, cowley_v4_compact_2024,
+#                        wingert_auditory_cortex_2026
+#
+# Val/test here combine Tiers 2–4. Per-tier membership lives in
+# composite/ntt_full_{val,test}_<tier>.yaml; config/tier/ntt_full_{val,test}.yaml
+# maps tier names to those files for per-tier eval reporting.
+
+defaults:
+  - _ntt
+
+  # Train selections (all sessions except xsession + xsubject holdouts; c4 excluded)
+  - selections@train_selections.0: IBL_brainwide_2023_train_small
+  - selections@train_selections.1: allen_visual_behaviour_neuropixels_train_small
+  - selections@train_selections.2: allen_visual_coding_neuropixels_train_small
+  # - selections@train_selections.3: c4_dataset_cerebellum_2025_train_small  # source reserved for xsource eval
+  - selections@train_selections.4: churchland_shenoy_neural_2012_train_small
+  - selections@train_selections.6: flint_slutzky_accurate_2012_train_small
+  - selections@train_selections.7: odoherty_sabes_nonhuman_2017_train_small
+  - selections@train_selections.8: perich_miller_population_2018_train_small
+
+  # Validation selections (Tiers 2–4 combined via composite files)
+  - selections@val_selections.0: composite/ntt_full_val_xsession
+  - selections@val_selections.1: composite/ntt_full_val_xsubject
+  - selections@val_selections.2: composite/ntt_full_val_xsource
+
+  # Test selections (Tiers 2–4 combined via composite files)
+  - selections@test_selections.0: composite/ntt_full_test_xsession
+  - selections@test_selections.1: composite/ntt_full_test_xsubject
+  - selections@test_selections.2: composite/ntt_full_test_xsource
+
+# Unlike ntt_full, disable_data_leakage_check is not set: the leakage check stays on
+# (inherited from _ntt).

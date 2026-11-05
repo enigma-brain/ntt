@@ -1,0 +1,4 @@
+metric_class: acg_correlation
+correlogram_max_lag_ms: 100.0
+correlogram_bin_size_ms: 1.0
+acg_smoothing_kernel: 1

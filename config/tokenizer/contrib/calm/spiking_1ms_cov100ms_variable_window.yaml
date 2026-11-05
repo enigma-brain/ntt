@@ -1,0 +1,32 @@
+# CALM spiking tokenizer — 1ms bins, 100ms coverage, variable window (100ms–2s).
+#
+# Uses a UniformDist for window_length_seconds so the tokenizer sees
+# variable-length temporal windows during training.  At eval/inference
+# the maximum window (2s) is used automatically.
+_target_: ntt.contrib.tokenizer.CalmTokenizerSpec
+KIND: calm
+
+n_neurons: 200
+window_length_seconds:
+  _target_: ntt.core.components.dist.UniformDist
+  low: 0.1
+  high: 2.0
+  return_int: false
+
+bin_size_ms: 1.0
+patch_length: 100
+
+embed_dim: 256
+num_encoder_layers: 3
+num_decoder_layers: 3
+num_heads: 4
+causal: true
+
+bottleneck_type: vq
+codebook_size: 256
+
+output_activation: sigmoid
+reconstruct_sample: bernoulli
+
+input_type: binary_spikes
+output_type: binary_spikes

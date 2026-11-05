@@ -1,0 +1,24 @@
+# Cosmos 2D AE — public sweep, residual FSQ bottleneck, lc-group 2.
+# Each of the 2 residual stages is a 4-dim FSQ with levels=[8,5,5,5]
+# (1000 codes per stage). Total information = 2 * log2(1000) ≈ 20 bits/token.
+_target_: ntt.contrib.tokenizer.CosmosTokenizer2DSpec
+KIND: cosmos_2d
+n_neurons: 32
+window_length_seconds: 1.0
+bin_size_ms: 1.0
+bottleneck_type: vqpt
+channels: 64
+channels_mult: [1, 2, 2]
+num_res_blocks: 2
+dropout: 0.0
+z_channels: 64
+neuron_compression: 32
+temporal_compression: 2
+patch_h: 4
+patch_w: 2
+patch_method: db4
+latent_channels: 4  # not used by VQPT
+vqpt_type: residual_fsq
+vqpt_kwargs: { levels: [8, 5, 5, 5], num_quantizers: 2 }
+input_type: rates
+output_type: rates

@@ -1,0 +1,2 @@
+metric_class: isi_divergence
+isi_smoothing_kernel: 1

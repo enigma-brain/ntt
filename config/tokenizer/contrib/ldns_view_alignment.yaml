@@ -1,0 +1,10 @@
+# LDNS tokenizer with native SigReg and extra-view latent alignment enabled.
+# Inherits from ldns directly and applies sigreg + alignment overrides.
+
+defaults:
+  - contrib/ldns@_here_
+  - _self_
+
+use_sigreg: true
+sigreg_seed: 42
+views: 1 # Alignment becomes active here and uses the complementary weight 1 - sigreg_beta

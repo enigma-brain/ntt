@@ -1,0 +1,30 @@
+# Train: all sessions except cross-session and cross-subject eval holdouts.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: perich_miller_population_2018
+    exclude_sessions:
+      - c_20131220_center_out_reaching
+      - c_20151104_center_out_reaching
+      - c_20151106_center_out_reaching
+      - c_20151201_center_out_reaching
+      - c_20160912_center_out_reaching
+      - c_20161005_center_out_reaching
+      - j_20160405_center_out_reaching
+      - j_20160406_center_out_reaching
+      - j_20160407_center_out_reaching
+      - m_20140116_random_target_reaching
+      - m_20140221_random_target_reaching
+      - m_20140303_center_out_reaching
+      - m_20150612_center_out_reaching
+      - t_20130819_center_out_reaching
+      - t_20130820_random_target_reaching
+      - t_20130821_center_out_reaching
+      - t_20130822_random_target_reaching
+      - t_20130823_center_out_reaching
+      - t_20130830_random_target_reaching
+      - t_20130903_center_out_reaching
+      - t_20130904_random_target_reaching
+      - t_20130905_center_out_reaching
+      - t_20130906_random_target_reaching
+      - t_20130909_center_out_reaching
+      - t_20130910_random_target_reaching

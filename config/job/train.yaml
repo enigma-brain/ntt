@@ -1,0 +1,20 @@
+defaults:
+  - /tokenizer@tokenizer_config: ??? # e.g., `contrib/simple_vae`
+  - /loss@loss_config: ??? # e.g., `contrib/mse`
+  - /data@data_config: ntt_full
+  - /optimizer@optimizer_gen: adamw
+  - /scheduler@scheduler_config: linear_warmup_cosine_annealing
+  - /compile@compile_config: default
+  - /trainer: default
+  - _self_
+
+_target_: ntt.jobs.train.NTTTrainJob
+
+KIND: train
+
+# simply provide checkpoint path to resume training
+ckpt_path: null
+weights_only: true
+
+# seed for random number generators in pytorch, numpy and python.random
+seed: null

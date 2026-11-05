@@ -1,0 +1,2 @@
+metric_class: repeats_snr
+grouping_field: image_id

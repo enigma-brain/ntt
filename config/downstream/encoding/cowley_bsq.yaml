@@ -1,0 +1,68 @@
+# Cowley-V4 ENCODING recipe for BSQ tokenizers (bce) — ntt-side path-form
+# external overlay. Sibling of cowley_base.yaml (flow) and cowley_ce.yaml (CE).
+# Composed by
+#   `ntt job=downstream_encoding job.recipe=<this file> job.loss_mode=bce`,
+# which shells into the ntt-downstream submodule and adds this
+# folder to Hydra's search path so the `- model: image_encoding_bce` group
+# resolves INSIDE the submodule (downstream/configs/encoding/).
+#
+# Use ONLY for BSQ-bottleneck tokenizers (latent_type=discrete, name has `bsq`).
+# BSQ codes are {-1,+1} binary; the encoder predicts per-bit logits and trains
+# with BCE. The BSQ tokenizer must expose `bsq_codebook_scale` or model
+# construction fails (a property of the checkpoint, not this recipe).
+#
+# Differences from cowley_base.yaml:
+#   (1) model group is `image_encoding_bce` (BCE head), loss_mode bce.
+#   (2) model.token_prediction_dim=null — auto-derive from the tokenizer's z_dim.
+#       The image_encoding_bce group hardcodes 16; BSQ z_dim varies (z8/z16/z32),
+#       so null lets it follow the checkpoint.
+#   (3) model.token_t_latent=2 — the bce group omits it (schema default is 1),
+#       so set it explicitly for the 200ms/100ms regime.
+#   (4) tokenizer.latent_scale=1.0 — BSQ has its own bsq_codebook_scale; pin
+#       latent_scale to 1.0 so it never auto-calibrates against the codes.
+# Tokenizer checkpoint injected by the launcher from job.ckpt; keep it out here.
+defaults:
+    - data: cowley_v4
+    - backbone: hiera_small_112
+    - model: image_encoding_bce
+    - trainer: default
+    - _self_
+
+# 200 ms response @ 1 ms bins; tokenizer compresses 100 ms -> 1 token (t_comp = 2).
+data:
+    dataset_path: ??? # required override — supplied per-experiment via job.data_root.
+    bin_size: 0.001
+    response_window: 0.200
+    response_offset: 0.000
+    subjects: "Pepe" # Pepe-only; subject embedding off below.
+
+dataloader:
+    batch_size: 64
+
+model:
+    # job.loss_mode=bce is authoritative (appended last); kept for standalone use.
+    loss_mode: "bce"
+    token_t_latent: 2 # MUST equal tokenizer t_comp (200 ms / 100 ms = 2).
+    token_prediction_dim: null # auto-derive BSQ z_dim (the bce group hardcodes 16).
+    readout_use_subject_embedding: false # single-animal run.
+
+tokenizer:
+    # BSQ owns its ±code magnitude via bsq_codebook_scale; pin latent_scale to 1.0
+    # so encode-targets never consult an auto-calibrated scale.
+    latent_scale: 1.0
+
+trainer:
+    lr: 5e-4
+    n_epochs: 50 # BCE plateaus by ~50 (vs 60 for flow).
+    max_steps: -1
+    check_val_every_n_epoch: 26 # one mid-train val near the midpoint.
+    compile: false
+    eval_rebin_hz: 100
+    experiment_name: "ntt-encoding-cowley"
+
+tags:
+    model: "hiera_small_bsq_bce_200ms"
+    dataset: "cowley_v4"
+    subjects: "Pepe"
+
+description: "ntt-side downstream encoding for BSQ tokenizers (bce), 200 ms, Pepe-only, bs=64 lr=5e-4. Tokenizer name set per-experiment."

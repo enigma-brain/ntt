@@ -1,0 +1,22 @@
+# Cowley evaluation with validation windows split on stimulus presentation
+# starts, for SNR plus tokenizer compression reporting.
+defaults:
+  - metrics/repeats_snr@metrics.repeats_snr
+  - metrics/token_dims_per_second@metrics.token_dims_per_second
+  - _self_
+
+allow_lossy_conversion: true
+conversion_bin_size_ms: 1.0
+
+max_windows: null
+max_bytes: null
+interval_source: stimuli
+# Fixed-length stimulus window. With cowley stims at ~88-94 ms and a ~120 ms gap
+# (see memory: reference_cowley_dataset_structure), a 200 ms window fits two
+# 100 ms tokens per stim. Overlap into the next stim is capped at
+# `cross_stim_padding_ms` (sampler asserts this).
+fixed_window_duration_ms: 200.0
+cross_stim_padding_ms: 20.0
+label_extension_ms: 100.0
+
+compute_baseline: false

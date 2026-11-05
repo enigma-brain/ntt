@@ -1,0 +1,13 @@
+# ldns: scored at its 2.5 s training window; input/latent robustness on its own 128 units
+# (no unit covering in the robustness passes).
+defaults:
+  - /job/published_eval@_here_
+  - _self_
+
+eval_window_seconds: native
+input_robustness:
+  evaluate_all_neurons: false
+latent_robustness:
+  evaluate_all_neurons: false
+# 10 ms bins: the 10 ms-bin Poisson reference (still 0.1 s windows, while the model is scored at 2.5 s)
+poisson_reference: hf://the-enigma-project/ntt-tokenizers/poisson_references/recon_bin10ms_rate10ms_window0.1s.json@64d8bb47951d4d1b06765a74db0e7ae8aec36436

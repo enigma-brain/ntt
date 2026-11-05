@@ -1,0 +1,127 @@
+# Cowley-V4 ENCODING recipe for POPULATION "cosmos" tokenizers (compress_n AND
+# compress_t) — ntt-side path-form external overlay. Sibling of cowley_base.yaml
+# (per-neuron flow), cowley_ce.yaml (per-neuron discrete CE), cowley_bsq.yaml
+# (per-neuron BSQ bce). Composed by
+#   `ntt job=downstream_encoding job.recipe=<this file> job.loss_mode=flow_matching`,
+# which shells into the ntt-downstream submodule and adds this
+# folder to Hydra's search path so the `- data:`/`- backbone:`/`- trainer:`
+# groups resolve INSIDE the submodule (downstream/configs/encoding/).
+#
+# Use for ALL 8 cosmos variants (ae / vae / fsq / rfsq, lc2 / lc4). flow_matching
+# regresses the CONTINUOUS latent for all of them, but the latent WIDTH differs
+# by bottleneck — this is the load-bearing gotcha:
+#   ae          -> encode returns `latent_channels` (lc2=2, lc4=4)
+#   vae         -> encode returns `latent_channels` (mu; lc2=2, lc4=4)
+#   fsq         -> encode returns `codebook_dim`     (lc2=2, lc4=4)
+#   rfsq(vqpt)  -> encode returns `z_channels`       (=64; project_in/out round-trip)
+# The project-back-up to z_channels lives in bottleneck.decode(), NOT encode()
+# (src/ntt/contrib/tokenizer/cosmos/bottleneck.py: the AE, VAE, FSQ and VQPT bottlenecks).
+# fsq aside: its startup_roundtrip diagnostic prints a CAUGHT, benign "Expected 4D"
+# warning on the discrete-index path (single-codebook FSQ indices are 3D) — flow
+# training is unaffected; it uses the 4D continuous encode above.
+# The settings below target the rfsq variant (z=64).
+#
+# KEY differences from cowley_base.yaml (per-neuron):
+#   (1) NO `- model:` group — cosmos sets model_type=image_encoding + compress_n_*
+#       knobs inline (flow matching is not gated by any model group).
+#   (2) NO token_t_latent — skipped for compress_n tokenizers (temporal_compression
+#       _factor returns None for cosmos). Latent-T comes from cosmos_target_slice
+#       (K) + compress_n_t_coarse/_t_target.
+#   (3) compress_n_latent_n MUST equal the variant's encode WIDTH (see header).
+#       It sets _loss_token_dim (base_model.py:746 — compress_n_latent_n WINS
+#       over token_prediction_dim) AND must match the auto_per_channel calibrated
+#       std vector length, else _target_to_tokens broadcasts 64-vs-2/4 and dies
+#       (encoding_wrapper.py:2259). Default below is 64 (rfsq); ae/vae MUST
+#       override per-variant via job.extra:
+#         model.compress_n_latent_n=<2|4>  AND  model.token_prediction_dim=<2|4>.
+#       compress_n_t_coarse=_t_target=K=100 (=response_ms/(bin*TC), TC=2). S
+#       (spatial) is auto-built at runtime — do NOT set it.
+#   (4) tokenizer.cosmos_target_slice=K=100 and cosmos_t_safe=195 (decoder-safe
+#       horizon for metric slicing) — NO defaults, must be set here.
+#   (5) tokenizer.tokenizer_window_length_seconds=1.0 (cosmos is rigid at 1s).
+#   (6) latent_scale="auto_per_channel" (per-channel std calib of the continuous z
+#       — correct for a continuous target, unlike the discrete cowley_ce/_bsq=1.0).
+#   (7) readout_use_session_embedding=true (multi-session readout).
+#   (8) eval inference: heun / 50 flow steps; eval_rebin_hz=null.
+#
+# Tokenizer CHECKPOINT injected by the launcher from job.ckpt; keep it OUT here.
+# job.loss_mode / job.data_root / job.out are appended last and WIN — set on the job.
+defaults:
+    - data: cowley_v4
+    - backbone: hiera_small_112
+    - trainer: default
+    - _self_
+
+# 200 ms response @ 1 ms bins; cosmos pads to its rigid 1s window internally.
+data:
+    dataset_path: ??? # required override — supplied per-experiment via job.data_root.
+    bin_size: 0.001
+    response_window: 0.200
+    response_offset: 0.000
+    subjects: "Pepe" # Pepe-only; subject embedding off below.
+
+dataloader:
+    batch_size: 64
+
+model:
+    model_type: "image_encoding"
+    # job.loss_mode=flow_matching is authoritative (appended last); kept for standalone.
+    loss_mode: "flow_matching"
+
+    # Readout.
+    dim_head: 48
+    num_heads: 4
+    readout_mlp_ratio: 4
+    readout_use_session_embedding: true # multi-session readout.
+    readout_use_subject_embedding: false # Pepe-only single-animal.
+    readout_use_gated_ffn: false
+
+    # compress_n target shape: (B, S=U_total[auto], T=K=100, D=encode_width).
+    # D = encode_width = latent_channels (ae/vae: 2|4) | z_channels (rfsq: 64).
+    # 64 here is correct ONLY for rfsq; ae/vae MUST override BOTH this and
+    # model.token_prediction_dim to their latent_channels (2|4) via job.extra.
+    compress_n_latent_n: 64 # rfsq default = z_channels; OVERRIDE for ae/vae.
+    compress_n_t_coarse: 100 # readout temporal slots = K.
+    compress_n_t_target: 100 # final predicted latent-T = K = response_ms/(bin*TC) = 200/2.
+    compress_n_temporal_upsample: "interpolate"
+    # token_t_latent: UNSET — not used/validated for compress_n cosmos.
+    # token_prediction_dim: UNSET — auto-derives to spec.z_channels (=64); ae/vae
+    #   override it to latent_channels so it matches compress_n_latent_n.
+
+    use_full_grid_denoiser: false
+    use_ldns_denoiser: false
+    diffusion_batch_mul: 2
+
+    flow_head_width: 256
+    flow_head_depth: 3
+    flow_time_sampling: "logit_normal" # SD3-style training-time t sampling.
+
+tokenizer:
+    # checkpoint_path / enabled / checkpoint_first: injected by the launcher.
+    tokenizer_window_length_seconds: 1.0 # cosmos is rigid at 1s.
+    latent_scale: "auto_per_channel" # per-channel std calib of continuous z.
+    cosmos_target_slice: 100 # K = leading latent-t positions predicted.
+    cosmos_t_safe: 195 # decoder-safe horizon for metric slicing.
+
+trainer:
+    lr: 5e-4
+    n_epochs: 60
+    max_steps: -1
+    check_val_every_n_epoch: 31 # one mid-training val.
+    compile: false
+    eval_rebin_hz: null # native 1ms eval.
+    # Inference-time flow sampling: heun / 50 steps.
+    tokenizer_eval:
+        flow_solver: "heun"
+        n_flow_steps: 50
+    final_eval:
+        flow_solver: "heun"
+        n_flow_steps: 50
+    experiment_name: "ntt-encoding-cowley"
+
+tags:
+    model: "hiera_small_cosmos_flow_200ms"
+    dataset: "cowley_v4"
+    subjects: "Pepe"
+
+description: "ntt-side downstream encoding for POPULATION cosmos tokenizers (flow_matching on continuous latent), 200 ms, Pepe-only, bs=64 lr=5e-4. Variant + checkpoint set per-experiment."

@@ -1,0 +1,7 @@
+# Focal loss with Gaussian-smoothed soft targets
+_target_: ntt.contrib.loss.FocalLossSpec
+KIND: focal
+reduction: mean
+alpha: 0.25            # Weight for positive class (spikes); 1-alpha for negatives
+gamma: 2.0             # Focusing exponent; higher = downweight easy examples more
+gaussian_sigma: 1.0    # Std-dev (in bins) for Gaussian smoothing of targets

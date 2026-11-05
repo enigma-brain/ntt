@@ -1,0 +1,5 @@
+defaults:
+  - _ntt
+  - selections@train_selections.0: perich_miller_population_2018_train
+  - selections@val_selections.0: perich_miller_population_2018_val
+  - selections@test_selections.0: perich_miller_population_2018_test

@@ -1,0 +1,1349 @@
+{
+  "results": {
+    "spike_detection_f1": {
+      "name": "spike_detection_f1",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9788328560104997,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "mean_false_negatives": 158.585,
+        "mean_false_positives": 43.19,
+        "mean_true_positives": 1761.455,
+        "precision": 0.9878037775863348,
+        "recall": 0.9708922611328658
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "temporal_precision": {
+      "name": "temporal_precision",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.0,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "iqr": 0.0
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "isi_divergence": {
+      "name": "isi_divergence",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.034576859190086094,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "ks_statistic": 0.014511955355603984
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "acg_correlation": {
+      "name": "acg_correlation",
+      "category": "single_unit_statistics",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.980897460018827,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "isi_cv_error": {
+      "name": "cv_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.048158119429455755,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "cv_original": 2.321626482472542,
+        "cv_reconstructed": 2.273468363043086
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "isi_cv2_error": {
+      "name": "cv2_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.009588176821140217,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "ccg_correlation": {
+      "name": "ccg_correlation",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "per_pair",
+      "raw_value": 0.9738049500509276,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "functional_connectivity_f1": {
+      "name": "connectivity_f1",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9722222222222222,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "n_original_connections": 37.0,
+        "n_reconstructed_connections": 35.0,
+        "precision": 1.0,
+        "recall": 0.9459459459459459
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "spike_detection_f1_strict": {
+      "name": "spike_detection_f1",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9783836218966846,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "mean_false_negatives": 161.725,
+        "mean_false_positives": 46.33,
+        "mean_true_positives": 1758.315,
+        "precision": 0.9873093549844023,
+        "recall": 0.9704788872280065
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "acg_correlation_5ms": {
+      "name": "acg_correlation",
+      "category": "single_unit_statistics",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9920224923157999,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "ccg_correlation_5ms": {
+      "name": "ccg_correlation",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "per_pair",
+      "raw_value": 0.9796041898019083,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "acg_correlation_10ms": {
+      "name": "acg_correlation",
+      "category": "single_unit_statistics",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9939258132703183,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "ccg_correlation_10ms": {
+      "name": "ccg_correlation",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "per_pair",
+      "raw_value": 0.9841134245375921,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "spikes_times"
+    },
+    "spike_count_correlation": {
+      "name": "spike_count_correlation",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9831291656510346,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 1.0
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "smoothed_squared_error": {
+      "name": "smoothed_squared_error",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.030912866872497998,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "binned_rate_difference": {
+      "name": "binned_rate_difference",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.3520583212375641,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 1.0,
+        "mean_rate_original_hz": 3.200066566467285,
+        "mean_rate_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "firing_rate_error": {
+      "name": "firing_rate_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.1870250254869461,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "rates_original_hz": 3.200066566467285,
+        "rates_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "fano_factor_error": {
+      "name": "fano_factor_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.00132628212023021,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 1.0,
+        "fano_factor_original": 0.9967838522776886,
+        "fano_factor_reconstructed": 0.9981101343979188
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "mutual_information": {
+      "name": "mutual_information",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9621034354648564,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 1.0
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "token_dims_per_second": {
+      "name": "token_dims_per_second",
+      "category": "latent_quality",
+      "direction": "lower",
+      "level": "population",
+      "raw_value": 40000.0,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "latent_dim": 20.0,
+        "n_token_dims_per_token": 4000.0,
+        "token_bin_size_ms": 100.0
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "population_structure_preservation": {
+      "name": "population_structure_preservation",
+      "category": "latent_quality",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": -0.042688449389788705,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "knn_mean": 0.1471426282051282,
+        "n_samples": 100.0,
+        "rdm_input": 0.7143965460530247,
+        "rdm_latent": 11.49841377143353,
+        "rsa_p_value": 0.002664470750637662
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "per_unit_structure_preservation": {
+      "name": "per_unit_structure_preservation",
+      "category": "latent_quality",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.22116144589396405,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "knn_mean": 0.7222604522792023,
+        "n_samples": 100.0,
+        "n_units": 200.0,
+        "rdm_input": 0.7923605516946094,
+        "rdm_latent": 7.06032044663216,
+        "rsa_p_value": 5.28948259299121e-219
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "spike_count_correlation_5ms": {
+      "name": "spike_count_correlation",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9839500159086895,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 5.0
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "binned_rate_difference_5ms": {
+      "name": "binned_rate_difference",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.31597501039505005,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 5.0,
+        "mean_rate_original_hz": 3.200066566467285,
+        "mean_rate_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "fano_factor_error_5ms": {
+      "name": "fano_factor_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.004287315972486333,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 5.0,
+        "fano_factor_original": 1.012401881828979,
+        "fano_factor_reconstructed": 1.011807787657982
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "mutual_information_5ms": {
+      "name": "mutual_information",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.961051263175733,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 5.0
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "smoothed_squared_error_5ms": {
+      "name": "smoothed_squared_error",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.03582397255627044,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "spike_count_correlation_10ms": {
+      "name": "spike_count_correlation",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.984730532506983,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 10.0
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "binned_rate_difference_10ms": {
+      "name": "binned_rate_difference",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.28257501125335693,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 10.0,
+        "mean_rate_original_hz": 3.200066566467285,
+        "mean_rate_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "fano_factor_error_10ms": {
+      "name": "fano_factor_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.008007217591731392,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 10.0,
+        "fano_factor_original": 1.0428101069963158,
+        "fano_factor_reconstructed": 1.0368077093033334
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "mutual_information_10ms": {
+      "name": "mutual_information",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9630307477860045,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 10.0
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "smoothed_squared_error_10ms": {
+      "name": "smoothed_squared_error",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.04324682589550271,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "spike_count_correlation_25ms": {
+      "name": "spike_count_correlation",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9868412337730473,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 25.0
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "binned_rate_difference_25ms": {
+      "name": "binned_rate_difference",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.2342749983072281,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 25.0,
+        "mean_rate_original_hz": 3.200066566467285,
+        "mean_rate_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "fano_factor_error_25ms": {
+      "name": "fano_factor_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.02962534661269068,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 25.0,
+        "fano_factor_original": 1.1604241719797028,
+        "fano_factor_reconstructed": 1.1308977882466724
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "mutual_information_25ms": {
+      "name": "mutual_information",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9692794200999126,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 25.0
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "spike_count_correlation_50ms": {
+      "name": "spike_count_correlation",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.9891632975632355,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 50.0
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "binned_rate_difference_50ms": {
+      "name": "binned_rate_difference",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.2011583298444748,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 50.0,
+        "mean_rate_original_hz": 3.200066566467285,
+        "mean_rate_reconstructed_hz": 3.0130417346954346
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "fano_factor_error_50ms": {
+      "name": "fano_factor_error",
+      "category": "single_unit_statistics",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.06239526834919225,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "bin_size_ms": 50.0,
+        "fano_factor_original": 1.3326086734407512,
+        "fano_factor_reconstructed": 1.270246061248396
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "mutual_information_50ms": {
+      "name": "mutual_information",
+      "category": "temporal_fidelity",
+      "direction": "higher",
+      "level": "per_unit",
+      "raw_value": 0.975349343259695,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "primary_bin_size_ms": 50.0
+      },
+      "value_range": [
+        0.0,
+        1.0
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "smoothed_squared_error_50ms": {
+      "name": "smoothed_squared_error",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.07547510031274593,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "smoothed_squared_error_100ms": {
+      "name": "smoothed_squared_error",
+      "category": "temporal_fidelity",
+      "direction": "lower",
+      "level": "per_unit",
+      "raw_value": 0.09892505132621227,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean"
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "binary_spikes"
+    },
+    "participation_ratio_error": {
+      "name": "dimensionality_error",
+      "category": "population_structure",
+      "direction": "lower",
+      "level": "population",
+      "raw_value": 3.0033341352048097,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "dimensionality_original": 50.68075228649868,
+        "dimensionality_reconstructed": 53.68408642170349
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "rates"
+    },
+    "subspace_overlap": {
+      "name": "subspace_overlap",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9525231122970581,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "principal_angles": 0.09380613267421722,
+        "variance_explained_original": 0.026823218911886215,
+        "variance_explained_reconstructed": 0.026003524661064148
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    },
+    "population_coupling_preservation": {
+      "name": "population_coupling",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9947994680325806,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "coupling_original": 0.008818800234171982,
+        "coupling_reconstructed": 0.008458185665852281
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    },
+    "participation_ratio_error_5ms": {
+      "name": "dimensionality_error",
+      "category": "population_structure",
+      "direction": "lower",
+      "level": "population",
+      "raw_value": 2.48171802935007,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "dimensionality_original": 53.112201712521056,
+        "dimensionality_reconstructed": 55.593919741871126
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "rates"
+    },
+    "subspace_overlap_5ms": {
+      "name": "subspace_overlap",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.986169159412384,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "principal_angles": 0.06458550691604614,
+        "variance_explained_original": 0.026403862982988358,
+        "variance_explained_reconstructed": 0.025564661249518394
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    },
+    "population_coupling_preservation_5ms": {
+      "name": "population_coupling",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9969621751106287,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "coupling_original": 0.029966013113855033,
+        "coupling_reconstructed": 0.028458924648928557
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    },
+    "participation_ratio_error_10ms": {
+      "name": "dimensionality_error",
+      "category": "population_structure",
+      "direction": "lower",
+      "level": "population",
+      "raw_value": 4.1428200252320195,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "dimensionality_original": 49.681656822317976,
+        "dimensionality_reconstructed": 53.824476847549995
+      },
+      "value_range": [
+        0.0,
+        null
+      ],
+      "source_data_type": "rates"
+    },
+    "subspace_overlap_10ms": {
+      "name": "subspace_overlap",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9964046478271484,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "principal_angles": 0.043021731078624725,
+        "variance_explained_original": 0.026973819360136986,
+        "variance_explained_reconstructed": 0.02586335502564907
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    },
+    "population_coupling_preservation_10ms": {
+      "name": "population_coupling",
+      "category": "population_structure",
+      "direction": "higher",
+      "level": "population",
+      "raw_value": 0.9973406633070804,
+      "normalized_value": null,
+      "metadata": {
+        "n_segments": 1,
+        "std": 0.0,
+        "aggregation_strategy": "mean",
+        "coupling_original": 0.04664084013905901,
+        "coupling_reconstructed": 0.04478391268151839
+      },
+      "value_range": [
+        -1.0,
+        1.0
+      ],
+      "source_data_type": "rates"
+    }
+  },
+  "category_scores": {
+    "temporal_fidelity": 0.5820117574390121,
+    "single_unit_statistics": 0.2793196147649087,
+    "population_structure": 1.4970627847989562,
+    "latent_quality": 13333.39282433217
+  },
+  "skipped_metrics": {
+    "behavioral_regression_cursor_pos": "Computation error: Behavioral field 'cursor_pos' not found in data. Available: []",
+    "behavioral_regression_cursor_vel": "Computation error: Behavioral field 'cursor_vel' not found in data. Available: []",
+    "behavioral_classification_trial_target_id": "Computation error: Behavioral field 'trial_target_id' not found in data. Available: []",
+    "behavioral_classification_movement_phase": "Computation error: Behavioral field 'movement_phase' not found in data. Available: []",
+    "behavioral_classification_trial_result": "Computation error: Behavioral field 'trial_result' not found in data. Available: []"
+  },
+  "config": {
+    "allow_lossy_conversion": true,
+    "conversion_bin_size_ms": 1.0,
+    "allow_stochastic_conversion": false,
+    "stochastic_conversion_seed": 42,
+    "max_windows": null,
+    "max_bytes": null,
+    "max_eval_seconds": 600.0,
+    "max_neurons": 200,
+    "neuron_subsample_seed": 42,
+    "metrics": {
+      "spike_detection_f1": {
+        "metric_class": "spike_detection_f1",
+        "spike_match_tolerance_ms": 1.0
+      },
+      "temporal_precision": {
+        "metric_class": "temporal_precision",
+        "spike_match_tolerance_ms": 1.0
+      },
+      "spike_count_correlation": {
+        "metric_class": "spike_count_correlation",
+        "bin_sizes_ms": "[1.0]"
+      },
+      "smoothed_squared_error": {
+        "metric_class": "smoothed_squared_error",
+        "causal": false,
+        "filter_type": "gaussian",
+        "sigma_ms": 1.0
+      },
+      "binned_rate_difference": {
+        "metric_class": "binned_rate_difference",
+        "bin_size_ms": 1.0,
+        "normalize": false
+      },
+      "isi_divergence": {
+        "metric_class": "isi_divergence",
+        "isi_smoothing_kernel": 1
+      },
+      "acg_correlation": {
+        "metric_class": "acg_correlation",
+        "correlogram_max_lag_ms": 100.0,
+        "correlogram_bin_size_ms": 1.0,
+        "acg_smoothing_kernel": 1
+      },
+      "isi_cv_error": {
+        "metric_class": "cv_error",
+        "isi_smoothing_kernel": 1
+      },
+      "isi_cv2_error": {
+        "metric_class": "cv2_error",
+        "isi_smoothing_kernel": 1
+      },
+      "firing_rate_error": {
+        "metric_class": "firing_rate_error"
+      },
+      "fano_factor_error": {
+        "metric_class": "fano_factor_error",
+        "fano_bin_size_ms": 1.0
+      },
+      "ccg_correlation": {
+        "metric_class": "ccg_correlation",
+        "correlogram_max_lag_ms": 100.0,
+        "correlogram_bin_size_ms": 1.0,
+        "max_pairs_to_compute": 50
+      },
+      "functional_connectivity_f1": {
+        "metric_class": "connectivity_f1",
+        "ccg_significance_threshold": 3.0,
+        "correlogram_max_lag_ms": 100.0,
+        "correlogram_bin_size_ms": 1.0,
+        "max_pairs_to_compute": 50
+      },
+      "participation_ratio_error": {
+        "metric_class": "dimensionality_error",
+        "population_bin_size_ms": 1.0
+      },
+      "subspace_overlap": {
+        "metric_class": "subspace_overlap",
+        "pca_n_components": 20,
+        "population_bin_size_ms": 1.0
+      },
+      "population_coupling_preservation": {
+        "metric_class": "population_coupling",
+        "population_bin_size_ms": 1.0
+      },
+      "mutual_information": {
+        "metric_class": "mutual_information",
+        "bin_sizes_ms": "[1.0]",
+        "min_samples": 50
+      },
+      "token_dims_per_second": {
+        "metric_class": "token_dims_per_second"
+      },
+      "population_structure_preservation": {
+        "metric_class": "population_structure_preservation",
+        "input_metric": "correlation",
+        "latent_metric": "euclidean",
+        "comparison_method": "spearman",
+        "max_samples": 100,
+        "smoothing_sigma_bins": 25
+      },
+      "per_unit_structure_preservation": {
+        "metric_class": "per_unit_structure_preservation",
+        "input_metric": "correlation",
+        "latent_metric": "euclidean",
+        "comparison_method": "spearman",
+        "max_samples": 100,
+        "smoothing_sigma_bins": 25
+      },
+      "behavioral_regression_cursor_pos": {
+        "metric_class": "behavioral_regression",
+        "target_field": "cursor_pos",
+        "train_include_phases": "['inter_trial', 'reach_period', 'return_period', 'random_period']",
+        "train_drop_invalid": false,
+        "eval_include_phases": "['reach_period', 'random_period']",
+        "eval_drop_invalid": true,
+        "chunk_window_ms": 200,
+        "n_features": null,
+        "feature_reduction": "none",
+        "behavioral_bin_size_ms": 10
+      },
+      "behavioral_regression_cursor_vel": {
+        "metric_class": "behavioral_regression",
+        "target_field": "cursor_vel",
+        "train_include_phases": "['inter_trial', 'reach_period', 'return_period', 'random_period']",
+        "train_drop_invalid": false,
+        "eval_include_phases": "['reach_period', 'random_period']",
+        "eval_drop_invalid": true,
+        "chunk_window_ms": 200,
+        "n_features": null,
+        "feature_reduction": "none",
+        "behavioral_bin_size_ms": 10
+      },
+      "behavioral_classification_trial_target_id": {
+        "metric_class": "behavioral_classification",
+        "target_field": "trial_target_id",
+        "drop_invalid": true,
+        "include_phases": "['reach_period', 'random_period']",
+        "chunk_window_ms": 200,
+        "n_features": null,
+        "feature_reduction": "none"
+      },
+      "behavioral_classification_movement_phase": {
+        "metric_class": "behavioral_classification",
+        "target_field": "movement_phase",
+        "drop_invalid": true,
+        "balance_classes": true,
+        "chunk_window_ms": 200,
+        "n_features": null,
+        "feature_reduction": "none"
+      },
+      "behavioral_classification_trial_result": {
+        "metric_class": "behavioral_classification",
+        "target_field": "trial_result",
+        "drop_invalid": true,
+        "include_phases": "['return_period']",
+        "filter_field": "trial_result",
+        "filter_values": "[0, 2]",
+        "chunk_window_ms": 200,
+        "n_features": null,
+        "feature_reduction": "none"
+      },
+      "behavioral_temporal_decoder_cursor_pos": null,
+      "behavioral_temporal_decoder_cursor_vel": null,
+      "spike_detection_f1_strict": {
+        "metric_class": "spike_detection_f1",
+        "spike_match_tolerance_ms": 0.5
+      },
+      "spike_count_correlation_5ms": {
+        "metric_class": "spike_count_correlation",
+        "bin_sizes_ms": "[5.0]"
+      },
+      "binned_rate_difference_5ms": {
+        "metric_class": "binned_rate_difference",
+        "bin_size_ms": 5.0,
+        "normalize": false
+      },
+      "fano_factor_error_5ms": {
+        "metric_class": "fano_factor_error",
+        "fano_bin_size_ms": 5.0
+      },
+      "mutual_information_5ms": {
+        "metric_class": "mutual_information",
+        "bin_sizes_ms": "[5.0]",
+        "min_samples": 50
+      },
+      "smoothed_squared_error_5ms": {
+        "metric_class": "smoothed_squared_error",
+        "sigma_ms": 5.0,
+        "causal": false,
+        "filter_type": "gaussian"
+      },
+      "acg_correlation_5ms": {
+        "metric_class": "acg_correlation",
+        "correlogram_bin_size_ms": 5.0,
+        "correlogram_max_lag_ms": 500.0,
+        "acg_smoothing_kernel": 1
+      },
+      "ccg_correlation_5ms": {
+        "metric_class": "ccg_correlation",
+        "correlogram_bin_size_ms": 5.0,
+        "correlogram_max_lag_ms": 500.0,
+        "max_pairs_to_compute": 50
+      },
+      "participation_ratio_error_5ms": {
+        "metric_class": "dimensionality_error",
+        "population_bin_size_ms": 5.0
+      },
+      "subspace_overlap_5ms": {
+        "metric_class": "subspace_overlap",
+        "population_bin_size_ms": 5.0,
+        "pca_n_components": 20
+      },
+      "population_coupling_preservation_5ms": {
+        "metric_class": "population_coupling",
+        "population_bin_size_ms": 5.0
+      },
+      "spike_count_correlation_10ms": {
+        "metric_class": "spike_count_correlation",
+        "bin_sizes_ms": "[10.0]"
+      },
+      "binned_rate_difference_10ms": {
+        "metric_class": "binned_rate_difference",
+        "bin_size_ms": 10.0,
+        "normalize": false
+      },
+      "fano_factor_error_10ms": {
+        "metric_class": "fano_factor_error",
+        "fano_bin_size_ms": 10.0
+      },
+      "mutual_information_10ms": {
+        "metric_class": "mutual_information",
+        "bin_sizes_ms": "[10.0]",
+        "min_samples": 50
+      },
+      "smoothed_squared_error_10ms": {
+        "metric_class": "smoothed_squared_error",
+        "sigma_ms": 10.0,
+        "causal": false,
+        "filter_type": "gaussian"
+      },
+      "acg_correlation_10ms": {
+        "metric_class": "acg_correlation",
+        "correlogram_bin_size_ms": 10.0,
+        "correlogram_max_lag_ms": 1000.0,
+        "acg_smoothing_kernel": 1
+      },
+      "ccg_correlation_10ms": {
+        "metric_class": "ccg_correlation",
+        "correlogram_bin_size_ms": 10.0,
+        "correlogram_max_lag_ms": 1000.0,
+        "max_pairs_to_compute": 50
+      },
+      "participation_ratio_error_10ms": {
+        "metric_class": "dimensionality_error",
+        "population_bin_size_ms": 10.0
+      },
+      "subspace_overlap_10ms": {
+        "metric_class": "subspace_overlap",
+        "population_bin_size_ms": 10.0,
+        "pca_n_components": 20
+      },
+      "population_coupling_preservation_10ms": {
+        "metric_class": "population_coupling",
+        "population_bin_size_ms": 10.0
+      },
+      "spike_count_correlation_25ms": {
+        "metric_class": "spike_count_correlation",
+        "bin_sizes_ms": "[25.0]"
+      },
+      "binned_rate_difference_25ms": {
+        "metric_class": "binned_rate_difference",
+        "bin_size_ms": 25.0,
+        "normalize": false
+      },
+      "fano_factor_error_25ms": {
+        "metric_class": "fano_factor_error",
+        "fano_bin_size_ms": 25.0
+      },
+      "mutual_information_25ms": {
+        "metric_class": "mutual_information",
+        "bin_sizes_ms": "[25.0]",
+        "min_samples": 50
+      },
+      "spike_count_correlation_50ms": {
+        "metric_class": "spike_count_correlation",
+        "bin_sizes_ms": "[50.0]"
+      },
+      "binned_rate_difference_50ms": {
+        "metric_class": "binned_rate_difference",
+        "bin_size_ms": 50.0,
+        "normalize": false
+      },
+      "fano_factor_error_50ms": {
+        "metric_class": "fano_factor_error",
+        "fano_bin_size_ms": 50.0
+      },
+      "mutual_information_50ms": {
+        "metric_class": "mutual_information",
+        "bin_sizes_ms": "[50.0]",
+        "min_samples": 50
+      },
+      "smoothed_squared_error_50ms": {
+        "metric_class": "smoothed_squared_error",
+        "sigma_ms": 50.0,
+        "causal": false,
+        "filter_type": "gaussian"
+      },
+      "smoothed_squared_error_100ms": {
+        "metric_class": "smoothed_squared_error",
+        "sigma_ms": 100.0,
+        "causal": false,
+        "filter_type": "gaussian"
+      }
+    },
+    "compute_baseline": true
+  },
+  "original_data_type": null,
+  "reconstructed_data_type": null
+}

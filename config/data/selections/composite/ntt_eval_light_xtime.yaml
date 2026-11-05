@@ -1,0 +1,30 @@
+# Light eval — xtime block: the training sessions, evaluated
+# split-respecting.
+# ignore_splits=false so split=val loads valid_domain (the held-out temporal
+# portion) and split=test loads test_domain — a LEAK-FREE generalization
+# baseline. Paired with ntt_eval_light_ood.yaml (full-recording OOD).
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - csh_zad_011_20200321_csh_zad_011
+  - brainset: allen_visual_behaviour_neuropixels
+    sessions:
+      - mouse521466_session1049273528
+  - brainset: allen_visual_coding_neuropixels
+    sessions:
+      - specimen699733581_session715093703
+  - brainset: churchland_shenoy_neural_2012
+    sessions:
+      - jenkins_20090918_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    sessions:
+      - monkey_c_e4_reaching
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20160407_02
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20131029_random_target_reaching
+config:
+  ignore_splits: false

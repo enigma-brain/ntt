@@ -1,0 +1,56 @@
+# Light eval — OOD block for split=test: same 13 brainset x tier cells
+# as ntt_eval_light_ood.yaml, but every session comes from the ntt_full_test_*
+# composites (ntt_full_test_{xsession,xsubject} and
+# ntt_full_test_xsource). This matters twice: aggregation classifies
+# sessions into tiers via composite/ntt_full_{split}_{tier}.yaml, so test
+# sessions must be listed there, and the sessions are held out of training so
+# full-recording eval (ignore_splits=true) is leak-free.
+# Per cell the session is the held-out one closest in unit count to the val
+# pick and (where possible) >= 600 s (max_eval_seconds of eval_light).
+# Sessions already used by robustness_fast_eval / cowley_snr_fast_eval are avoided.
+_target_: ntt.core.data.components.config.SelectionConfig
+selection:
+  # ── xsession (held-out sessions from trained subjects) ──
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - indy_20161011_03
+  - brainset: perich_miller_population_2018
+    sessions:
+      - c_20131220_center_out_reaching
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - cshl045_20200226_cshl045
+  - brainset: allen_visual_behaviour_neuropixels
+    sessions:
+      - mouse536480_session1064415305
+  - brainset: churchland_shenoy_neural_2012
+    sessions:
+      - jenkins_20090923_center_out_reaching
+  - brainset: flint_slutzky_accurate_2012
+    sessions:
+      - monkey_c_e2_reaching
+  # ── xsubject (subjects not in training) ──
+  - brainset: odoherty_sabes_nonhuman_2017
+    sessions:
+      - loco_20170217_02
+  - brainset: perich_miller_population_2018
+    sessions:
+      - j_20160407_center_out_reaching
+  - brainset: IBL_brainwide_2023
+    sessions:
+      - ucla011_20210720_ucla011
+  - brainset: allen_visual_coding_neuropixels
+    sessions:
+      - specimen756578435_session771990200
+  # ── xsource (datasets held out from training) ──
+  - brainset: c4_dataset_cerebellum_2025
+    sessions:
+      - hausser_18-12-13_YC008_probe1
+  - brainset: cowley_v4_compact_2024
+    sessions:
+      - PE_201016
+  - brainset: wingert_auditory_cortex_2026
+    sessions:
+      - CLT034c
+config:
+  ignore_splits: true

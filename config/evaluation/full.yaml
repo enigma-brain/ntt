@@ -1,0 +1,7 @@
+# Full evaluation config — extends default with temporal decoder (TCN) metrics.
+# These train a small CNN per eval call and are significantly slower.
+# Usage:  uv run ntt job=eval evaluation@job.eval_config=full ...
+defaults:
+  - default
+  - metrics/behavioral_temporal_decoder_cursor_pos@metrics.behavioral_temporal_decoder_cursor_pos
+  - metrics/behavioral_temporal_decoder_cursor_vel@metrics.behavioral_temporal_decoder_cursor_vel

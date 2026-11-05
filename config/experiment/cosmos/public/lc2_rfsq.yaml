@@ -1,0 +1,33 @@
+# @package _global_
+# Cosmos 2D pop public sweep — lc-group 2, residual FSQ.
+defaults:
+  - override /job: train
+  - override /tokenizer@job.tokenizer_config: contrib/cosmos/public/lc2_rfsq
+  - override /loss@job.loss_config: contrib/poisson_nll
+paths:
+  run_name: cosmos_public_lc2_rfsq
+job:
+  weights_only: false
+  watch_freq: 50
+  viz_every_n_steps: 100
+  data_config:
+    unit_dropout_exclude_zero: false
+    unit_dropout_sampling_strategy: linear_weighted
+    unit_dropout_sampling_use_global_stats: true
+    dataloader: { batch_size: 128 }
+  compile_config: { enabled: false }
+  trainer:
+    log_every_n_steps: 50
+    val_check_interval: 1000
+    limit_val_batches: 100
+    max_epochs: 4
+    num_sanity_val_steps: 1
+    gradient_clip_val: 1.0
+    callbacks:
+      tokenizer_eval:
+        lightning_config:
+          eval_on_epoch_end: true
+          quick_eval_n_batches: 3
+          full_eval_every_n_epochs: null
+          full_eval_at_training_end: false
+          compare_to_poisson: true

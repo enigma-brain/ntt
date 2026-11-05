@@ -1,0 +1,6 @@
+metric_class: population_structure_preservation
+input_metric: correlation
+latent_metric: euclidean
+comparison_method: spearman
+max_samples: 100
+smoothing_sigma_bins: 25

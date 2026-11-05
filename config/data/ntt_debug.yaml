@@ -1,0 +1,9 @@
+defaults:
+  - _ntt
+  # Debug config using only perich_miller_population_2018 dataset
+  - selections@train_selections.0: perich_miller_sample_train
+  - selections@val_selections.0: perich_miller_sample_val
+  # - selections@test_selections.0: perich_miller_sample_test
+
+# WARNING: If split files above are modified, split leakage should be re-verified!
+disable_data_leakage_check: true
