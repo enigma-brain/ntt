@@ -23,6 +23,7 @@ from typing import Literal
 import torch
 import torch.nn as nn
 
+from ntt.core.components.types import BinnedSpikesInput, TokenizerOutput
 from ntt.core.model.tokenizer.base import (
     BaseTokenizer,
     DataType,
@@ -102,17 +103,17 @@ class MyTokenizer(BaseTokenizer):
             # Your layers here
         )
 
-    def encode(self, x: torch.Tensor) -> torch.Tensor:
+    def encode(self, x: BinnedSpikesInput) -> torch.Tensor:
         """Encode neural data to discrete tokens.
 
         Args:
-            x: Input neural data tensor
+            x: Input batch; spike counts are in x.spike_matrix
 
         Returns:
             Discrete token indices
         """
         # Implement encoding logic
-        z = self.encoder(x)
+        z = self.encoder(x.spike_matrix.float())
         # Quantize to discrete codes
         tokens = self._quantize(z)
         return tokens
@@ -132,18 +133,17 @@ class MyTokenizer(BaseTokenizer):
         reconstruction = self.decoder(z_q)
         return reconstruction
 
-    def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
+    def forward(self, x: BinnedSpikesInput) -> TokenizerOutput:
         """Full forward pass with all outputs.
 
         Args:
-            x: Input neural data
+            x: Input batch
 
         Returns:
-            Dictionary containing:
-                - 'tokens': Discrete token indices
-                - 'reconstruction': Reconstructed data
-                - 'loss': Optional tokenizer-specific loss
-                - Any other outputs needed for training/analysis
+            `TokenizerOutput` containing:
+                - tokens: Discrete token indices
+                - reconstruction: Reconstructed data
+                - aux_loss: Optional extra losses for this tokenizer
         """
         # Encode
         tokens = self.encode(x)
@@ -155,11 +155,11 @@ class MyTokenizer(BaseTokenizer):
         # e.g., commitment loss, codebook loss, etc.
         commitment_loss = self._compute_commitment_loss(x, tokens)
 
-        return {
-            "tokens": tokens,
-            "reconstruction": reconstruction,
-            "commitment_loss": commitment_loss,
-        }
+        return TokenizerOutput(
+            tokens=tokens,
+            reconstruction=reconstruction,
+            aux_loss={"commitment": commitment_loss},
+        )
 
     def _quantize(self, z: torch.Tensor) -> torch.Tensor:
         """Quantize continuous embeddings to discrete codes."""
@@ -167,7 +167,7 @@ class MyTokenizer(BaseTokenizer):
         pass
 
     def _compute_commitment_loss(
-        self, x: torch.Tensor, tokens: torch.Tensor
+        self, x: BinnedSpikesInput, tokens: torch.Tensor
     ) -> torch.Tensor:
         """Compute commitment loss or other auxiliary losses."""
         # Implement loss computation
