@@ -90,6 +90,8 @@ Useful flags: `-s INDEX` runs a single manifest row (smoke test); `--download-on
 | `cowley_v4_compact_2024` | `brainsets prepare brainsets_pipelines/cowley_v4_compact_2024 --local --cores 8 --raw-dir <RAW>/cowley_v4_compact_2024 --processed-dir <DATA_DIR>/cowley_v4_compact_2024` |
 | `wingert_auditory_cortex_2026` | `brainsets prepare brainsets_pipelines/wingert_auditory_cortex_2026 --local --cores 8 --raw-dir <RAW>/wingert_auditory_cortex_2026 --processed-dir <DATA_DIR>/wingert_auditory_cortex_2026` |
 
+**Behaviour data for decoding.** For `perich_miller_population_2018`, add `--extract-behaviour` to the command shown in the table. Without it, the processed files will not contain cursor or trial data, so decoding (predicting the monkey's cursor movement from tokens) cannot run, and each session is split into train, valid, and test by time instead of by trial. If you already built it without the flag, rebuild it with `--extract-behaviour --reprocess`.
+
 Per-brainset details (split logic, unit metadata fields, additional flags) are in each pipeline's `pipeline.py` and, where present, the pipeline's `README.md`.
 
 ---
@@ -131,6 +133,7 @@ If you want to get started quickly and run *something* end-to-end without downlo
 #    The --processed-dir below is the *brainset* directory; paths.data_dir
 #    in step 2 is its parent.
 brainsets prepare brainsets_pipelines/perich_miller_population_2018 --local --cores 4 \
+    --extract-behaviour \
     --raw-dir /tmp/ntt_sandbox/raw/perich_miller_population_2018 \
     --processed-dir /tmp/ntt_sandbox/processed/perich_miller_population_2018
 
@@ -141,7 +144,8 @@ uv run ntt paths.run_name=sandbox \
     tokenizer@job.tokenizer_config=contrib/simple_vae \
     loss@job.loss_config=contrib/mse \
     data@job.data_config=ntt_debug \
-    job.trainer.max_epochs=1
+    job.trainer.max_epochs=1 \
+    job.trainer.val_check_interval=1.0
 ```
 
 The four sessions actually used are pinned in `config/data/selections/perich_miller_sample_train.yaml` and `..._val.yaml`. If you want a *single*-session run (~10 MB), copy those files, drop one entry, and wire your copies into a new debug config — every selection YAML is a thin pointer list, no code change needed.

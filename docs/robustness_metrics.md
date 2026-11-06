@@ -52,7 +52,7 @@ Untrained `cs` example (both scripts, _input and _latent, have the
 same main parameters):
 
 ```bash
-uv run ntt job=eval_robustness_latent \
+uv run ntt job=eval_robustness_input \
   paths.run_name=robustness_input_cs_demo \
   tokenizer@job.tokenizer_config=contrib/compressed_sensing \
   job.output_path=results/robustness_input_cs_demo
@@ -63,7 +63,7 @@ uv run ntt job=eval_robustness_latent \
 Example with an untrained tokenizer:
 
 ```bash
-uv run ntt job=eval_robustness_input \
+uv run ntt job=eval_robustness_latent \
   paths.run_name=robustness_latent_cs_demo \
   tokenizer@job.tokenizer_config=contrib/compressed_sensing \
   job.output_path=results/robustness_latent_cs_demo
