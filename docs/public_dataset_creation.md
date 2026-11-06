@@ -148,6 +148,8 @@ uv run ntt paths.run_name=sandbox \
     job.trainer.val_check_interval=1.0
 ```
 
+`val_check_interval=1.0`: validate every epoch; the 10000-batch default is too high for this dataset.
+
 The four sessions actually used are pinned in `config/data/selections/perich_miller_sample_train.yaml` and `..._val.yaml`. If you want a *single*-session run (~10 MB), copy those files, drop one entry, and wire your copies into a new debug config — every selection YAML is a thin pointer list, no code change needed.
 
 ---

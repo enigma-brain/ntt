@@ -66,15 +66,13 @@ Only matters if you are running encoding; decoding and intrinsic evals are unaff
 
 ## Distribution-valued spec fields
 
-Inspect the spec rather than assuming this does not apply. Both items are described in
-`known-pitfalls.md` **A2** and **A3**.
+Inspect the spec rather than assuming this does not apply. This is described in
+`known-pitfalls.md` **A2**.
 
 - [ ] Is `n_neurons` a distribution? Then `pad_neurons_to_fixed: <ceiling>` is set in **all
       four** `eval_all` pass data configs — each pass composes a different one. Setting
       `n_neurons:` in a data config instead does nothing (A2).
-- [ ] Is the window length a distribution? The eval job still scores the requested
-      `eval_config.eval_window_seconds`. After the run, check `scored_window_seconds` (A3).
-- [ ] Both noted for the report, with their fix recommendations.
+- [ ] Noted for the report, with the fix recommendation.
 
 ## Resource plan
 

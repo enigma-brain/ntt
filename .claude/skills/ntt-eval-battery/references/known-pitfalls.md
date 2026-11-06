@@ -68,19 +68,11 @@ can draw. Each `eval_all` pass composes a **different** data config, so all four
 Setting `n_neurons:` in the data config instead does nothing — see A3 for why.
 
 
-## A3. The datamodule overwrites tokenizer fields; only the eval window is put back
+## A3. The datamodule overwrites tokenizer fields
 
 **What happens.** The eval datamodule is built **with the spec**. This calls
 `update_from_tokenizer_spec` with `unset_only=False`, which overwrites every tokenizer
 field in the data config. So `n_neurons:` in a data config has no effect (A2).
-
-Right after building the datamodule, the eval job restores the requested window length
-and checks it (`src/ntt/jobs/ntt_base.py`, `_check_scored_window`). If the job would load a
-different window length, it fails at the start. The run saves the window length it actually
-evaluated as `scored_window_seconds`.
-
-**What to do.** Nothing for the window. If `scored_window_seconds` differs from the requested
-`eval_window_seconds`, report it as a bug; this is not expected.
 
 
 ## A4. Two shapes of checkpoint-load failure, two different causes
