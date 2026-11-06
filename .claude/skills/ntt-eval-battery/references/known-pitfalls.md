@@ -70,16 +70,17 @@ Setting `n_neurons:` in the data config instead does nothing — see A3 for why.
 
 ## A3. The datamodule overwrites tokenizer fields; only the eval window is put back
 
-**What happens.** The eval datamodule is constructed **with the spec**, and that constructor
-calls `update_from_tokenizer_spec` with `unset_only=False`, which overwrites every tokenizer
-field in the data config. That is why `n_neurons:` in a data config does nothing (A2).
+**What happens.** The eval datamodule is built **with the spec**. This calls
+`update_from_tokenizer_spec` with `unset_only=False`, which overwrites every tokenizer
+field in the data config. So `n_neurons:` in a data config has no effect (A2).
 
-For the window, the eval job puts the requested eval window back right after construction and
-checks it (`src/ntt/jobs/ntt_base.py`, `_check_scored_window`): a run that would load another
-window fails at the start. The scored window is saved as `scored_window_seconds`.
+Right after building the datamodule, the eval job restores the requested window length
+and checks it (`src/ntt/jobs/ntt_base.py`, `_check_scored_window`). If the job would load a
+different window length, it fails at the start. The run saves the window length it actually
+evaluated as `scored_window_seconds`.
 
-**What to do.** Nothing for the window. If a run's `scored_window_seconds` differs from the
-requested `eval_window_seconds`, that is a bug to report, not expected behaviour.
+**What to do.** Nothing for the window. If `scored_window_seconds` differs from the requested
+`eval_window_seconds`, report it as a bug; this is not expected.
 
 
 ## A4. Two shapes of checkpoint-load failure, two different causes

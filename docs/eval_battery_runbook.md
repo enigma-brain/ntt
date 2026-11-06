@@ -333,8 +333,8 @@ How to call it:
 - `++` is mandatory for any field not already in `config/job/eval_all.yaml`.
 
 **If the spec has distribution-valued fields** — a sampled neuron count or window length —
-read the troubleshooting notes before launching. A sampled neuron count needs per-pass
-data-config changes that are not inferred automatically; the eval window is kept as requested.
+read the troubleshooting notes before launching. A sampled neuron count needs a manual change
+in each pass’s data config; the eval window stays at the requested length.
 
 ## 3. Encoding — `job=downstream_encoding`
 
