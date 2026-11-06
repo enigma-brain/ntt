@@ -72,10 +72,8 @@ Inspect the spec rather than assuming this does not apply. Both items are descri
 - [ ] Is `n_neurons` a distribution? Then `pad_neurons_to_fixed: <ceiling>` is set in **all
       four** `eval_all` pass data configs — each pass composes a different one. Setting
       `n_neurons:` in a data config instead does nothing (A2).
-- [ ] Is the window length a distribution? Then the evaluated bin count is the
-      distribution's **maximum**, not what `eval_config.eval_window_seconds` asked for, and
-      every per-window cost is multiplied accordingly. Expect it; do not debug it as a hang
-      (A3).
+- [ ] Is the window length a distribution? The eval job still scores the requested
+      `eval_config.eval_window_seconds`; check `scored_window_seconds` after the run (A3).
 - [ ] Both noted for the report, with their fix recommendations.
 
 ## Resource plan

@@ -68,31 +68,18 @@ can draw. Each `eval_all` pass composes a **different** data config, so all four
 Setting `n_neurons:` in the data config instead does nothing — see A3 for why.
 
 
-## A3. A distribution-valued window changes the evaluated bin count
+## A3. The datamodule overwrites tokenizer fields; only the eval window is put back
 
-**Symptom.** None. A tokenizer whose window is uniform on 1–5 s is
-evaluated at 5000 bins at 1 ms rather than the 1000 the eval config asked for. Usually
-harmless — the same evaluated duration at coarser granularity — but it multiplies every
-per-window cost by the ratio, so it surfaces as an inexplicably slow pass or a tripped
-work guard.
+**What happens.** The eval datamodule is constructed **with the spec**, and that constructor
+calls `update_from_tokenizer_spec` with `unset_only=False`, which overwrites every tokenizer
+field in the data config. That is why `n_neurons:` in a data config does nothing (A2).
 
-**Why.** `apply_eval_window` sets the window, then the datamodule is constructed **with the
-spec**, and that constructor calls `update_from_tokenizer_spec` with `unset_only` at its
-default of `False` — which overwrites *every* tokenizer field, including the window that
-was just set.
+For the window, the eval job puts the requested eval window back right after construction and
+checks it (`src/ntt/jobs/ntt_base.py`, `_check_scored_window`): a run that would load another
+window fails at the start. The scored window is saved as `scored_window_seconds`.
 
-`apply_eval_window`'s docstring says the window survives because
-`update_from_tokenizer_spec(unset_only=True)` will not overwrite an explicitly-set value. That
-holds for that call path and not for the one eval takes. To check the current behaviour:
-
-```bash
-grep -rn "NTTDataModule(self.data_config" src/
-grep -n "def update_from_tokenizer_spec" -A 22 src/ntt/core/data/datamodule.py
-```
-
-**What to do.** Nothing, if the coarser granularity is acceptable. Check the real bin count
-before attributing a slowdown to something else, and before comparing window counts across
-fixed-spec and distribution-spec tokenizers.
+**What to do.** Nothing for the window. If a run's `scored_window_seconds` differs from the
+requested `eval_window_seconds`, that is a bug to report, not expected behaviour.
 
 
 ## A4. Two shapes of checkpoint-load failure, two different causes
