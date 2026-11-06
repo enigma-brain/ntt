@@ -76,7 +76,7 @@ Each tokenizer consists of two classes:
 Tokenizers are registered using a decorator:
 
 ```python
-@register_tokenizer("my_algorithm")
+@register_tokenizer
 class MyTokenizer(BaseTokenizer):
     spec_class = MyTokenizerSpec
     ...
@@ -246,12 +246,12 @@ This enables sampling different values during training for data augmentation.
 
 ### BaseTokenizer
 
-- `encode(x: Tensor) -> Tensor`: Neural data → discrete tokens
+- `encode(x: BinnedSpikesInput | SpikeTimesInput) -> Tensor`: Neural data → discrete tokens
 - `decode(tokens: Tensor) -> Tensor`: Discrete tokens → reconstructed data
-- `forward(x: Tensor) -> dict[str, Tensor]`: Full forward pass returning:
+- `forward(x: BinnedSpikesInput | SpikeTimesInput) -> TokenizerOutput`: Full forward pass returning a `TokenizerOutput` with:
   - `tokens`: Discrete token indices
   - `reconstruction`: Reconstructed data
-  - Optionally: algorithm-specific losses, embeddings, etc.
+  - Optional: `aux_loss` (extra losses for this algorithm), `latents`, etc.
 
 ## Examples
 

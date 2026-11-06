@@ -332,10 +332,8 @@ How to call it:
   `eval_all` level; `++job.data_config.<x>` fails with `extra_forbidden`.
 - `++` is mandatory for any field not already in `config/job/eval_all.yaml`.
 
-**If the spec has distribution-valued fields** — a sampled neuron count or window length —
-read the troubleshooting notes before launching. Those specs need per-pass data-config changes that
-are not inferred automatically, and one of them changes the evaluated bin count without
-raising.
+**If the spec has a sampled neuron count**, read the troubleshooting notes before launching:
+it needs a manual change in each pass’s data config.
 
 ## 3. Encoding — `job=downstream_encoding`
 

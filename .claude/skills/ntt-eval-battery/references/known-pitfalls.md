@@ -68,31 +68,11 @@ can draw. Each `eval_all` pass composes a **different** data config, so all four
 Setting `n_neurons:` in the data config instead does nothing — see A3 for why.
 
 
-## A3. A distribution-valued window changes the evaluated bin count
+## A3. The datamodule overwrites tokenizer fields
 
-**Symptom.** None. A tokenizer whose window is uniform on 1–5 s is
-evaluated at 5000 bins at 1 ms rather than the 1000 the eval config asked for. Usually
-harmless — the same evaluated duration at coarser granularity — but it multiplies every
-per-window cost by the ratio, so it surfaces as an inexplicably slow pass or a tripped
-work guard.
-
-**Why.** `apply_eval_window` sets the window, then the datamodule is constructed **with the
-spec**, and that constructor calls `update_from_tokenizer_spec` with `unset_only` at its
-default of `False` — which overwrites *every* tokenizer field, including the window that
-was just set.
-
-`apply_eval_window`'s docstring says the window survives because
-`update_from_tokenizer_spec(unset_only=True)` will not overwrite an explicitly-set value. That
-holds for that call path and not for the one eval takes. To check the current behaviour:
-
-```bash
-grep -rn "NTTDataModule(self.data_config" src/
-grep -n "def update_from_tokenizer_spec" -A 22 src/ntt/core/data/datamodule.py
-```
-
-**What to do.** Nothing, if the coarser granularity is acceptable. Check the real bin count
-before attributing a slowdown to something else, and before comparing window counts across
-fixed-spec and distribution-spec tokenizers.
+**What happens.** The eval datamodule is built **with the spec**. This calls
+`update_from_tokenizer_spec` with `unset_only=False`, which overwrites every tokenizer
+field in the data config. So `n_neurons:` in a data config has no effect (A2).
 
 
 ## A4. Two shapes of checkpoint-load failure, two different causes

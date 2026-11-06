@@ -343,7 +343,7 @@ def _explicit_session_pairs(path: Path) -> set[tuple[str, str]]:
         if not brainset:
             continue
         # str(): YAML reads an unquoted numeric session id (e.g. Tolias
-        # 3649771255234) as an int, while results.json carries it as a string.
+        # 1234567890123) as an int, while results.json carries it as a string.
         for session in block.get("sessions") or []:
             pairs.add((brainset, str(session)))
     return pairs

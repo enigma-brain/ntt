@@ -529,7 +529,7 @@ For details see also `docs/robustness_metrics.md`. Included in job=eval_all.
 ### Robustness to input-space corruptions
 Measures how much input corruptions move the latents, reported as latent MSE normalized by clean token variance. Lower means more robust.
 ### Robustness to latent-space corruptions
-Measures how decoding degrades when per-dimension latent noise is added at scale epsilon * sigma_d, where sigma_d is per-dimension latent variance. Direction (lower vs higher is better) equals direction of the reconstruction metric used.
+Measures how decoding degrades when per-dimension latent noise is added at scale epsilon * sigma_d, where sigma_d is per-dimension latent standard deviation. Direction (lower vs higher is better) equals direction of the reconstruction metric used.
 
 ## SNR (latent quality)
 Included in job=eval_all.
