@@ -102,13 +102,13 @@ After every pipeline has finished, the shipped public configs should resolve wit
 
 ```bash
 # Resolve the full public config and exit (no data I/O — useful right after the build)
-uv run ntt paths.run_name=public_smoke print_schema=true \
+uv run ntt paths.run_name=public_smoke \
     tokenizer@job.tokenizer_config=contrib/simple_vae \
     loss@job.loss_config=contrib/mse \
-    data@job.data_config=ntt_full
+    data@job.data_config=ntt_full --cfg job
 ```
 
-For a live one-batch sanity check that actually opens H5 files, drop `print_schema=true` and add a small `job.trainer.max_epochs=1` plus `job.trainer.limit_train_batches=1` (or any other Lightning-trainer override exposed by `config/trainer/default.yaml`).
+For a live one-batch sanity check that actually opens H5 files, drop `--cfg job` and add a small `job.trainer.max_epochs=1` plus `job.trainer.limit_train_batches=1` (or any other Lightning-trainer override exposed by `config/trainer/default.yaml`).
 
 Three configs ship for the public dataset, all under `config/data/`:
 

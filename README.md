@@ -142,12 +142,12 @@ A training job needs a tokenizer and a loss. `experiment=simple_vae` bundles bot
 
 Training logs to the MLflow server in `MLFLOW_TRACKING_URI`. When it is unset, run metrics go to a local store at `logs/mlflow.db` (browse it with `mlflow ui --backend-store-uri sqlite:///logs/mlflow.db`). Logged checkpoints go to `mlruns/` in the directory you launched from.
 
-To preview the full resolved configuration without running training, use the `print_schema` flag:
+To print the full configuration without running training, add Hydra’s `--cfg job` flag:
 
 ```bash
-uv run ntt paths.run_name=test print_schema=true \
+uv run ntt paths.run_name=test \
   tokenizer@job.tokenizer_config=contrib/simple_vae \
-  loss@job.loss_config=contrib/mse
+  loss@job.loss_config=contrib/mse --cfg job
 ```
 
 ### Configuration Structure
