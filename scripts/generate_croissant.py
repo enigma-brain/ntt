@@ -117,6 +117,110 @@ KEYWORDS = [
 ]
 
 # --------------------------------------------------------------------------- #
+# Responsible AI (RAI) metadata — required by the NeurIPS E&D track.          #
+# Field list: https://neurips.cc/Conferences/2026/EvaluationsDatasetsHosting  #
+# Spec: https://docs.mlcommons.org/croissant/docs/croissant-rai-spec.html     #
+# prov:wasDerivedFrom is built from upstream_sources.yaml in build_manifest.  #
+# --------------------------------------------------------------------------- #
+RAI_DATA_LIMITATIONS = [
+    "NTT-public is distributed as a recipe, not as redistributed bytes: users "
+    "must download each upstream source themselves and run the brainsets "
+    "pipeline, so availability depends on the upstream hosts (DANDI, Zenodo, "
+    "AllenSDK, CRCNS, UCL RDR, Kilthub) remaining online and unchanged.",
+    "Upstream licenses are heterogeneous and some are more restrictive than "
+    "the CC-BY-4.0 license of this manifest: the Allen Institute Terms of Use "
+    "and the CC-BY-NC-SA-4.0 cerebellum dataset (c4_dataset_cerebellum_2025) "
+    "prohibit commercial use, and the CRCNS Data Sharing Policy "
+    "(flint_slutzky_accurate_2012) prohibits redistribution. Commercial use "
+    "of the full composite dataset is not permitted.",
+    "The data are extracellular spike times only (sorted units or Utah-array "
+    "threshold crossings). Spike-sorting quality, unit-isolation criteria and "
+    "available QC metrics differ across brainsets, and some per-unit fields "
+    "(brain area, firing rate, QC metrics) are missing for some sessions.",
+    "Not recommended as a basis for claims about human neural activity, "
+    "clinical or diagnostic use, or brain-computer-interface deployment: no "
+    "human recordings are included and the dataset was assembled for "
+    "evaluating neural-data tokenizers, not for clinical validation.",
+]
+RAI_DATA_BIASES = [
+    "Species imbalance: most sessions and units come from mouse (Mus musculus) "
+    "and rhesus macaque (Macaca mulatta); a small number come from Macaca "
+    "fascicularis and ferret. No other species are represented.",
+    "Brain-area imbalance: mouse data are dominated by brain-wide (IBL) and "
+    "visual-system (Allen) Neuropixels recordings, while macaque data are "
+    "concentrated in motor and premotor cortex (M1, PMd, S1) during reaching "
+    "tasks. Held-out cross-source evaluation covers only cerebellum, V4 and "
+    "auditory cortex (A1, PEG).",
+    "Recording-technology imbalance: Neuropixels and Utah arrays only, and "
+    "contributions per brainset differ by orders of magnitude in sessions, "
+    "units and minutes recorded (see brainset_summary.csv). Aggregate metrics "
+    "can therefore be dominated by the largest brainsets.",
+    "Each upstream lab used its own subject-selection, task design and "
+    "preprocessing choices; these lab-specific choices are inherited and are "
+    "not harmonized beyond the shared brainsets HDF5 schema.",
+]
+RAI_PERSONAL_SENSITIVE_INFORMATION = [
+    "None. All recordings are from non-human animal subjects (mice, macaques, "
+    "ferrets) collected by the upstream labs under their institutional animal "
+    "care and use approvals. The dataset contains no human-subject data and "
+    "no personally identifiable information.",
+]
+RAI_DATA_USE_CASES = [
+    "Validated use: training and evaluating neural-data tokenizers and neural "
+    "foundation models on spiking activity, including reconstruction, "
+    "robustness, and downstream encoding/decoding evaluation with the "
+    "in-repo cross-session, cross-subject and cross-source splits, as "
+    "described in the accompanying paper.",
+    "Not validated: clinical, diagnostic or medical use; inference about human "
+    "brain function; deployment in brain-computer interfaces; and any "
+    "commercial use (prohibited by several upstream licenses).",
+]
+RAI_DATA_SOCIAL_IMPACT = (
+    "Positive: a standardized, openly reproducible benchmark for neural-data "
+    "tokenizers lowers the barrier to comparing methods, reuses existing "
+    "public animal recordings instead of requiring new experiments, and "
+    "credits the original data producers through per-source citations. "
+    "Negative/risks: models trained or benchmarked on this data may be "
+    "over-interpreted as general models of brain activity despite the "
+    "species, area and task biases listed in rai:dataBiases; downstream "
+    "neurotechnology applications built on such models would require "
+    "separate validation and ethical review."
+)
+RAI_HAS_SYNTHETIC_DATA = False
+PROV_WAS_GENERATED_BY: list[dict[str, Any]] = [
+    {
+        "@type": "prov:Activity",
+        "prov:label": "Data collection (upstream)",
+        "description": (
+            "Extracellular electrophysiology recordings (Neuropixels probes and "
+            "Utah arrays) collected by the original labs and released on public "
+            "repositories; see each upstream FileSet for its source and citation. "
+            "NTT performed no new data collection."
+        ),
+    },
+    {
+        "@type": "prov:Activity",
+        "prov:label": "Preprocessing (brainsets pipeline)",
+        "description": (
+            "Each upstream source is converted to per-session HDF5 files with a "
+            "shared schema by `brainsets prepare brainsets_pipelines/<brainset>`, "
+            "which extracts spike times, unit metadata and session/subject/device "
+            "attributes and assigns per-spike train/valid/test masks."
+        ),
+    },
+    {
+        "@type": "prov:Activity",
+        "prov:label": "Split construction (NTT)",
+        "description": (
+            "Sessions are assigned to held-in brainsets (training and "
+            "within-source evaluation) or held-out cross-source brainsets, and "
+            "listed in the in-repo cross-session and cross-subject val/test "
+            "selection YAMLs. No manual annotation or labeling was performed."
+        ),
+    },
+]
+
+# --------------------------------------------------------------------------- #
 # JSON-LD @context — pinned to the mlcroissant 1.0 canonical block.           #
 # --------------------------------------------------------------------------- #
 CROISSANT_CONTEXT: dict[str, Any] = {
@@ -145,6 +249,7 @@ CROISSANT_CONTEXT: dict[str, Any] = {
     "md5": "cr:md5",
     "parentField": "cr:parentField",
     "path": "cr:path",
+    "prov": "http://www.w3.org/ns/prov#",
     "recordSet": "cr:recordSet",
     "references": "cr:references",
     "regex": "cr:regex",
@@ -562,8 +667,13 @@ def build_manifest() -> dict[str, Any]:
 
     # Per-brainset upstream sources + processed FileSets.
     record_sets: list[dict[str, Any]] = []
+    derived_from: list[dict[str, str]] = []
     for brainset_id, info in upstream.items():
-        distribution.extend(make_upstream_distribution(brainset_id, info))
+        upstream_fileset = make_upstream_distribution(brainset_id, info)
+        distribution.extend(upstream_fileset)
+        # One provenance link per brainset: its parent record if it has one
+        # (c4 lists per-file download URLs), otherwise its canonical URL.
+        derived_from.append({"@id": info.get("parent_record_url") or upstream_fileset[0]["url"]})
         distribution.append(make_brainset_fileset(brainset_id))
         if brainset_id not in summary_df.index:
             raise KeyError(f"brainset {brainset_id} missing from {SUMMARY_CSV.name}")
@@ -583,6 +693,14 @@ def build_manifest() -> dict[str, Any]:
         "datePublished": DATASET_DATE_PUBLISHED,
         "keywords": KEYWORDS,
         "isLiveDataset": False,
+        "rai:dataLimitations": RAI_DATA_LIMITATIONS,
+        "rai:dataBiases": RAI_DATA_BIASES,
+        "rai:personalSensitiveInformation": RAI_PERSONAL_SENSITIVE_INFORMATION,
+        "rai:dataUseCases": RAI_DATA_USE_CASES,
+        "rai:dataSocialImpact": RAI_DATA_SOCIAL_IMPACT,
+        "rai:hasSyntheticData": RAI_HAS_SYNTHETIC_DATA,
+        "prov:wasDerivedFrom": derived_from,
+        "prov:wasGeneratedBy": PROV_WAS_GENERATED_BY,
         "distribution": distribution,
         "recordSet": record_sets,
     }
