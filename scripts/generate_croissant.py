@@ -133,10 +133,16 @@ RAI_DATA_LIMITATIONS = [
     "prohibit commercial use, and the CRCNS Data Sharing Policy "
     "(flint_slutzky_accurate_2012) prohibits redistribution. Commercial use "
     "of the full composite dataset is not permitted.",
-    "The data are extracellular spike times only (sorted units or Utah-array "
-    "threshold crossings). Spike-sorting quality, unit-isolation criteria and "
-    "available QC metrics differ across brainsets, and some per-unit fields "
-    "(brain area, firing rate, QC metrics) are missing for some sessions.",
+    "The data are extracellular spike times only; calcium imaging and local "
+    "field potentials (LFP) are not included. Spike-sorting quality, "
+    "unit-isolation criteria and available QC metrics differ across "
+    "brainsets, and some per-unit fields (brain area, firing rate, QC "
+    "metrics) are missing for some sessions.",
+    "The paper's corpus also includes ~5.5 billion spikes from proprietary, "
+    "unreleased recordings, used only for the Conv-VAE in Figure 1C and the "
+    "largest training-data condition in Figure 3. Those results cannot be "
+    "reproduced from this dataset; all other reported tokenizers are trained "
+    "on the public data described here.",
     "Not recommended as a basis for claims about human neural activity, "
     "clinical or diagnostic use, or brain-computer-interface deployment: no "
     "human recordings are included and the dataset was assembled for "
@@ -151,9 +157,10 @@ RAI_DATA_BIASES = [
     "concentrated in motor and premotor cortex (M1, PMd, S1) during reaching "
     "tasks. Held-out cross-source evaluation covers only cerebellum, V4 and "
     "auditory cortex (A1, PEG).",
-    "Recording-technology imbalance: Neuropixels and Utah arrays only, and "
-    "contributions per brainset differ by orders of magnitude in sessions, "
-    "units and minutes recorded (see brainset_summary.csv). Aggregate metrics "
+    "Recording-technology imbalance: Neuropixels probes (4 brainsets), Utah "
+    "arrays (5) and linear arrays (1, ferret only); contributions per "
+    "brainset differ by orders of magnitude in sessions, units and minutes "
+    "recorded (see brainset_summary.csv). Aggregate metrics "
     "can therefore be dominated by the largest brainsets.",
     "Each upstream lab used its own subject-selection, task design and "
     "preprocessing choices; these lab-specific choices are inherited and are "
@@ -176,15 +183,21 @@ RAI_DATA_USE_CASES = [
     "commercial use (prohibited by several upstream licenses).",
 ]
 RAI_DATA_SOCIAL_IMPACT = (
-    "Positive: a standardized, openly reproducible benchmark for neural-data "
-    "tokenizers lowers the barrier to comparing methods, reuses existing "
-    "public animal recordings instead of requiring new experiments, and "
-    "credits the original data producers through per-source citations. "
-    "Negative/risks: models trained or benchmarked on this data may be "
-    "over-interpreted as general models of brain activity despite the "
-    "species, area and task biases listed in rai:dataBiases; downstream "
-    "neurotechnology applications built on such models would require "
-    "separate validation and ethical review."
+    "Positive: a standardized, openly reproducible benchmark supports more "
+    "reproducible and compute-efficient development of neural foundation "
+    "models, with downstream applications in scientific neuroscience and "
+    "clinical brain-computer interfaces such as motor neuroprosthetics. It "
+    "reuses existing public animal recordings instead of requiring new "
+    "experiments, and credits the original data producers through per-source "
+    "citations. Negative/risks: brain decoding from invasive "
+    "electrophysiology raises long-term privacy considerations, although the "
+    "path from this dataset to such concerns is indirect (the recordings "
+    "require surgically implanted electrodes, and the dataset supports "
+    "evaluating tokenizers rather than building new decoders). Models trained "
+    "or benchmarked on this data may also be over-interpreted as general "
+    "models of brain activity despite the species, area and task biases "
+    "listed in rai:dataBiases; downstream neurotechnology applications would "
+    "require separate validation and ethical review."
 )
 RAI_HAS_SYNTHETIC_DATA = False
 PROV_WAS_GENERATED_BY: list[dict[str, Any]] = [
@@ -192,8 +205,8 @@ PROV_WAS_GENERATED_BY: list[dict[str, Any]] = [
         "@type": "prov:Activity",
         "prov:label": "Data collection (upstream)",
         "description": (
-            "Extracellular electrophysiology recordings (Neuropixels probes and "
-            "Utah arrays) collected by the original labs and released on public "
+            "Extracellular electrophysiology recordings (Neuropixels probes, "
+            "Utah arrays and linear arrays) collected by the original labs and released on public "
             "repositories; see each upstream FileSet for its source and citation. "
             "NTT performed no new data collection."
         ),
