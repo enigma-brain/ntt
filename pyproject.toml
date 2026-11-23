@@ -27,7 +27,7 @@ dependencies = [
     "matplotlib>=3.11.0",
     "mlflow>=3.14.0",
     "plotly>=6.9.0",
-    "pandas>=2.0.0",
+    "pandas>=3.1.0",
     "pyyaml",
     "pydantic-settings>=2.14.2",
     "pytorch-brain",
