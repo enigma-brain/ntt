@@ -202,7 +202,7 @@ def test_excluded_brainset_is_not_scored(tmp_path):
 
 
 def test_unquoted_numeric_session_id_lands_in_xsession_not_xtime(tmp_path):
-    """YAML reads an unquoted 3649771255234 as an int; results.json carries it as a string.
+    """YAML reads an unquoted 1234567890123 as an int; results.json carries it as a string.
 
     A held-out session with such an id must be classified xsession, not fall through to
     the xtime baseline.
@@ -213,13 +213,13 @@ def test_unquoted_numeric_session_id_lands_in_xsession_not_xtime(tmp_path):
     _write_config(config_root)
     composite = config_root / "data/selections/composite"
     (composite / "ntt_full_val_xsession.yaml").write_text(
-        "selection:\n  - brainset: brainset_b\n    sessions:\n      - 3649771255234\n"
+        "selection:\n  - brainset: brainset_b\n    sessions:\n      - 1234567890123\n"
     )
     (composite / "ntt_full_val_xtime.yaml").write_text(
-        "selection:\n  - brainset: brainset_b\n    exclude_sessions:\n      - 3649771255234\n"
+        "selection:\n  - brainset: brainset_b\n    exclude_sessions:\n      - 1234567890123\n"
     )
     explicit, xtime = build_tier_index(config_root, split="val", selection_family="ntt_full")
-    session = SessionId(brainset="brainset_b", session="3649771255234")
+    session = SessionId(brainset="brainset_b", session="1234567890123")
     assert classify_session(session, explicit, xtime) == "xsession"
 
 
